@@ -83,9 +83,12 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
 
     model.scale.setScalar(scaleFactor);
 
-    // Center pivot: offset model by -center * scaleFactor so (0,0,0) is exact geometric center
+    // Grounding: Offset model vertically by -box.min.y * scaleFactor independently
+    // for each vehicle so that the bottom of the wheels/tires sits exactly on the studio floor (Y = 0)
+    const groundOffsetY = -box.min.y * scaleFactor;
+
     model.position.x = -center.x * scaleFactor;
-    model.position.y = -center.y * scaleFactor;
+    model.position.y = groundOffsetY;
     model.position.z = -center.z * scaleFactor;
 
     model.updateMatrixWorld(true);

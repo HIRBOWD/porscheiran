@@ -40,6 +40,13 @@ export default function VehicleCanvas({
     nineEleven?: THREE.Group;
   }>({});
 
+  // Cached materials for smooth opacity transitions
+  const vehicleMaterialsRef = useRef<{
+    macan: THREE.Material[];
+    boxster: THREE.Material[];
+    nineEleven: THREE.Material[];
+  }>({ macan: [], boxster: [], nineEleven: [] });
+
   // 3D Halo Ring
   const haloGroupRef = useRef<THREE.Group | null>(null);
 
@@ -167,8 +174,8 @@ export default function VehicleCanvas({
 
     // 6. 3D Circular Halo Ring (Precision Architectural Ring)
     const haloGroup = new THREE.Group();
-    haloGroup.position.set(0, 0.45, 0);
-    haloGroup.lookAt(camera.position.x, 0.45, camera.position.z);
+    haloGroup.position.set(0, 0.65, 0);
+    haloGroup.lookAt(camera.position.x, 0.65, camera.position.z);
 
     // Primary 3D Metallic Ring
     const haloRingGeo = new THREE.TorusGeometry(2.1, 0.015, 32, 160);
@@ -213,6 +220,46 @@ export default function VehicleCanvas({
     scene.add(haloGroup);
     haloGroupRef.current = haloGroup;
 
+    // Helper to collect materials from group for smooth opacity fading
+    const collectMaterials = (group: THREE.Group): THREE.Material[] => {
+      const mats: THREE.Material[] = [];
+      group.traverse((child) => {
+        if ((child as THREE.Mesh).isMesh) {
+          const mesh = child as THREE.Mesh;
+          if (mesh.material) {
+            const list = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            list.forEach((m) => {
+              if (!mats.includes(m)) {
+                if (m.userData.origTransparent === undefined) {
+                  m.userData.origTransparent = m.transparent;
+                  m.userData.origDepthWrite = m.depthWrite;
+                }
+                mats.push(m);
+              }
+            });
+          }
+        }
+      });
+      return mats;
+    };
+
+    // Helper to adjust opacity of vehicle materials without visual artifacts
+    const setVehicleOpacity = (materials: THREE.Material[], opacity: number) => {
+      const clamped = Math.max(0, Math.min(1, opacity));
+      const isFullyOpaque = clamped >= 0.995;
+      for (let i = 0; i < materials.length; i++) {
+        const mat = materials[i];
+        mat.opacity = clamped;
+        if (isFullyOpaque) {
+          mat.transparent = mat.userData.origTransparent ?? false;
+          mat.depthWrite = mat.userData.origDepthWrite ?? true;
+        } else {
+          mat.transparent = true;
+          mat.depthWrite = clamped > 0.45;
+        }
+      }
+    };
+
     // 7. Load all 3 Vehicles (with GLB support and procedural fallback)
     let isMounted = true;
 
@@ -224,15 +271,25 @@ export default function VehicleCanvas({
 
       const [macanRes, boxsterRes, nineElevenRes] = results;
 
-      // Position models at center of circular halo (0, 0.45, 0)
-      macanRes.group.position.set(0, 0.45, 0);
-      boxsterRes.group.position.set(0, 0.45, 0);
-      nineElevenRes.group.position.set(0, 0.45, 0);
+      // Position models firmly grounded on floor (Y = 0) with wheels flush on contact shadow
+      macanRes.group.position.set(0, 0, 0);
+      boxsterRes.group.position.set(0, 0, 0);
+      nineElevenRes.group.position.set(0, 0, 0);
 
-      // Initially show only Macan
+      // Cache materials for zero-allocation opacity fading
+      vehicleMaterialsRef.current = {
+        macan: collectMaterials(macanRes.group),
+        boxster: collectMaterials(boxsterRes.group),
+        nineEleven: collectMaterials(nineElevenRes.group),
+      };
+
+      // Initially show only Macan (fully opaque), hide others
       macanRes.group.visible = true;
       boxsterRes.group.visible = false;
       nineElevenRes.group.visible = false;
+      setVehicleOpacity(vehicleMaterialsRef.current.macan, 1.0);
+      setVehicleOpacity(vehicleMaterialsRef.current.boxster, 0.0);
+      setVehicleOpacity(vehicleMaterialsRef.current.nineEleven, 0.0);
 
       scene.add(macanRes.group);
       scene.add(boxsterRes.group);
@@ -314,119 +371,170 @@ export default function VehicleCanvas({
       }
 
       // -----------------------------------------------------------------------
-      // REAL-TIME 3D SCROLL CHOREOGRAPHY (Continuous Seamless Interpolation)
+      // REAL-TIME 3D SCROLL CHOREOGRAPHY (Clean Handoffs, Zero Mesh Collision)
       // -----------------------------------------------------------------------
       const macan = vehiclesRef.current.macan;
       const boxster = vehiclesRef.current.boxster;
       const nineEleven = vehiclesRef.current.nineEleven;
+      const mats = vehicleMaterialsRef.current;
 
-      // Base camera coordinates
+      // Base camera coordinates targeting halo & vehicle mid-height center (Y = 0.65)
       let targetCamX = 4.8 + mouseCurrent.current.x;
-      let targetCamY = 1.8 + mouseCurrent.current.y;
+      let targetCamY = 1.95 + mouseCurrent.current.y;
       let targetCamZ = 6.2;
-      let targetLookAtY = 0.45;
-
-      // Base Y for vehicle center (aligned with camera lookAt & halo center)
-      const baseY = 0.45;
+      const targetLookAtY = 0.65;
 
       // Decay drag rotation smoothly when not actively dragging
       if (!isDragging) {
         dragRotationY *= 0.94;
       }
 
-      // --- PHASE 1: MACAN (0.00 -> 0.33) ---
-      if (p <= 0.34 && renderMacanInThree) {
+      // Dynamic Contact Shadow Opacity
+      let currentShadowOpacity = 0.85;
+
+      // =======================================================================
+      // PHASE 1: MACAN (p in [0.00, 0.30])
+      // Full dominance in [0.00, 0.18], cinematic receding exit in [0.18, 0.30]
+      // Completely hidden at p >= 0.305 -> Zero overlap with Boxster
+      // =======================================================================
+      if (p < 0.305 && renderMacanInThree) {
         if (macan) {
           macan.visible = true;
-          if (p <= 0.16) {
-            // At rest inside halo
-            macan.position.set(0, baseY, 0);
-            macan.rotation.y = -0.32 + p * 0.35 + dragRotationY;
-            macan.scale.setScalar(1.0 - p * 0.2);
+          if (p <= 0.18) {
+            // Full center focus inside halo, grounded at Y = 0
+            macan.position.set(0, 0, 0);
+            macan.rotation.y = -0.32 + p * 0.22 + dragRotationY;
+            macan.scale.setScalar(1.0);
+            setVehicleOpacity(mats.macan, 1.0);
           } else {
-            // Dissolving into Boxster
-            const subP = (p - 0.16) / 0.18; // 0 to 1
-            macan.position.set(0, baseY - subP * 0.7, -subP * 1.5);
-            macan.rotation.y = -0.26 + subP * 0.6 + dragRotationY;
-            macan.scale.setScalar(0.97 - subP * 0.22);
+            // Controlled cinematic exit: recedes smoothly into background depth
+            const t = (p - 0.18) / 0.12; // 0 to 1
+            const tSmooth = t * t; // Smooth acceleration curve
+            macan.position.set(-1.4 * tSmooth, 0, -4.5 * tSmooth);
+            macan.rotation.y = -0.28 + 0.35 * tSmooth + dragRotationY;
+            macan.scale.setScalar(1.0 - 0.32 * tSmooth);
+            const opacity = 1.0 - tSmooth;
+            setVehicleOpacity(mats.macan, opacity);
+            currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
           }
         }
       } else {
-        if (macan) macan.visible = false;
+        if (macan) {
+          macan.visible = false;
+          setVehicleOpacity(mats.macan, 0.0);
+        }
       }
 
-      // --- PHASE 2: BOXSTER (0.20 -> 0.68) ---
-      if (p >= 0.20 && p <= 0.68 && renderBoxsterInThree) {
+      // =======================================================================
+      // PHASE 2: BOXSTER (p in [0.31, 0.645])
+      // Enters at p = 0.31 after Macan has fully exited and cleared the center
+      // Full dominance in [0.42, 0.53], cinematic receding exit in [0.53, 0.645]
+      // Completely hidden at p < 0.31 and p >= 0.645 -> Zero collision
+      // =======================================================================
+      if (p >= 0.31 && p < 0.645 && renderBoxsterInThree) {
         if (boxster) {
           boxster.visible = true;
-          if (p < 0.36) {
-            // Emerging from exact center point
-            const emergeP = (p - 0.20) / 0.16; // 0 to 1
-            boxster.position.set(0, baseY - 0.5 * (1 - emergeP), 1.2 * (1 - emergeP));
-            boxster.rotation.y = -0.75 + emergeP * 0.45 + dragRotationY;
-            boxster.scale.setScalar(0.82 + emergeP * 0.18);
-          } else if (p >= 0.36 && p <= 0.52) {
-            // Full center focus inside halo
-            boxster.position.set(0, baseY, 0);
-            boxster.rotation.y = -0.30 + (p - 0.36) * 0.3 + dragRotationY;
+          if (p < 0.42) {
+            // Controlled cinematic entrance: glides from perspective into center
+            const t = (p - 0.31) / 0.11; // 0 to 1
+            const tEase = 1 - (1 - t) * (1 - t); // Smooth deceleration curve
+            boxster.position.set(1.2 * (1 - tEase), 0, 3.6 * (1 - tEase));
+            boxster.rotation.y = -0.65 + 0.35 * tEase + dragRotationY;
+            boxster.scale.setScalar(0.85 + 0.15 * tEase);
+            const opacity = tEase;
+            setVehicleOpacity(mats.boxster, opacity);
+            currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
+          } else if (p >= 0.42 && p <= 0.53) {
+            // Full center focus inside halo, grounded at Y = 0
+            boxster.position.set(0, 0, 0);
+            boxster.rotation.y = -0.30 + (p - 0.42) * 0.20 + dragRotationY;
             boxster.scale.setScalar(1.0);
+            setVehicleOpacity(mats.boxster, 1.0);
+            currentShadowOpacity = 0.85;
           } else {
-            // Dissolving into 911
-            const exitP = (p - 0.52) / 0.16;
-            boxster.position.set(0, baseY - exitP * 0.6, -exitP * 1.5);
-            boxster.rotation.y = -0.25 + exitP * 0.55 + dragRotationY;
-            boxster.scale.setScalar(1.0 - exitP * 0.22);
+            // Controlled cinematic exit: recedes smoothly into background depth
+            const t = (p - 0.53) / 0.115; // 0 to 1
+            const tSmooth = t * t;
+            boxster.position.set(1.4 * tSmooth, 0, -4.5 * tSmooth);
+            boxster.rotation.y = -0.278 - 0.35 * tSmooth + dragRotationY;
+            boxster.scale.setScalar(1.0 - 0.32 * tSmooth);
+            const opacity = 1.0 - tSmooth;
+            setVehicleOpacity(mats.boxster, opacity);
+            currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
           }
         }
       } else {
-        if (boxster) boxster.visible = false;
+        if (boxster) {
+          boxster.visible = false;
+          setVehicleOpacity(mats.boxster, 0.0);
+        }
       }
 
-      // --- PHASE 3: 911 (0.54 -> 1.00) ---
-      if (p >= 0.54 && renderNineElevenInThree) {
+      // =======================================================================
+      // PHASE 3: 911 (p >= 0.65)
+      // Enters at p = 0.65 after Boxster has fully exited and cleared the center
+      // Full iconic focus in [0.75, 0.88], graceful descent into boutique store for p > 0.88
+      // Completely hidden at p < 0.65 -> Zero collision
+      // =======================================================================
+      if (p >= 0.65 && renderNineElevenInThree) {
         if (nineEleven) {
           nineEleven.visible = true;
-          if (p < 0.70) {
-            // Emerging from exact center point
-            const emergeP = (p - 0.54) / 0.16;
-            nineEleven.position.set(0, baseY - 0.5 * (1 - emergeP), 1.2 * (1 - emergeP));
-            nineEleven.rotation.y = -0.80 + emergeP * 0.50 + dragRotationY;
-            nineEleven.scale.setScalar(0.82 + emergeP * 0.18);
-          } else if (p >= 0.70 && p <= 0.88) {
-            // Full iconic focus inside halo
-            nineEleven.position.set(0, baseY, 0);
-            nineEleven.rotation.y = -0.30 + (p - 0.70) * 0.3 + dragRotationY;
+          if (p < 0.75) {
+            // Controlled cinematic entrance: glides from perspective into center
+            const t = (p - 0.65) / 0.10; // 0 to 1
+            const tEase = 1 - (1 - t) * (1 - t);
+            nineEleven.position.set(-1.2 * (1 - tEase), 0, 3.6 * (1 - tEase));
+            nineEleven.rotation.y = -0.65 + 0.35 * tEase + dragRotationY;
+            nineEleven.scale.setScalar(0.85 + 0.15 * tEase);
+            const opacity = tEase;
+            setVehicleOpacity(mats.nineEleven, opacity);
+            currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
+          } else if (p >= 0.75 && p <= 0.88) {
+            // Full iconic center focus inside halo, grounded at Y = 0
+            nineEleven.position.set(0, 0, 0);
+            nineEleven.rotation.y = -0.30 + (p - 0.75) * 0.20 + dragRotationY;
             nineEleven.scale.setScalar(1.0);
+            setVehicleOpacity(mats.nineEleven, 1.0);
+            currentShadowOpacity = 0.85;
           } else {
-            // Gliding gently upward into accessories boutique
-            const outP = (p - 0.88) / 0.12;
-            nineEleven.position.set(0, baseY + outP * 0.5, -outP * 0.8);
-            nineEleven.rotation.y = -0.25 + outP * 0.2 + dragRotationY;
-            nineEleven.scale.setScalar(1.0 - outP * 0.08);
+            // Gliding smoothly into the accessories boutique
+            const t = (p - 0.88) / 0.12;
+            nineEleven.position.set(0, 0, -2.2 * t);
+            nineEleven.rotation.y = -0.274 + 0.15 * t + dragRotationY;
+            nineEleven.scale.setScalar(1.0 - 0.15 * t);
+            const opacity = 1.0 - 0.65 * t;
+            setVehicleOpacity(mats.nineEleven, opacity);
+            currentShadowOpacity = Math.max(0.15, 0.85 * opacity);
           }
         }
       } else {
-        if (nineEleven) nineEleven.visible = false;
+        if (nineEleven) {
+          nineEleven.visible = false;
+          setVehicleOpacity(mats.nineEleven, 0.0);
+        }
       }
 
-      // Camera choreography based on scroll progress
+      // Update Contact Shadow disc opacity
+      contactShadow.material.opacity = currentShadowOpacity;
+
+      // Studio Camera choreography based on scroll progress
       if (p <= 0.33) {
-        targetCamX = 4.8 + p * 0.8 + mouseCurrent.current.x;
-        targetCamY = 1.8 - p * 0.3 + mouseCurrent.current.y;
-        targetCamZ = 6.2 - p * 0.6;
+        targetCamX = 4.8 + p * 0.7 + mouseCurrent.current.x;
+        targetCamY = 1.95 - p * 0.2 + mouseCurrent.current.y;
+        targetCamZ = 6.2 - p * 0.5;
       } else if (p > 0.33 && p <= 0.66) {
         const p2 = (p - 0.33) / 0.33;
-        targetCamX = 4.4 - p2 * 0.4 + mouseCurrent.current.x;
-        targetCamY = 1.5 + p2 * 0.2 + mouseCurrent.current.y;
-        targetCamZ = 5.8 - p2 * 0.3;
+        targetCamX = 4.5 - p2 * 0.3 + mouseCurrent.current.x;
+        targetCamY = 1.75 + p2 * 0.2 + mouseCurrent.current.y;
+        targetCamZ = 5.8 - p2 * 0.2;
       } else {
         const p3 = (p - 0.66) / 0.34;
-        targetCamX = 4.6 + p3 * 0.6 + mouseCurrent.current.x;
-        targetCamY = 1.6 - p3 * 0.2 + mouseCurrent.current.y;
-        targetCamZ = 5.9 + p3 * 0.4;
+        targetCamX = 4.6 + p3 * 0.5 + mouseCurrent.current.x;
+        targetCamY = 1.85 - p3 * 0.15 + mouseCurrent.current.y;
+        targetCamZ = 5.9 + p3 * 0.3;
       }
 
-      // Interpolate camera smoothly
+      // Interpolate camera smoothly towards target
       camera.position.x += (targetCamX - camera.position.x) * 0.1;
       camera.position.y += (targetCamY - camera.position.y) * 0.1;
       camera.position.z += (targetCamZ - camera.position.z) * 0.1;
@@ -434,7 +542,7 @@ export default function VehicleCanvas({
 
       // Halo Scale & Position
       if (haloGroupRef.current) {
-        const haloScale = 1.0 + Math.sin(p * Math.PI) * 0.12;
+        const haloScale = 1.0 + Math.sin(p * Math.PI) * 0.08;
         haloGroupRef.current.scale.setScalar(haloScale);
       }
 
