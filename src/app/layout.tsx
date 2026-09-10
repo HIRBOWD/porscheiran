@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./compiled.css";
 import { CartProvider } from "@/context/CartContext";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 

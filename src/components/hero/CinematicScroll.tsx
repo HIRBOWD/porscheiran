@@ -220,34 +220,34 @@ export default function CinematicScroll() {
         {/* ------------------------------------------------------------------ */}
         {/* HERO TYPOGRAPHY: Left Side (Exact match to prompt) */}
         {/* ------------------------------------------------------------------ */}
-        <div className="relative z-20 pt-32 md:pt-40 px-8 md:px-16 pointer-events-none max-w-xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-light tracking-[0.14em] text-neutral-900 uppercase leading-[1.08]">
+        <div className="relative z-20 pt-24 sm:pt-28 md:pt-36 px-6 sm:px-8 md:px-16 pointer-events-none max-w-xl">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-[0.14em] text-neutral-900 uppercase leading-[1.1]">
             DRIVEN
             <br />
             <span className="font-semibold tracking-[0.16em]">BY MORE</span>
           </h1>
 
-          <p className="mt-4 md:mt-6 text-[10px] md:text-[11px] font-medium tracking-[0.3em] text-neutral-500 uppercase leading-relaxed max-w-xs">
+          <p className="mt-2.5 sm:mt-4 text-[9px] sm:text-[10px] md:text-[11px] font-medium tracking-[0.3em] text-neutral-500 uppercase leading-relaxed max-w-xs">
             ACCESSORIES FOR
             <br />
             A HIGHER STANDARD.
           </p>
 
-          {/* Subtle Dynamic Model Specifications */}
-          <div className="mt-8 md:mt-10 flex items-center space-x-6 text-[10px] tracking-[0.2em] uppercase text-neutral-400 font-mono transition-opacity duration-500">
+          {/* Dynamic Model Specifications */}
+          <div className="mt-4 sm:mt-8 flex items-center space-x-4 sm:space-x-6 text-[9px] sm:text-[10px] tracking-[0.18em] uppercase text-neutral-400 font-mono transition-opacity duration-500">
             <div>
               <span className="text-neutral-900 font-medium">{currentVehicle.specs.power}</span>
-              <span className="block text-[8px] text-neutral-400">OUTPUT</span>
+              <span className="block text-[7px] sm:text-[8px] text-neutral-400">OUTPUT</span>
             </div>
-            <div className="w-[1px] h-5 bg-neutral-200" />
+            <div className="w-[1px] h-4 sm:h-5 bg-neutral-200" />
             <div>
               <span className="text-neutral-900 font-medium">{currentVehicle.specs.acceleration}</span>
-              <span className="block text-[8px] text-neutral-400">0–60 MPH</span>
+              <span className="block text-[7px] sm:text-[8px] text-neutral-400">0–60 MPH</span>
             </div>
-            <div className="w-[1px] h-5 bg-neutral-200" />
-            <div>
+            <div className="w-[1px] h-4 sm:h-5 bg-neutral-200 hidden xs:block" />
+            <div className="hidden xs:block">
               <span className="text-neutral-900 font-medium">{currentVehicle.specs.topSpeed}</span>
-              <span className="block text-[8px] text-neutral-400">TOP SPEED</span>
+              <span className="block text-[7px] sm:text-[8px] text-neutral-400">TOP SPEED</span>
             </div>
           </div>
         </div>

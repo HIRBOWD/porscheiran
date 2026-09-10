@@ -5,28 +5,27 @@ import React from "react";
 interface HaloRingProps {
   scale?: number;
   glowColor?: string;
-  ringColor?: string;
   isExpanding?: boolean;
 }
 
 export default function HaloRing({
   scale = 1,
   glowColor = "rgba(220, 225, 235, 0.4)",
-  ringColor = "rgba(0, 0, 0, 0.12)",
   isExpanding = false,
 }: HaloRingProps) {
   return (
     <div
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none transition-transform duration-700 ease-out z-0 flex items-center justify-center"
+      className="absolute top-1/2 left-1/2 pointer-events-none transition-transform duration-700 ease-out z-0 flex items-center justify-center"
       style={{
         transform: `translate(-50%, -50%) scale(${scale})`,
-        width: "min(75vw, 680px)",
-        height: "min(75vw, 680px)",
+        width: "min(80vw, 680px)",
+        height: "min(80vw, 680px)",
+        willChange: "transform",
       }}
     >
       {/* Outer ambient studio diffused glow */}
       <div
-        className="absolute inset-[-15%] rounded-full blur-[70px] pointer-events-none transition-all duration-1000"
+        className="absolute inset-[-12%] rounded-full blur-[65px] pointer-events-none transition-all duration-1000"
         style={{
           background: `radial-gradient(circle, ${glowColor} 0%, rgba(255,255,255,0) 70%)`,
           opacity: isExpanding ? 0.85 : 0.45,
@@ -48,8 +47,8 @@ export default function HaloRing({
           </linearGradient>
 
           <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.4" />
-            <stop offset="85%" stopColor="#F4F4F6" stopOpacity="0.1" />
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.45" />
+            <stop offset="85%" stopColor="#F4F4F6" stopOpacity="0.12" />
             <stop offset="100%" stopColor="#E4E4E7" stopOpacity="0" />
           </radialGradient>
         </defs>
@@ -57,7 +56,7 @@ export default function HaloRing({
         {/* Soft interior studio fill */}
         <circle cx="350" cy="350" r="325" fill="url(#centerGlow)" />
 
-        {/* Main 1px Primary Ring */}
+        {/* Main 1.2px Primary Ring */}
         <circle
           cx="350"
           cy="350"
@@ -91,7 +90,6 @@ export default function HaloRing({
 
         {/* Precision Architectural Studio Markers */}
         <g stroke="rgba(0,0,0,0.18)" strokeWidth="1">
-          {/* 12 Cardinal & Subcardinal ticks */}
           {Array.from({ length: 12 }).map((_, i) => {
             const angle = (i * 30 * Math.PI) / 180;
             const x1 = 350 + Math.cos(angle) * 314;
