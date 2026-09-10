@@ -4,9 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import VehicleCanvas from "@/components/canvas/VehicleCanvas";
-import SketchfabPorscheMacan from "./SketchfabPorscheMacan";
-import SketchfabPorscheBoxster from "./SketchfabPorscheBoxster";
-import SketchfabPorsche911 from "./SketchfabPorsche911";
 import { VEHICLES } from "@/data/vehicles";
 import { soundManager } from "@/lib/audio";
 import { ChevronDown } from "lucide-react";
@@ -80,30 +77,6 @@ export default function CinematicScroll() {
         {/* TRUE REAL-TIME 3D WEBGL ENGINE (Rendered behind typography)        */}
         {/* ------------------------------------------------------------------ */}
         <VehicleCanvas scrollProgress={scrollProgress} />
-
-        {/* ------------------------------------------------------------------ */}
-        {/* VEHICLE 01: REAL-TIME SKETCHFAB 3D MACAN GTS                       */}
-        {/* ------------------------------------------------------------------ */}
-        <SketchfabPorscheMacan
-          scrollProgress={scrollProgress}
-          isVisible={scrollProgress <= 0.36}
-        />
-
-        {/* ------------------------------------------------------------------ */}
-        {/* VEHICLE 02: REAL-TIME SKETCHFAB 3D 718 BOXSTER GTS                 */}
-        {/* ------------------------------------------------------------------ */}
-        <SketchfabPorscheBoxster
-          scrollProgress={scrollProgress}
-          isVisible={scrollProgress >= 0.18 && scrollProgress <= 0.70}
-        />
-
-        {/* ------------------------------------------------------------------ */}
-        {/* VEHICLE 03: REAL-TIME SKETCHFAB 3D 911 CARRERA 4S                  */}
-        {/* ------------------------------------------------------------------ */}
-        <SketchfabPorsche911
-          scrollProgress={scrollProgress}
-          isVisible={scrollProgress >= 0.52}
-        />
 
         {/* Soft Studio Overhead Light Diffusion Overlay */}
         <div className="absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-[#F6F6F8]/80 to-transparent pointer-events-none z-10" />

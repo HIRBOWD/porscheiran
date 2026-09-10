@@ -15,9 +15,9 @@ interface VehicleCanvasProps {
 export default function VehicleCanvas({
   scrollProgress,
   onSceneReady,
-  renderMacanInThree = false,
-  renderBoxsterInThree = false,
-  renderNineElevenInThree = false,
+  renderMacanInThree = true,
+  renderBoxsterInThree = true,
+  renderNineElevenInThree = true,
 }: VehicleCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -86,6 +86,7 @@ export default function VehicleCanvas({
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.18;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     rendererRef.current = renderer;
 
     // 4. Studio Lighting System
@@ -223,10 +224,10 @@ export default function VehicleCanvas({
 
       const [macanRes, boxsterRes, nineElevenRes] = results;
 
-      // Position models at center
-      macanRes.group.position.set(0, 0, 0);
-      boxsterRes.group.position.set(0, 0, 0);
-      nineElevenRes.group.position.set(0, 0, 0);
+      // Position models at center of circular halo (0, 0.45, 0)
+      macanRes.group.position.set(0, 0.45, 0);
+      boxsterRes.group.position.set(0, 0.45, 0);
+      nineElevenRes.group.position.set(0, 0.45, 0);
 
       // Initially show only Macan
       macanRes.group.visible = true;
@@ -249,14 +250,37 @@ export default function VehicleCanvas({
 
     loadAllVehicles();
 
-    // 8. Mouse Parallax Handler
+    // 8. Mouse Parallax & Drag Orbit Handler
+    let isDragging = false;
+    let prevMouseX = 0;
+    let dragRotationY = 0;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      if (e.button === 0) {
+        isDragging = true;
+        prevMouseX = e.clientX;
+      }
+    };
+
+    const handleMouseUp = () => {
+      isDragging = false;
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
       const normX = (e.clientX / window.innerWidth) * 2 - 1;
       const normY = -(e.clientY / window.innerHeight) * 2 + 1;
-      mouseTarget.current.x = normX * 0.4;
-      mouseTarget.current.y = normY * 0.25;
+      mouseTarget.current.x = normX * 0.35;
+      mouseTarget.current.y = normY * 0.2;
+
+      if (isDragging) {
+        const deltaX = e.clientX - prevMouseX;
+        dragRotationY += deltaX * 0.005;
+        prevMouseX = e.clientX;
+      }
     };
 
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     // 9. Resize Handler
@@ -302,48 +326,56 @@ export default function VehicleCanvas({
       let targetCamZ = 6.2;
       let targetLookAtY = 0.45;
 
+      // Base Y for vehicle center (aligned with camera lookAt & halo center)
+      const baseY = 0.45;
+
+      // Decay drag rotation smoothly when not actively dragging
+      if (!isDragging) {
+        dragRotationY *= 0.94;
+      }
+
       // --- PHASE 1: MACAN (0.00 -> 0.33) ---
       if (p <= 0.34 && renderMacanInThree) {
         if (macan) {
           macan.visible = true;
           if (p <= 0.16) {
-            // At rest
-            macan.position.set(0, 0, 0);
-            macan.rotation.y = -0.32 + p * 0.4;
-            macan.scale.setScalar(1.0 - p * 0.3);
+            // At rest inside halo
+            macan.position.set(0, baseY, 0);
+            macan.rotation.y = -0.32 + p * 0.35 + dragRotationY;
+            macan.scale.setScalar(1.0 - p * 0.2);
           } else {
             // Dissolving into Boxster
             const subP = (p - 0.16) / 0.18; // 0 to 1
-            macan.position.set(0, -subP * 0.8, -subP * 1.5);
-            macan.rotation.y = -0.26 + subP * 0.6;
-            macan.scale.setScalar(0.95 - subP * 0.25);
+            macan.position.set(0, baseY - subP * 0.7, -subP * 1.5);
+            macan.rotation.y = -0.26 + subP * 0.6 + dragRotationY;
+            macan.scale.setScalar(0.97 - subP * 0.22);
           }
         }
       } else {
         if (macan) macan.visible = false;
       }
 
-      // --- PHASE 2: BOXSTER (0.22 -> 0.68) ---
+      // --- PHASE 2: BOXSTER (0.20 -> 0.68) ---
       if (p >= 0.20 && p <= 0.68 && renderBoxsterInThree) {
         if (boxster) {
           boxster.visible = true;
           if (p < 0.36) {
             // Emerging from exact center point
             const emergeP = (p - 0.20) / 0.16; // 0 to 1
-            boxster.position.set(0, -0.6 * (1 - emergeP), 1.2 * (1 - emergeP));
-            boxster.rotation.y = -0.8 + emergeP * 0.5;
-            boxster.scale.setScalar(0.78 + emergeP * 0.22);
+            boxster.position.set(0, baseY - 0.5 * (1 - emergeP), 1.2 * (1 - emergeP));
+            boxster.rotation.y = -0.75 + emergeP * 0.45 + dragRotationY;
+            boxster.scale.setScalar(0.82 + emergeP * 0.18);
           } else if (p >= 0.36 && p <= 0.52) {
-            // Full center focus
-            boxster.position.set(0, 0, 0);
-            boxster.rotation.y = -0.3 + (p - 0.36) * 0.3;
+            // Full center focus inside halo
+            boxster.position.set(0, baseY, 0);
+            boxster.rotation.y = -0.30 + (p - 0.36) * 0.3 + dragRotationY;
             boxster.scale.setScalar(1.0);
           } else {
             // Dissolving into 911
             const exitP = (p - 0.52) / 0.16;
-            boxster.position.set(0, -exitP * 0.7, -exitP * 1.6);
-            boxster.rotation.y = -0.25 + exitP * 0.6;
-            boxster.scale.setScalar(1.0 - exitP * 0.24);
+            boxster.position.set(0, baseY - exitP * 0.6, -exitP * 1.5);
+            boxster.rotation.y = -0.25 + exitP * 0.55 + dragRotationY;
+            boxster.scale.setScalar(1.0 - exitP * 0.22);
           }
         }
       } else {
@@ -357,19 +389,19 @@ export default function VehicleCanvas({
           if (p < 0.70) {
             // Emerging from exact center point
             const emergeP = (p - 0.54) / 0.16;
-            nineEleven.position.set(0, -0.6 * (1 - emergeP), 1.2 * (1 - emergeP));
-            nineEleven.rotation.y = -0.85 + emergeP * 0.55;
-            nineEleven.scale.setScalar(0.8 + emergeP * 0.2);
+            nineEleven.position.set(0, baseY - 0.5 * (1 - emergeP), 1.2 * (1 - emergeP));
+            nineEleven.rotation.y = -0.80 + emergeP * 0.50 + dragRotationY;
+            nineEleven.scale.setScalar(0.82 + emergeP * 0.18);
           } else if (p >= 0.70 && p <= 0.88) {
-            // Full iconic focus
-            nineEleven.position.set(0, 0, 0);
-            nineEleven.rotation.y = -0.3 + (p - 0.70) * 0.35;
+            // Full iconic focus inside halo
+            nineEleven.position.set(0, baseY, 0);
+            nineEleven.rotation.y = -0.30 + (p - 0.70) * 0.3 + dragRotationY;
             nineEleven.scale.setScalar(1.0);
           } else {
             // Gliding gently upward into accessories boutique
             const outP = (p - 0.88) / 0.12;
-            nineEleven.position.set(0, outP * 0.6, -outP * 0.8);
-            nineEleven.rotation.y = -0.24 + outP * 0.2;
+            nineEleven.position.set(0, baseY + outP * 0.5, -outP * 0.8);
+            nineEleven.rotation.y = -0.25 + outP * 0.2 + dragRotationY;
             nineEleven.scale.setScalar(1.0 - outP * 0.08);
           }
         }
@@ -416,6 +448,8 @@ export default function VehicleCanvas({
     return () => {
       isMounted = false;
       cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
 
@@ -438,7 +472,7 @@ export default function VehicleCanvas({
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden"
+      className="absolute inset-0 w-full h-full pointer-events-auto select-none z-0 overflow-hidden cursor-grab active:cursor-grabbing"
     >
       <canvas
         ref={canvasRef}
