@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import VehicleCanvas from "@/components/canvas/VehicleCanvas";
 import SketchfabPorscheMacan from "./SketchfabPorscheMacan";
+import SketchfabPorscheBoxster from "./SketchfabPorscheBoxster";
 import SketchfabPorsche911 from "./SketchfabPorsche911";
 import { VEHICLES } from "@/data/vehicles";
 import { soundManager } from "@/lib/audio";
@@ -81,7 +82,7 @@ export default function CinematicScroll() {
         <VehicleCanvas scrollProgress={scrollProgress} />
 
         {/* ------------------------------------------------------------------ */}
-        {/* REAL-TIME SKETCHFAB 3D PORSCHE MACAN GTS (Centered in 3D Halo)     */}
+        {/* VEHICLE 01: REAL-TIME SKETCHFAB 3D MACAN GTS                       */}
         {/* ------------------------------------------------------------------ */}
         <SketchfabPorscheMacan
           scrollProgress={scrollProgress}
@@ -89,7 +90,15 @@ export default function CinematicScroll() {
         />
 
         {/* ------------------------------------------------------------------ */}
-        {/* REAL-TIME SKETCHFAB 3D PORSCHE 911 CARRERA 4S (Centered in 3D Halo)*/}
+        {/* VEHICLE 02: REAL-TIME SKETCHFAB 3D 718 BOXSTER GTS                 */}
+        {/* ------------------------------------------------------------------ */}
+        <SketchfabPorscheBoxster
+          scrollProgress={scrollProgress}
+          isVisible={scrollProgress >= 0.18 && scrollProgress <= 0.70}
+        />
+
+        {/* ------------------------------------------------------------------ */}
+        {/* VEHICLE 03: REAL-TIME SKETCHFAB 3D 911 CARRERA 4S                  */}
         {/* ------------------------------------------------------------------ */}
         <SketchfabPorsche911
           scrollProgress={scrollProgress}

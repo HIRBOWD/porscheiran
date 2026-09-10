@@ -8,6 +8,7 @@ interface VehicleCanvasProps {
   scrollProgress: number; // 0 to 1
   onSceneReady?: () => void;
   renderMacanInThree?: boolean;
+  renderBoxsterInThree?: boolean;
   renderNineElevenInThree?: boolean;
 }
 
@@ -15,6 +16,7 @@ export default function VehicleCanvas({
   scrollProgress,
   onSceneReady,
   renderMacanInThree = false,
+  renderBoxsterInThree = false,
   renderNineElevenInThree = false,
 }: VehicleCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -164,11 +166,11 @@ export default function VehicleCanvas({
 
     // 6. 3D Circular Halo Ring (Precision Architectural Ring)
     const haloGroup = new THREE.Group();
-    haloGroup.position.set(0, 1.2, 0);
-    haloGroup.rotation.x = 0.2; // Slight tilt for depth
+    haloGroup.position.set(0, 0.45, 0);
+    haloGroup.lookAt(camera.position.x, 0.45, camera.position.z);
 
     // Primary 3D Metallic Ring
-    const haloRingGeo = new THREE.TorusGeometry(3.6, 0.022, 32, 160);
+    const haloRingGeo = new THREE.TorusGeometry(2.1, 0.015, 32, 160);
     const haloRingMat = new THREE.MeshStandardMaterial({
       color: 0xd6d9e0,
       metalness: 0.9,
@@ -180,7 +182,7 @@ export default function VehicleCanvas({
     haloGroup.add(haloRing);
 
     // Outer Hairline Ring
-    const outerRingGeo = new THREE.TorusGeometry(3.8, 0.008, 16, 160);
+    const outerRingGeo = new THREE.TorusGeometry(2.22, 0.007, 16, 160);
     const outerRingMat = new THREE.MeshBasicMaterial({
       color: 0x999da8,
       transparent: true,
@@ -192,19 +194,19 @@ export default function VehicleCanvas({
     // Cardinal Ticks
     for (let i = 0; i < 12; i++) {
       const angle = (i * Math.PI * 2) / 12;
-      const tickGeo = new THREE.BoxGeometry(0.015, 0.16, 0.015);
+      const tickGeo = new THREE.BoxGeometry(0.015, 0.12, 0.015);
       const tick = new THREE.Mesh(tickGeo, haloRingMat);
-      tick.position.x = Math.cos(angle) * 3.6;
-      tick.position.y = Math.sin(angle) * 3.6;
+      tick.position.x = Math.cos(angle) * 2.1;
+      tick.position.y = Math.sin(angle) * 2.1;
       tick.rotation.z = angle;
       haloGroup.add(tick);
     }
 
     // Porsche Red Accent Marker at Apex
-    const markerGeo = new THREE.SphereGeometry(0.04, 16, 16);
+    const markerGeo = new THREE.SphereGeometry(0.035, 16, 16);
     const markerMat = new THREE.MeshBasicMaterial({ color: 0xd5001c });
     const apexMarker = new THREE.Mesh(markerGeo, markerMat);
-    apexMarker.position.set(0, 3.6, 0.02);
+    apexMarker.position.set(0, 2.1, 0.02);
     haloGroup.add(apexMarker);
 
     scene.add(haloGroup);
@@ -322,7 +324,7 @@ export default function VehicleCanvas({
       }
 
       // --- PHASE 2: BOXSTER (0.22 -> 0.68) ---
-      if (p >= 0.20 && p <= 0.68) {
+      if (p >= 0.20 && p <= 0.68 && renderBoxsterInThree) {
         if (boxster) {
           boxster.visible = true;
           if (p < 0.36) {
@@ -400,7 +402,7 @@ export default function VehicleCanvas({
 
       // Halo Scale & Position
       if (haloGroupRef.current) {
-        const haloScale = 1.0 + Math.sin(p * Math.PI) * 0.22;
+        const haloScale = 1.0 + Math.sin(p * Math.PI) * 0.12;
         haloGroupRef.current.scale.setScalar(haloScale);
       }
 
