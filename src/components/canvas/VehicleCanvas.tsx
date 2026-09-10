@@ -7,11 +7,13 @@ import { loadVehicleModel, VehicleKey } from "./ModelLoader";
 interface VehicleCanvasProps {
   scrollProgress: number; // 0 to 1
   onSceneReady?: () => void;
+  renderNineElevenInThree?: boolean;
 }
 
 export default function VehicleCanvas({
   scrollProgress,
   onSceneReady,
+  renderNineElevenInThree = false,
 }: VehicleCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -345,7 +347,7 @@ export default function VehicleCanvas({
       }
 
       // --- PHASE 3: 911 (0.54 -> 1.00) ---
-      if (p >= 0.54) {
+      if (p >= 0.54 && renderNineElevenInThree) {
         if (nineEleven) {
           nineEleven.visible = true;
           if (p < 0.70) {
