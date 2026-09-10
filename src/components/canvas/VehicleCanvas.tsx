@@ -7,12 +7,14 @@ import { loadVehicleModel, VehicleKey } from "./ModelLoader";
 interface VehicleCanvasProps {
   scrollProgress: number; // 0 to 1
   onSceneReady?: () => void;
+  renderMacanInThree?: boolean;
   renderNineElevenInThree?: boolean;
 }
 
 export default function VehicleCanvas({
   scrollProgress,
   onSceneReady,
+  renderMacanInThree = false,
   renderNineElevenInThree = false,
 }: VehicleCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -299,7 +301,7 @@ export default function VehicleCanvas({
       let targetLookAtY = 0.45;
 
       // --- PHASE 1: MACAN (0.00 -> 0.33) ---
-      if (p <= 0.34) {
+      if (p <= 0.34 && renderMacanInThree) {
         if (macan) {
           macan.visible = true;
           if (p <= 0.16) {

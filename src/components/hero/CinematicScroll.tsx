@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import VehicleCanvas from "@/components/canvas/VehicleCanvas";
+import SketchfabPorscheMacan from "./SketchfabPorscheMacan";
 import SketchfabPorsche911 from "./SketchfabPorsche911";
 import { VEHICLES } from "@/data/vehicles";
 import { soundManager } from "@/lib/audio";
@@ -78,6 +79,14 @@ export default function CinematicScroll() {
         {/* TRUE REAL-TIME 3D WEBGL ENGINE (Rendered behind typography)        */}
         {/* ------------------------------------------------------------------ */}
         <VehicleCanvas scrollProgress={scrollProgress} />
+
+        {/* ------------------------------------------------------------------ */}
+        {/* REAL-TIME SKETCHFAB 3D PORSCHE MACAN GTS (Centered in 3D Halo)     */}
+        {/* ------------------------------------------------------------------ */}
+        <SketchfabPorscheMacan
+          scrollProgress={scrollProgress}
+          isVisible={scrollProgress <= 0.36}
+        />
 
         {/* ------------------------------------------------------------------ */}
         {/* REAL-TIME SKETCHFAB 3D PORSCHE 911 CARRERA 4S (Centered in 3D Halo)*/}
