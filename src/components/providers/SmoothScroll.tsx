@@ -28,6 +28,12 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     // Synchronize Lenis with GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
+    // Direct native scroll listener ensures 0ms latency when syncTouch: false
+    const onNativeScroll = () => {
+      ScrollTrigger.update();
+    };
+    window.addEventListener("scroll", onNativeScroll, { passive: true });
+
     const updateLenis = (time: number) => {
       lenis.raf(time * 1000);
     };
@@ -36,6 +42,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     gsap.ticker.lagSmoothing(500, 33);
 
     return () => {
+      window.removeEventListener("scroll", onNativeScroll);
       gsap.ticker.remove(updateLenis);
       lenis.destroy();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());

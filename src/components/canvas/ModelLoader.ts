@@ -98,28 +98,61 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
 
     model.updateMatrixWorld(true);
 
-    // Enable castShadow on child meshes; leave receiveShadow false to avoid heavy fragment shadow lookups
+    // Selective shadow casting: exterior meshes cast shadows, interior meshes skip shadow pass
     model.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
-        mesh.castShadow = true;
+        const nodeName = (child.name || "").toLowerCase();
+
+        // 101 interior meshes never cast visible shadows outside the car
+        const isInterior =
+          nodeName.includes("interior") ||
+          nodeName.includes("seat") ||
+          nodeName.includes("carpet") ||
+          nodeName.includes("gauge") ||
+          nodeName.includes("pedal") ||
+          nodeName.includes("dash") ||
+          nodeName.includes("shifter") ||
+          nodeName.includes("speaker") ||
+          nodeName.includes("steering") ||
+          nodeName.includes("fabric") ||
+          nodeName.includes("int_") ||
+          nodeName.includes("clock") ||
+          nodeName.includes("stitch") ||
+          nodeName.includes("engine");
+
+        mesh.castShadow = !isInterior;
         mesh.receiveShadow = false;
         mesh.frustumCulled = true;
 
         if (mesh.material) {
           const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
           mats.forEach((m) => {
-            if ("envMapIntensity" in m) {
-              (m as THREE.MeshStandardMaterial).envMapIntensity = 1.15;
-            }
-            // Ensure subtle diffuse roughness so studio directional lights catch car curves nicely
             const matName = (m.name || "").toLowerCase();
-            if (
-              "roughness" in m &&
-              !matName.includes("glass") &&
-              (m as THREE.MeshStandardMaterial).roughness < 0.12
-            ) {
-              (m as THREE.MeshStandardMaterial).roughness = 0.22;
+
+            // Calibrate PBR properties for studio showroom photorealism
+            if (matName.includes("carpaint")) {
+              (m as THREE.MeshStandardMaterial).roughness = 0.12; // Glossy clearcoat lacquer
+              (m as THREE.MeshStandardMaterial).metalness = 0.78; // GT Silver metallic flake
+              (m as THREE.MeshStandardMaterial).envMapIntensity = 1.35;
+            } else if (matName.includes("carbon")) {
+              (m as THREE.MeshStandardMaterial).roughness = 0.16;
+              (m as THREE.MeshStandardMaterial).metalness = 0.35;
+              (m as THREE.MeshStandardMaterial).envMapIntensity = 1.25;
+            } else if (matName.includes("wheels") || matName.includes("chrome")) {
+              (m as THREE.MeshStandardMaterial).roughness = 0.14;
+              (m as THREE.MeshStandardMaterial).metalness = 0.88;
+              (m as THREE.MeshStandardMaterial).envMapIntensity = 1.4;
+            } else if (matName.includes("caliper")) {
+              (m as THREE.MeshStandardMaterial).roughness = 0.15;
+              (m as THREE.MeshStandardMaterial).metalness = 0.2;
+              (m as THREE.MeshStandardMaterial).envMapIntensity = 1.2;
+            } else if (matName.includes("brake")) {
+              (m as THREE.MeshStandardMaterial).roughness = 0.18;
+              (m as THREE.MeshStandardMaterial).metalness = 0.85;
+              (m as THREE.MeshStandardMaterial).envMapIntensity = 1.25;
+            } else if ("envMapIntensity" in m) {
+              (m as THREE.MeshStandardMaterial).envMapIntensity = 1.2;
             }
           });
         }

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { loadVehicleModel, VehicleKey } from "./ModelLoader";
 
 interface VehicleCanvasProps {
@@ -78,55 +79,57 @@ function VehicleCanvasComponent({
     camera.lookAt(0, 0.45, 0);
     cameraRef.current = camera;
 
-    // 3. Initialize WebGL Renderer (Prioritize mobile 60-120fps with DPR 1.0, mediump, and 0 shadow map passes)
+    // 3. Initialize WebGL Renderer with High Showroom Quality on all devices
     const dpr = Math.min(
       typeof window !== "undefined" ? window.devicePixelRatio : 1,
-      isMobile ? 1.0 : 1.5
+      isMobile ? 1.45 : 1.5
     );
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
-      antialias: !isMobile, // Eliminate multi-sample resolve pass on mobile
+      antialias: true, // Native MSAA for crisp silhouettes, spoiler, and wheels
       alpha: true,
       powerPreference: "high-performance",
-      precision: isMobile ? "mediump" : "highp", // 16-bit half-precision runs 2x faster on mobile GPUs
+      precision: "highp", // True 32-bit PBR metallic reflection precision
       stencil: false,
       depth: true,
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(dpr);
 
-    // Desktop: High-fidelity PCF shadow map
-    // Mobile: Completely disable shadow map pass to eliminate ~300 shadow draw calls per frame
-    renderer.shadowMap.enabled = !isMobile;
-    if (!isMobile) {
-      renderer.shadowMap.type = THREE.PCFShadowMap;
-    }
+    // High-fidelity PCF soft directional shadow map
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.18;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     rendererRef.current = renderer;
 
+    // Studio IBL Environment: Softbox and light panel reflections for metallic car paint & wheels
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+    const roomEnv = new RoomEnvironment();
+    const envMap = pmremGenerator.fromScene(roomEnv, 0.04).texture;
+    scene.environment = envMap;
+
     // 4. Studio Lighting System
-    const ambientLight = new THREE.AmbientLight(0xffffff, isMobile ? 1.05 : 0.85);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     ambientLight.matrixAutoUpdate = false;
     ambientLight.updateMatrix();
     scene.add(ambientLight);
 
     // Key Light (Overhead front three-quarter)
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.85);
     keyLight.position.set(6, 12, 8);
-    keyLight.castShadow = !isMobile;
-    if (!isMobile) {
-      keyLight.shadow.mapSize.width = 1024;
-      keyLight.shadow.mapSize.height = 1024;
-      keyLight.shadow.camera.near = 0.5;
-      keyLight.shadow.camera.far = 30;
-      keyLight.shadow.camera.left = -6;
-      keyLight.shadow.camera.right = 6;
-      keyLight.shadow.camera.top = 6;
-      keyLight.shadow.camera.bottom = -6;
-      keyLight.shadow.bias = -0.0005;
-    }
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.width = isMobile ? 512 : 1024;
+    keyLight.shadow.mapSize.height = isMobile ? 512 : 1024;
+    keyLight.shadow.camera.near = 0.5;
+    keyLight.shadow.camera.far = 30;
+    keyLight.shadow.camera.left = -6;
+    keyLight.shadow.camera.right = 6;
+    keyLight.shadow.camera.top = 6;
+    keyLight.shadow.camera.bottom = -6;
+    keyLight.shadow.bias = -0.0005;
     keyLight.matrixAutoUpdate = false;
     keyLight.updateMatrix();
     scene.add(keyLight);
@@ -140,19 +143,19 @@ function VehicleCanvasComponent({
     scene.add(fillLight);
 
     // Rim / Back Light (Crisp vehicle silhouette edge reflections)
-    const rimLight = new THREE.DirectionalLight(0xffffff, 1.4);
+    const rimLight = new THREE.DirectionalLight(0xffffff, 1.45);
     rimLight.position.set(-5, 9, -8);
     rimLight.matrixAutoUpdate = false;
     rimLight.updateMatrix();
     scene.add(rimLight);
     rimLightRef.current = rimLight;
 
-    // Top Overhead Soft Spotlight (Desktop only, saves fragment calculations on mobile)
-    if (!isMobile) {
-      const topLight = new THREE.PointLight(0xffffff, 1.2, 20);
-      topLight.position.set(0, 8, 0);
-      scene.add(topLight);
-    }
+    // Top Overhead Soft Spotlight: Illuminates carbon fiber roof and swan-neck wing on both mobile & desktop
+    const topLight = new THREE.PointLight(0xffffff, 1.25, 20);
+    topLight.position.set(0, 8, 0);
+    topLight.matrixAutoUpdate = false;
+    topLight.updateMatrix();
+    scene.add(topLight);
 
     // 5. Studio Ground Plane & Contact Shadow Disc
     const groundGeo = new THREE.PlaneGeometry(80, 80);
@@ -164,7 +167,7 @@ function VehicleCanvasComponent({
     const ground = new THREE.Mesh(groundGeo, groundMat);
     ground.rotation.x = -Math.PI / 2;
     ground.position.y = 0;
-    ground.receiveShadow = !isMobile;
+    ground.receiveShadow = true;
     ground.matrixAutoUpdate = false;
     ground.updateMatrix();
     scene.add(ground);
@@ -417,6 +420,7 @@ function VehicleCanvasComponent({
         // Detect horizontal intent for 3D orbit rotation without blocking native vertical scroll
         if (!isTouchHorizontal && Math.abs(dx) > Math.abs(dy) + 4) {
           isTouchHorizontal = true;
+          isDragging = true;
         }
 
         if (isTouchHorizontal) {
@@ -429,6 +433,7 @@ function VehicleCanvasComponent({
 
     const handleTouchEnd = () => {
       isTouchHorizontal = false;
+      isDragging = false;
     };
 
     container.addEventListener("mousedown", handleMouseDown);
@@ -482,7 +487,6 @@ function VehicleCanvasComponent({
       // REAL-TIME 3D SCROLL CHOREOGRAPHY (911 GT3 RS Showcase)
       // -----------------------------------------------------------------------
       const gt3 = vehiclesRef.current.gt3;
-      const mats = vehicleMaterialsRef.current;
 
       // Responsive portrait framing: Automatically adapt camera distance for narrow mobile screens
       const mobileScale = Math.min(1.95, Math.max(1.0, 0.88 / currentAspect));
@@ -502,7 +506,7 @@ function VehicleCanvasComponent({
       let currentShadowOpacity = 0.85;
 
       // =======================================================================
-      // 911 GT3 RS: PROPORTIONAL CHOREOGRAPHY (Calibrated to 1/3 Distance)
+      // 911 GT3 RS: PROPORTIONAL CHOREOGRAPHY (Direct 1:1 Scroll Response)
       // Center stage dominance inside halo for p in [0.00, 0.55]
       // Smooth descent towards accessories boutique for p in [0.55, 1.00]
       // =======================================================================
@@ -511,19 +515,17 @@ function VehicleCanvasComponent({
         if (p <= 0.55) {
           // Full center focus inside halo, grounded firmly at Y = 0
           gt3.position.set(0, 0, 0);
-          gt3.rotation.y = -0.32 + p * 0.42 + dragRotationY;
+          // Direct 1:1 scroll-to-car rotation: turns in lockstep with finger scroll
+          gt3.rotation.y = -0.38 + p * 0.55 + dragRotationY;
           gt3.scale.setScalar(1.0);
-          updateVehicleOpacity("gt3", mats.gt3, 1.0);
           currentShadowOpacity = 0.85;
         } else {
           // Smooth glide down into the accessories boutique
           const t = (p - 0.55) / 0.45;
           gt3.position.set(0, 0, -2.4 * t);
-          gt3.rotation.y = -0.32 + 0.42 * 0.55 + 0.15 * t + dragRotationY;
+          gt3.rotation.y = -0.38 + 0.55 * 0.55 + 0.15 * t + dragRotationY;
           gt3.scale.setScalar(1.0 - 0.18 * t);
-          const opacity = Math.max(0.2, 1.0 - 0.70 * t);
-          updateVehicleOpacity("gt3", mats.gt3, opacity);
-          currentShadowOpacity = Math.max(0.15, 0.85 * opacity);
+          currentShadowOpacity = Math.max(0.15, 0.85 * (1.0 - t * 0.65));
         }
       }
 
@@ -542,10 +544,11 @@ function VehicleCanvasComponent({
       const targetCamY = baseCamY * (0.85 + 0.15 * mobileScale) + mouseCurrent.current.y;
       const targetCamZ = baseCamZ * mobileScale;
 
-      // Interpolate camera smoothly towards target
-      camera.position.x += (targetCamX - camera.position.x) * 0.1;
-      camera.position.y += (targetCamY - camera.position.y) * 0.1;
-      camera.position.z += (targetCamZ - camera.position.z) * 0.1;
+      // Tight, responsive camera tracking on mobile (0.35) eliminates lagging drift
+      const camLerp = isMobile ? 0.35 : 0.12;
+      camera.position.x += (targetCamX - camera.position.x) * camLerp;
+      camera.position.y += (targetCamY - camera.position.y) * camLerp;
+      camera.position.z += (targetCamZ - camera.position.z) * camLerp;
       camera.lookAt(0, targetLookAtY, 0);
 
       // Halo Scale & Position
@@ -587,6 +590,8 @@ function VehicleCanvasComponent({
         }
       });
 
+      pmremGenerator.dispose();
+      envMap.dispose();
       renderer.dispose();
     };
   }, [onSceneReady, renderGt3InThree, scrollProgressRef]);

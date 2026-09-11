@@ -28,10 +28,10 @@ export default function CinematicScroll() {
       end: `+=${runwayDistance}`,
       pin: containerRef.current,
       anticipatePin: 1,
-      scrub: isMobile ? 0.4 : 0.6,
+      // scrub: true provides 1:1 instantaneous lockstep with finger scroll (0ms delay)
+      scrub: true,
       onUpdate: (self) => {
-        const p = self.progress;
-        scrollProgressRef.current = p;
+        scrollProgressRef.current = self.progress;
       },
     });
 
