@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import gsap from "gsap";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { loadVehicleModel, VehicleKey } from "./ModelLoader";
 
@@ -96,9 +97,9 @@ function VehicleCanvasComponent({
     renderer.setSize(width, height);
     renderer.setPixelRatio(dpr);
 
-    // High-fidelity PCF soft directional shadow map
+    // High-fidelity PCF shadow map: hardware-accelerated on mobile, soft Poisson on desktop
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = isMobile ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.18;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -333,6 +334,9 @@ function VehicleCanvasComponent({
 
       scene.add(gt3Res.group);
 
+      // Pre-compile all 88 materials and shaders on GPU to eliminate runtime compilation hitches
+      renderer.compile(scene, camera);
+
       vehiclesRef.current = {
         gt3: gt3Res.group,
       };
@@ -444,14 +448,29 @@ function VehicleCanvasComponent({
     container.addEventListener("touchmove", handleTouchMove, { passive: true });
     window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
-    // 10. Debounced Resize Handler
+    // 10. Debounced Resize Handler with Mobile Address-Bar Shield
+    let lastWidth = width;
+    let lastHeight = height;
     let resizeTimer: number | null = null;
+
     const handleResize = () => {
       if (resizeTimer !== null) cancelAnimationFrame(resizeTimer);
       resizeTimer = requestAnimationFrame(() => {
         if (!containerRef.current || !rendererRef.current || !cameraRef.current) return;
         const w = containerRef.current.clientWidth;
         const h = containerRef.current.clientHeight;
+
+        // Ignore address bar expand/collapse jitter on mobile (only resize WebGL framebuffer on true orientation change)
+        const isMobileDevice = w < 768 || (typeof window !== "undefined" && window.innerWidth < 768);
+        if (isMobileDevice && Math.abs(w - lastWidth) < 2 && Math.abs(h - lastHeight) < 120) {
+          currentAspect = w / h;
+          cameraRef.current.aspect = currentAspect;
+          cameraRef.current.updateProjectionMatrix();
+          return;
+        }
+
+        lastWidth = w;
+        lastHeight = h;
         currentAspect = w / h;
         cameraRef.current.aspect = currentAspect;
         cameraRef.current.updateProjectionMatrix();
@@ -461,22 +480,19 @@ function VehicleCanvasComponent({
 
     window.addEventListener("resize", handleResize);
 
-    // 11. Animation & Render Loop
-    let animationFrameId: number;
-    let clock = new THREE.Clock();
-
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-
+    // 11. Single Coordinated Animation & Render Loop (Unified on GSAP Ticker)
+    const animate = (time: number, deltaTime: number) => {
       // Completely pause render pass and GPU compute when off-screen or tab is inactive
       if (!isVisible) return;
 
-      const delta = clock.getDelta();
+      const delta = (deltaTime || 16.66) / 1000;
       const p = scrollProgressRef ? scrollProgressRef.current : fallbackProgressRef.current;
 
-      // Mouse Parallax Smooth Damping
-      mouseCurrent.current.x += (mouseTarget.current.x - mouseCurrent.current.x) * 0.05;
-      mouseCurrent.current.y += (mouseTarget.current.y - mouseCurrent.current.y) * 0.05;
+      // Mouse Parallax Smooth Damping (Desktop only)
+      if (!isMobile) {
+        mouseCurrent.current.x += (mouseTarget.current.x - mouseCurrent.current.x) * 0.05;
+        mouseCurrent.current.y += (mouseTarget.current.y - mouseCurrent.current.y) * 0.05;
+      }
 
       // Rotate Halo Ring slowly
       if (haloGroupRef.current) {
@@ -500,6 +516,7 @@ function VehicleCanvasComponent({
       // Decay drag rotation smoothly when not actively dragging
       if (!isDragging) {
         dragRotationY *= 0.94;
+        if (Math.abs(dragRotationY) < 0.0001) dragRotationY = 0;
       }
 
       // Dynamic Contact Shadow Opacity
@@ -544,11 +561,15 @@ function VehicleCanvasComponent({
       const targetCamY = baseCamY * (0.85 + 0.15 * mobileScale) + mouseCurrent.current.y;
       const targetCamZ = baseCamZ * mobileScale;
 
-      // Tight, responsive camera tracking on mobile (0.35) eliminates lagging drift
-      const camLerp = isMobile ? 0.35 : 0.12;
-      camera.position.x += (targetCamX - camera.position.x) * camLerp;
-      camera.position.y += (targetCamY - camera.position.y) * camLerp;
-      camera.position.z += (targetCamZ - camera.position.z) * camLerp;
+      // On mobile: 100% direct camera tracking (0ms lag, zero perspective float)
+      // On desktop: subtle 0.12 lerp for silky mouse parallax smoothing
+      if (isMobile) {
+        camera.position.set(targetCamX, targetCamY, targetCamZ);
+      } else {
+        camera.position.x += (targetCamX - camera.position.x) * 0.12;
+        camera.position.y += (targetCamY - camera.position.y) * 0.12;
+        camera.position.z += (targetCamZ - camera.position.z) * 0.12;
+      }
       camera.lookAt(0, targetLookAtY, 0);
 
       // Halo Scale & Position
@@ -561,12 +582,13 @@ function VehicleCanvasComponent({
       renderer.render(scene, camera);
     };
 
-    animate();
+    // Register with unified GSAP master ticker (guarantees single coordinated frame loop)
+    gsap.ticker.add(animate);
 
     // Cleanup
     return () => {
       isMounted = false;
-      cancelAnimationFrame(animationFrameId);
+      gsap.ticker.remove(animate);
       if (resizeTimer !== null) cancelAnimationFrame(resizeTimer);
       observer.disconnect();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
