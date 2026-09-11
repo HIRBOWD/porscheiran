@@ -29,36 +29,8 @@ export interface VehicleModel {
 
 export const VEHICLES: VehicleModel[] = [
   {
-    id: "macan",
-    index: "01",
-    name: "Macan GTS",
-    modelCode: "MACAN",
-    title: "MACAN",
-    tagline: "INTENSE LIFE. COMPACT SPORTING SPIRIT.",
-    colorName: "Deep Jet Black Metallic",
-    colorHex: "#0D0D11",
-    image: "/images/vehicles/macan-black.jpg",
-    model3dPath: "/models/Macan.glb",
-    specs: {
-      power: "434 HP",
-      acceleration: "4.1 s",
-      topSpeed: "169 MPH",
-      engine: "2.9L Twin-Turbo V6",
-    },
-    halo: {
-      scale: 1.0,
-      color: "rgba(220, 220, 225, 0.4)",
-      glow: "rgba(200, 205, 215, 0.25)",
-    },
-    studioAtmosphere: {
-      bgGradient: "radial-gradient(ellipse at 50% 45%, #FFFFFF 0%, #F5F5F7 50%, #E9E9ED 100%)",
-      floorReflection: 0.18,
-      spotlightIntensity: 0.85,
-    },
-  },
-  {
     id: "boxster",
-    index: "02",
+    index: "01",
     name: "718 Boxster GTS 4.0",
     modelCode: "BOXSTER",
     title: "BOXSTER",

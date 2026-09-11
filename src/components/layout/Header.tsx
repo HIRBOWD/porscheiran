@@ -73,22 +73,11 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
                     onClick={() => {
                       onSelectModel?.(0);
                       setShowModelsDropdown(false);
-                      soundManager.playEngineRev("macan");
-                    }}
-                    className="text-left px-3 py-2 text-[10px] tracking-[0.2em] uppercase hover:bg-neutral-100 hover:text-black flex justify-between items-center transition-colors"
-                  >
-                    <span>01 / MACAN</span>
-                    <span className="text-[9px] text-neutral-400">GTS</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onSelectModel?.(1);
-                      setShowModelsDropdown(false);
                       soundManager.playEngineRev("boxster");
                     }}
                     className="text-left px-3 py-2 text-[10px] tracking-[0.2em] uppercase hover:bg-neutral-100 hover:text-black flex justify-between items-center transition-colors"
                   >
-                    <span>02 / 718 BOXSTER</span>
+                    <span>01 / 718 BOXSTER</span>
                     <span className="text-[9px] text-neutral-400">GTS 4.0</span>
                   </button>
                 </div>

@@ -22,17 +22,13 @@ export default function CinematicScroll() {
     const trigger = ScrollTrigger.create({
       trigger: triggerRef.current,
       start: "top top",
-      end: "+=2800", // Generous cinematic scroll runway
+      end: "+=2200", // Cinematic scroll runway for solo Boxster showcase
       pin: containerRef.current,
       anticipatePin: 1,
       scrub: 1.2,
       onUpdate: (self) => {
         const p = self.progress;
         scrollProgressRef.current = p;
-
-        // Only update active index state when the model boundary actually changes
-        const nextIndex = p < 0.50 ? 0 : 1;
-        setActiveSceneIndex((prev) => (prev !== nextIndex ? nextIndex : prev));
       },
     });
 
@@ -41,25 +37,21 @@ export default function CinematicScroll() {
     };
   }, []);
 
-  const scrollToScene = (index: number) => {
+  const scrollToScene = (index: number = 0) => {
     soundManager.playClick();
     if (!triggerRef.current) return;
     const triggerTop = triggerRef.current.offsetTop;
-    const totalDistance = 2800;
-    const sceneTargets = [0, 0.70];
-    const targetScroll = triggerTop + totalDistance * sceneTargets[index];
 
     // Trigger synthetic audio rev for the vehicle
-    const modelKeys: ("macan" | "boxster")[] = ["macan", "boxster"];
-    soundManager.playEngineRev(modelKeys[index]);
+    soundManager.playEngineRev("boxster");
 
     window.scrollTo({
-      top: targetScroll,
+      top: triggerTop,
       behavior: "smooth",
     });
   };
 
-  const currentVehicle = VEHICLES[activeSceneIndex] || VEHICLES[0];
+  const currentVehicle = VEHICLES[0];
 
   return (
     <section ref={triggerRef} className="relative w-full">
@@ -88,7 +80,7 @@ export default function CinematicScroll() {
               <div className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase text-neutral-400 mb-2 sm:mb-3 flex items-center gap-2">
                 <span className="text-neutral-900 font-semibold">{currentVehicle.index}</span>
                 <span>/</span>
-                <span>02</span>
+                <span>01</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] ml-1" />
               </div>
 

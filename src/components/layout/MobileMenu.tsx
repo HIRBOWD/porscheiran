@@ -62,22 +62,11 @@ export default function MobileMenu({ isOpen, onClose, onSelectModel }: MobileMen
                   onClick={() => {
                     onSelectModel?.(0);
                     onClose();
-                    soundManager.playEngineRev("macan");
-                  }}
-                  className="w-full text-left text-lg md:text-xl font-light tracking-[0.15em] text-neutral-900 hover:text-black uppercase flex items-center justify-between group cursor-pointer"
-                >
-                  <span>01 / MACAN GTS</span>
-                  <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-black group-hover:translate-x-1 transition-all" />
-                </button>
-                <button
-                  onClick={() => {
-                    onSelectModel?.(1);
-                    onClose();
                     soundManager.playEngineRev("boxster");
                   }}
                   className="w-full text-left text-lg md:text-xl font-light tracking-[0.15em] text-neutral-900 hover:text-black uppercase flex items-center justify-between group cursor-pointer"
                 >
-                  <span>02 / 718 BOXSTER GTS</span>
+                  <span>01 / 718 BOXSTER GTS</span>
                   <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-black group-hover:translate-x-1 transition-all" />
                 </button>
               </div>

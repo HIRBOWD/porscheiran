@@ -18,13 +18,10 @@ export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const handleSelectModel = (index: number) => {
-    // Smooth scroll to corresponding scene in the pinned hero
-    const totalHeroScroll = 2800;
-    const progressMap = [0, 0.70];
-    const targetScroll = totalHeroScroll * progressMap[index];
+  const handleSelectModel = (_index: number = 0) => {
+    // Smooth scroll to top of the pinned 3D showroom
     window.scrollTo({
-      top: targetScroll,
+      top: 0,
       behavior: "smooth",
     });
   };
@@ -38,7 +35,7 @@ export default function HomePage() {
         onSelectModel={handleSelectModel}
       />
 
-      {/* Hero: Scroll-Driven 2-Car Cinematic Transformation */}
+      {/* Hero: Real-Time 3D WebGL Boxster Cinematic Showcase */}
       <CinematicScroll />
 
       {/* 1px Architectural Physical Separation Layer */}

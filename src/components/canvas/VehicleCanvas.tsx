@@ -8,7 +8,6 @@ interface VehicleCanvasProps {
   scrollProgress?: number; // 0 to 1 (legacy fallback)
   scrollProgressRef?: React.RefObject<number>; // Non-re-rendering ref for smooth 60-120fps updates
   onSceneReady?: () => void;
-  renderMacanInThree?: boolean;
   renderBoxsterInThree?: boolean;
 }
 
@@ -16,7 +15,6 @@ function VehicleCanvasComponent({
   scrollProgress,
   scrollProgressRef,
   onSceneReady,
-  renderMacanInThree = true,
   renderBoxsterInThree = true,
 }: VehicleCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,15 +33,13 @@ function VehicleCanvasComponent({
 
   // Vehicle 3D groups
   const vehiclesRef = useRef<{
-    macan?: THREE.Group;
     boxster?: THREE.Group;
   }>({});
 
   // Cached materials for smooth opacity transitions
   const vehicleMaterialsRef = useRef<{
-    macan: THREE.Material[];
     boxster: THREE.Material[];
-  }>({ macan: [], boxster: [] });
+  }>({ boxster: [] });
 
   // 3D Halo Ring
   const haloGroupRef = useRef<THREE.Group | null>(null);
@@ -250,11 +246,11 @@ function VehicleCanvasComponent({
     };
 
     // Cached opacity levels to eliminate per-frame material iteration churn
-    const currentOpacities = { macan: -1, boxster: -1 };
+    const currentOpacities = { boxster: -1 };
 
     // Helper to adjust opacity of vehicle materials only when target opacity actually changes
     const updateVehicleOpacity = (
-      key: "macan" | "boxster",
+      key: "boxster",
       materials: THREE.Material[],
       opacity: number
     ) => {
@@ -278,38 +274,29 @@ function VehicleCanvasComponent({
       }
     };
 
-    // 7. Load Vehicles (with GLB support and procedural fallback)
+    // 7. Load Boxster Vehicle (with GLB support and procedural fallback)
     let isMounted = true;
 
     async function loadAllVehicles() {
-      const keys: VehicleKey[] = ["macan", "boxster"];
-      const results = await Promise.all(keys.map((k) => loadVehicleModel(k)));
+      const boxsterRes = await loadVehicleModel("boxster");
 
       if (!isMounted) return;
 
-      const [macanRes, boxsterRes] = results;
-
-      // Position models firmly grounded on floor (Y = 0) with wheels flush on contact shadow
-      macanRes.group.position.set(0, 0, 0);
+      // Position model firmly grounded on floor (Y = 0) with wheels flush on contact shadow
       boxsterRes.group.position.set(0, 0, 0);
 
       // Cache materials for zero-allocation opacity fading
       vehicleMaterialsRef.current = {
-        macan: collectMaterials(macanRes.group),
         boxster: collectMaterials(boxsterRes.group),
       };
 
-      // Initially show only Macan (fully opaque), hide Boxster
-      macanRes.group.visible = true;
-      boxsterRes.group.visible = false;
-      updateVehicleOpacity("macan", vehicleMaterialsRef.current.macan, 1.0);
-      updateVehicleOpacity("boxster", vehicleMaterialsRef.current.boxster, 0.0);
+      // Show Boxster (fully opaque) inside halo
+      boxsterRes.group.visible = true;
+      updateVehicleOpacity("boxster", vehicleMaterialsRef.current.boxster, 1.0);
 
-      scene.add(macanRes.group);
       scene.add(boxsterRes.group);
 
       vehiclesRef.current = {
-        macan: macanRes.group,
         boxster: boxsterRes.group,
       };
 
@@ -464,9 +451,8 @@ function VehicleCanvasComponent({
       }
 
       // -----------------------------------------------------------------------
-      // REAL-TIME 3D SCROLL CHOREOGRAPHY (Clean 2-Vehicle Handoff, Zero Collision)
+      // REAL-TIME 3D SCROLL CHOREOGRAPHY (718 Boxster GTS 4.0 Showcase)
       // -----------------------------------------------------------------------
-      const macan = vehiclesRef.current.macan;
       const boxster = vehiclesRef.current.boxster;
       const mats = vehicleMaterialsRef.current;
 
@@ -488,99 +474,39 @@ function VehicleCanvasComponent({
       let currentShadowOpacity = 0.85;
 
       // =======================================================================
-      // PHASE 1: MACAN (p in [0.00, 0.45])
-      // Full dominance in [0.00, 0.24], cinematic receding exit in [0.24, 0.45]
-      // Completely hidden at p >= 0.45 -> Zero overlap with Boxster
+      // 718 BOXSTER GTS 4.0: ICONIC STUDIO CENTERPIECE
+      // Full dominance inside halo for p in [0.00, 0.68]
+      // Smooth descent towards accessories boutique for p > 0.68
       // =======================================================================
-      if (p < 0.45 && renderMacanInThree) {
-        if (macan) {
-          macan.visible = true;
-          if (p <= 0.24) {
-            // Full center focus inside halo, grounded at Y = 0
-            macan.position.set(0, 0, 0);
-            macan.rotation.y = -0.32 + p * 0.22 + dragRotationY;
-            macan.scale.setScalar(1.0);
-            updateVehicleOpacity("macan", mats.macan, 1.0);
-            currentShadowOpacity = 0.85;
-          } else {
-            // Controlled cinematic exit: recedes smoothly into background depth
-            const t = (p - 0.24) / 0.21; // 0 to 1
-            const tSmooth = t * t; // Smooth acceleration curve
-            macan.position.set(-1.5 * tSmooth, 0, -4.8 * tSmooth);
-            macan.rotation.y = -0.27 + 0.35 * tSmooth + dragRotationY;
-            macan.scale.setScalar(1.0 - 0.32 * tSmooth);
-            const opacity = Math.max(0, 1.0 - tSmooth);
-            updateVehicleOpacity("macan", mats.macan, opacity);
-            currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
-          }
-        }
-      } else {
-        if (macan) {
-          macan.visible = false;
-          updateVehicleOpacity("macan", mats.macan, 0.0);
-        }
-      }
-
-      // =======================================================================
-      // PHASE 2: BOXSTER (p in [0.48, 1.00])
-      // Stage is completely clear in breathing gap [0.45, 0.48]
-      // Enters at p = 0.48, full dominance in [0.62, 0.84]
-      // Smooth glide into accessories boutique for p > 0.84
-      // Completely hidden at p < 0.48 -> Zero collision with Macan
-      // =======================================================================
-      if (p >= 0.48 && renderBoxsterInThree) {
-        if (boxster) {
-          boxster.visible = true;
-          if (p < 0.62) {
-            // Controlled cinematic entrance: glides from perspective into center
-            const t = (p - 0.48) / 0.14; // 0 to 1
-            const tEase = 1 - (1 - t) * (1 - t); // Smooth deceleration curve
-            boxster.position.set(1.2 * (1 - tEase), 0, 3.6 * (1 - tEase));
-            boxster.rotation.y = -0.65 + 0.35 * tEase + dragRotationY;
-            boxster.scale.setScalar(0.85 + 0.15 * tEase);
-            const opacity = tEase;
-            updateVehicleOpacity("boxster", mats.boxster, opacity);
-            currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
-          } else if (p >= 0.62 && p <= 0.84) {
-            // Full center focus inside halo, grounded at Y = 0
-            boxster.position.set(0, 0, 0);
-            boxster.rotation.y = -0.30 + (p - 0.62) * 0.20 + dragRotationY;
-            boxster.scale.setScalar(1.0);
-            updateVehicleOpacity("boxster", mats.boxster, 1.0);
-            currentShadowOpacity = 0.85;
-          } else {
-            // Smooth glide towards the accessories boutique
-            const t = (p - 0.84) / 0.16;
-            boxster.position.set(0, 0, -2.4 * t);
-            boxster.rotation.y = -0.26 + 0.15 * t + dragRotationY;
-            boxster.scale.setScalar(1.0 - 0.18 * t);
-            const opacity = 1.0 - 0.65 * t;
-            updateVehicleOpacity("boxster", mats.boxster, opacity);
-            currentShadowOpacity = Math.max(0.15, 0.85 * opacity);
-          }
-        }
-      } else {
-        if (boxster) {
-          boxster.visible = false;
-          updateVehicleOpacity("boxster", mats.boxster, 0.0);
+      if (boxster && renderBoxsterInThree) {
+        boxster.visible = true;
+        if (p <= 0.68) {
+          // Full center focus inside halo, grounded firmly at Y = 0
+          boxster.position.set(0, 0, 0);
+          boxster.rotation.y = -0.32 + p * 0.36 + dragRotationY;
+          boxster.scale.setScalar(1.0);
+          updateVehicleOpacity("boxster", mats.boxster, 1.0);
+          currentShadowOpacity = 0.85;
+        } else {
+          // Smooth glide down into the accessories boutique
+          const t = (p - 0.68) / 0.32;
+          boxster.position.set(0, 0, -2.5 * t);
+          boxster.rotation.y = -0.32 + 0.36 * 0.68 + 0.15 * t + dragRotationY;
+          boxster.scale.setScalar(1.0 - 0.18 * t);
+          const opacity = Math.max(0.2, 1.0 - 0.65 * t);
+          updateVehicleOpacity("boxster", mats.boxster, opacity);
+          currentShadowOpacity = Math.max(0.15, 0.85 * opacity);
         }
       }
 
       // Update Contact Shadow disc opacity
       contactShadow.material.opacity = currentShadowOpacity;
 
-      // Studio Camera choreography for 2 vehicles with responsive mobile scaling
-      if (p <= 0.50) {
-        const p1 = p / 0.50;
-        baseCamX = 4.8 + p1 * 0.4;
-        baseCamY = 1.95 - p1 * 0.15;
-        baseCamZ = 6.2 - p1 * 0.4;
-      } else {
-        const p2 = (p - 0.50) / 0.50;
-        baseCamX = 4.6 + p2 * 0.4;
-        baseCamY = 1.80 + p2 * 0.15;
-        baseCamZ = 5.8 + p2 * 0.4;
-      }
+      // Studio Camera choreography for Boxster with responsive mobile scaling
+      const camT = Math.min(1, Math.max(0, p / 0.70));
+      baseCamX = 4.8 + camT * 0.35;
+      baseCamY = 1.92 - camT * 0.12;
+      baseCamZ = 6.1 - camT * 0.3;
 
       const targetCamX = baseCamX * mobileScale + mouseCurrent.current.x;
       const targetCamY = baseCamY * (0.85 + 0.15 * mobileScale) + mouseCurrent.current.y;
@@ -633,7 +559,7 @@ function VehicleCanvasComponent({
 
       renderer.dispose();
     };
-  }, [onSceneReady, renderMacanInThree, renderBoxsterInThree, scrollProgressRef]);
+  }, [onSceneReady, renderBoxsterInThree, scrollProgressRef]);
 
   return (
     <div
