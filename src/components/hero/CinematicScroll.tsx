@@ -19,13 +19,16 @@ export default function CinematicScroll() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const runwayDistance = isMobile ? 700 : 750; // Calibrated to 1/3 of previous distance
+
     const trigger = ScrollTrigger.create({
       trigger: triggerRef.current,
       start: "top top",
-      end: "+=2200", // Cinematic scroll runway for solo Boxster showcase
+      end: `+=${runwayDistance}`,
       pin: containerRef.current,
       anticipatePin: 1,
-      scrub: 1.2,
+      scrub: isMobile ? 0.4 : 0.6,
       onUpdate: (self) => {
         const p = self.progress;
         scrollProgressRef.current = p;

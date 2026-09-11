@@ -104,6 +104,7 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
         const mesh = child as THREE.Mesh;
         mesh.castShadow = true;
         mesh.receiveShadow = false;
+        mesh.frustumCulled = true;
 
         if (mesh.material) {
           const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];

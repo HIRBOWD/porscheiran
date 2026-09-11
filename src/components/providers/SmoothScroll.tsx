@@ -10,15 +10,19 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     // Register GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
-    // Initialize Lenis smooth scroll
+    // Initialize Lenis smooth scroll with mobile-aware native touch handling
+    const isTouch = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: isMobile ? 0.6 : 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 0.9,
-      touchMultiplier: 1.5,
+      touchMultiplier: 1.0,
+      syncTouch: false, // Let native compositor handle touch scrolling at 120Hz on mobile
     });
 
     // Synchronize Lenis with GSAP ScrollTrigger
