@@ -20,8 +20,8 @@ export default function HomePage() {
 
   const handleSelectModel = (index: number) => {
     // Smooth scroll to corresponding scene in the pinned hero
-    const totalHeroScroll = 3200;
-    const progressMap = [0, 0.44, 0.78];
+    const totalHeroScroll = 2800;
+    const progressMap = [0, 0.70];
     const targetScroll = totalHeroScroll * progressMap[index];
     window.scrollTo({
       top: targetScroll,
@@ -38,7 +38,7 @@ export default function HomePage() {
         onSelectModel={handleSelectModel}
       />
 
-      {/* Hero: Scroll-Driven 3-Car Cinematic Transformation */}
+      {/* Hero: Scroll-Driven 2-Car Cinematic Transformation */}
       <CinematicScroll />
 
       {/* 1px Architectural Physical Separation Layer */}

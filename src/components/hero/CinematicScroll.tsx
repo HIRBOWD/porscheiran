@@ -22,7 +22,7 @@ export default function CinematicScroll() {
     const trigger = ScrollTrigger.create({
       trigger: triggerRef.current,
       start: "top top",
-      end: "+=3400", // Generous cinematic scroll runway
+      end: "+=2800", // Generous cinematic scroll runway
       pin: containerRef.current,
       anticipatePin: 1,
       scrub: 1.2,
@@ -31,7 +31,7 @@ export default function CinematicScroll() {
         scrollProgressRef.current = p;
 
         // Only update active index state when the model boundary actually changes
-        const nextIndex = p < 0.33 ? 0 : p < 0.66 ? 1 : 2;
+        const nextIndex = p < 0.50 ? 0 : 1;
         setActiveSceneIndex((prev) => (prev !== nextIndex ? nextIndex : prev));
       },
     });
@@ -45,12 +45,12 @@ export default function CinematicScroll() {
     soundManager.playClick();
     if (!triggerRef.current) return;
     const triggerTop = triggerRef.current.offsetTop;
-    const totalDistance = 3400;
-    const sceneTargets = [0, 0.44, 0.78];
+    const totalDistance = 2800;
+    const sceneTargets = [0, 0.70];
     const targetScroll = triggerTop + totalDistance * sceneTargets[index];
 
     // Trigger synthetic audio rev for the vehicle
-    const modelKeys: ("macan" | "boxster" | "911")[] = ["macan", "boxster", "911"];
+    const modelKeys: ("macan" | "boxster")[] = ["macan", "boxster"];
     soundManager.playEngineRev(modelKeys[index]);
 
     window.scrollTo({
@@ -79,9 +79,6 @@ export default function CinematicScroll() {
         {/* ------------------------------------------------------------------ */}
         {/* MAIN TYPOGRAPHY & UI OVERLAY: Positioned in front of 3D Canvas     */}
         {/* ------------------------------------------------------------------ */}
-        {/* ------------------------------------------------------------------ */}
-        {/* MAIN TYPOGRAPHY & UI OVERLAY: Positioned in front of 3D Canvas     */}
-        {/* ------------------------------------------------------------------ */}
         <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-28 md:pt-36 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-10 md:px-16 pointer-events-none">
           {/* Top Row: Left Hero Copy & Right Scene Jump Markers */}
           <div className="flex items-start justify-between w-full">
@@ -91,7 +88,7 @@ export default function CinematicScroll() {
               <div className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase text-neutral-400 mb-2 sm:mb-3 flex items-center gap-2">
                 <span className="text-neutral-900 font-semibold">{currentVehicle.index}</span>
                 <span>/</span>
-                <span>03</span>
+                <span>02</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] ml-1" />
               </div>
 

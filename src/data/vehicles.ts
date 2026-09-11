@@ -84,32 +84,4 @@ export const VEHICLES: VehicleModel[] = [
       spotlightIntensity: 0.95,
     },
   },
-  {
-    id: "911",
-    index: "03",
-    name: "911 Carrera 4S",
-    modelCode: "911",
-    title: "911",
-    tagline: "ALL-WHEEL PRECISION. TIMELESS ATHLETICISM.",
-    colorName: "GT Silver / Crayon",
-    colorHex: "#D1CECA",
-    image: "/images/vehicles/911-carrera.jpg",
-    model3dPath: "/models/911.glb",
-    specs: {
-      power: "443 HP",
-      acceleration: "3.4 s",
-      topSpeed: "190 MPH",
-      engine: "3.0L Twin-Turbo Boxer-6",
-    },
-    halo: {
-      scale: 1.25,
-      color: "rgba(225, 225, 230, 0.55)",
-      glow: "rgba(215, 215, 225, 0.35)",
-    },
-    studioAtmosphere: {
-      bgGradient: "radial-gradient(ellipse at 50% 45%, #FFFFFF 0%, #F2F2F5 50%, #E3E3E8 100%)",
-      floorReflection: 0.3,
-      spotlightIntensity: 1.0,
-    },
-  },
 ];

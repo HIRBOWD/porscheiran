@@ -80,17 +80,6 @@ export default function MobileMenu({ isOpen, onClose, onSelectModel }: MobileMen
                   <span>02 / 718 BOXSTER GTS</span>
                   <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-black group-hover:translate-x-1 transition-all" />
                 </button>
-                <button
-                  onClick={() => {
-                    onSelectModel?.(2);
-                    onClose();
-                    soundManager.playEngineRev("911");
-                  }}
-                  className="w-full text-left text-lg md:text-xl font-light tracking-[0.15em] text-neutral-900 hover:text-black uppercase flex items-center justify-between group cursor-pointer"
-                >
-                  <span>03 / 911 CARRERA GT3</span>
-                  <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-black group-hover:translate-x-1 transition-all" />
-                </button>
               </div>
             </div>
 

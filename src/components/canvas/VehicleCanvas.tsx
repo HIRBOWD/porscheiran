@@ -10,7 +10,6 @@ interface VehicleCanvasProps {
   onSceneReady?: () => void;
   renderMacanInThree?: boolean;
   renderBoxsterInThree?: boolean;
-  renderNineElevenInThree?: boolean;
 }
 
 function VehicleCanvasComponent({
@@ -19,7 +18,6 @@ function VehicleCanvasComponent({
   onSceneReady,
   renderMacanInThree = true,
   renderBoxsterInThree = true,
-  renderNineElevenInThree = true,
 }: VehicleCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -39,15 +37,13 @@ function VehicleCanvasComponent({
   const vehiclesRef = useRef<{
     macan?: THREE.Group;
     boxster?: THREE.Group;
-    nineEleven?: THREE.Group;
   }>({});
 
   // Cached materials for smooth opacity transitions
   const vehicleMaterialsRef = useRef<{
     macan: THREE.Material[];
     boxster: THREE.Material[];
-    nineEleven: THREE.Material[];
-  }>({ macan: [], boxster: [], nineEleven: [] });
+  }>({ macan: [], boxster: [] });
 
   // 3D Halo Ring
   const haloGroupRef = useRef<THREE.Group | null>(null);
@@ -254,11 +250,11 @@ function VehicleCanvasComponent({
     };
 
     // Cached opacity levels to eliminate per-frame material iteration churn
-    const currentOpacities = { macan: -1, boxster: -1, nineEleven: -1 };
+    const currentOpacities = { macan: -1, boxster: -1 };
 
     // Helper to adjust opacity of vehicle materials only when target opacity actually changes
     const updateVehicleOpacity = (
-      key: "macan" | "boxster" | "nineEleven",
+      key: "macan" | "boxster",
       materials: THREE.Material[],
       opacity: number
     ) => {
@@ -282,45 +278,39 @@ function VehicleCanvasComponent({
       }
     };
 
-    // 7. Load all 3 Vehicles (with GLB support and procedural fallback)
+    // 7. Load Vehicles (with GLB support and procedural fallback)
     let isMounted = true;
 
     async function loadAllVehicles() {
-      const keys: VehicleKey[] = ["macan", "boxster", "911"];
+      const keys: VehicleKey[] = ["macan", "boxster"];
       const results = await Promise.all(keys.map((k) => loadVehicleModel(k)));
 
       if (!isMounted) return;
 
-      const [macanRes, boxsterRes, nineElevenRes] = results;
+      const [macanRes, boxsterRes] = results;
 
       // Position models firmly grounded on floor (Y = 0) with wheels flush on contact shadow
       macanRes.group.position.set(0, 0, 0);
       boxsterRes.group.position.set(0, 0, 0);
-      nineElevenRes.group.position.set(0, 0, 0);
 
       // Cache materials for zero-allocation opacity fading
       vehicleMaterialsRef.current = {
         macan: collectMaterials(macanRes.group),
         boxster: collectMaterials(boxsterRes.group),
-        nineEleven: collectMaterials(nineElevenRes.group),
       };
 
-      // Initially show only Macan (fully opaque), hide others
+      // Initially show only Macan (fully opaque), hide Boxster
       macanRes.group.visible = true;
       boxsterRes.group.visible = false;
-      nineElevenRes.group.visible = false;
       updateVehicleOpacity("macan", vehicleMaterialsRef.current.macan, 1.0);
       updateVehicleOpacity("boxster", vehicleMaterialsRef.current.boxster, 0.0);
-      updateVehicleOpacity("nineEleven", vehicleMaterialsRef.current.nineEleven, 0.0);
 
       scene.add(macanRes.group);
       scene.add(boxsterRes.group);
-      scene.add(nineElevenRes.group);
 
       vehiclesRef.current = {
         macan: macanRes.group,
         boxster: boxsterRes.group,
-        nineEleven: nineElevenRes.group,
       };
 
       setIsLoading(false);
@@ -474,11 +464,10 @@ function VehicleCanvasComponent({
       }
 
       // -----------------------------------------------------------------------
-      // REAL-TIME 3D SCROLL CHOREOGRAPHY (Clean Handoffs, Zero Mesh Collision)
+      // REAL-TIME 3D SCROLL CHOREOGRAPHY (Clean 2-Vehicle Handoff, Zero Collision)
       // -----------------------------------------------------------------------
       const macan = vehiclesRef.current.macan;
       const boxster = vehiclesRef.current.boxster;
-      const nineEleven = vehiclesRef.current.nineEleven;
       const mats = vehicleMaterialsRef.current;
 
       // Responsive portrait framing: Automatically adapt camera distance for narrow mobile screens
@@ -499,27 +488,28 @@ function VehicleCanvasComponent({
       let currentShadowOpacity = 0.85;
 
       // =======================================================================
-      // PHASE 1: MACAN (p in [0.00, 0.30])
-      // Full dominance in [0.00, 0.18], cinematic receding exit in [0.18, 0.30]
-      // Completely hidden at p >= 0.305 -> Zero overlap with Boxster
+      // PHASE 1: MACAN (p in [0.00, 0.45])
+      // Full dominance in [0.00, 0.24], cinematic receding exit in [0.24, 0.45]
+      // Completely hidden at p >= 0.45 -> Zero overlap with Boxster
       // =======================================================================
-      if (p < 0.305 && renderMacanInThree) {
+      if (p < 0.45 && renderMacanInThree) {
         if (macan) {
           macan.visible = true;
-          if (p <= 0.18) {
+          if (p <= 0.24) {
             // Full center focus inside halo, grounded at Y = 0
             macan.position.set(0, 0, 0);
             macan.rotation.y = -0.32 + p * 0.22 + dragRotationY;
             macan.scale.setScalar(1.0);
             updateVehicleOpacity("macan", mats.macan, 1.0);
+            currentShadowOpacity = 0.85;
           } else {
             // Controlled cinematic exit: recedes smoothly into background depth
-            const t = (p - 0.18) / 0.12; // 0 to 1
+            const t = (p - 0.24) / 0.21; // 0 to 1
             const tSmooth = t * t; // Smooth acceleration curve
-            macan.position.set(-1.4 * tSmooth, 0, -4.5 * tSmooth);
-            macan.rotation.y = -0.28 + 0.35 * tSmooth + dragRotationY;
+            macan.position.set(-1.5 * tSmooth, 0, -4.8 * tSmooth);
+            macan.rotation.y = -0.27 + 0.35 * tSmooth + dragRotationY;
             macan.scale.setScalar(1.0 - 0.32 * tSmooth);
-            const opacity = 1.0 - tSmooth;
+            const opacity = Math.max(0, 1.0 - tSmooth);
             updateVehicleOpacity("macan", mats.macan, opacity);
             currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
           }
@@ -532,17 +522,18 @@ function VehicleCanvasComponent({
       }
 
       // =======================================================================
-      // PHASE 2: BOXSTER (p in [0.31, 0.645])
-      // Enters at p = 0.31 after Macan has fully exited and cleared the center
-      // Full dominance in [0.42, 0.53], cinematic receding exit in [0.53, 0.645]
-      // Completely hidden at p < 0.31 and p >= 0.645 -> Zero collision
+      // PHASE 2: BOXSTER (p in [0.48, 1.00])
+      // Stage is completely clear in breathing gap [0.45, 0.48]
+      // Enters at p = 0.48, full dominance in [0.62, 0.84]
+      // Smooth glide into accessories boutique for p > 0.84
+      // Completely hidden at p < 0.48 -> Zero collision with Macan
       // =======================================================================
-      if (p >= 0.31 && p < 0.645 && renderBoxsterInThree) {
+      if (p >= 0.48 && renderBoxsterInThree) {
         if (boxster) {
           boxster.visible = true;
-          if (p < 0.42) {
+          if (p < 0.62) {
             // Controlled cinematic entrance: glides from perspective into center
-            const t = (p - 0.31) / 0.11; // 0 to 1
+            const t = (p - 0.48) / 0.14; // 0 to 1
             const tEase = 1 - (1 - t) * (1 - t); // Smooth deceleration curve
             boxster.position.set(1.2 * (1 - tEase), 0, 3.6 * (1 - tEase));
             boxster.rotation.y = -0.65 + 0.35 * tEase + dragRotationY;
@@ -550,23 +541,22 @@ function VehicleCanvasComponent({
             const opacity = tEase;
             updateVehicleOpacity("boxster", mats.boxster, opacity);
             currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
-          } else if (p >= 0.42 && p <= 0.53) {
+          } else if (p >= 0.62 && p <= 0.84) {
             // Full center focus inside halo, grounded at Y = 0
             boxster.position.set(0, 0, 0);
-            boxster.rotation.y = -0.30 + (p - 0.42) * 0.20 + dragRotationY;
+            boxster.rotation.y = -0.30 + (p - 0.62) * 0.20 + dragRotationY;
             boxster.scale.setScalar(1.0);
             updateVehicleOpacity("boxster", mats.boxster, 1.0);
             currentShadowOpacity = 0.85;
           } else {
-            // Controlled cinematic exit: recedes smoothly into background depth
-            const t = (p - 0.53) / 0.115; // 0 to 1
-            const tSmooth = t * t;
-            boxster.position.set(1.4 * tSmooth, 0, -4.5 * tSmooth);
-            boxster.rotation.y = -0.278 - 0.35 * tSmooth + dragRotationY;
-            boxster.scale.setScalar(1.0 - 0.32 * tSmooth);
-            const opacity = 1.0 - tSmooth;
+            // Smooth glide towards the accessories boutique
+            const t = (p - 0.84) / 0.16;
+            boxster.position.set(0, 0, -2.4 * t);
+            boxster.rotation.y = -0.26 + 0.15 * t + dragRotationY;
+            boxster.scale.setScalar(1.0 - 0.18 * t);
+            const opacity = 1.0 - 0.65 * t;
             updateVehicleOpacity("boxster", mats.boxster, opacity);
-            currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
+            currentShadowOpacity = Math.max(0.15, 0.85 * opacity);
           }
         }
       } else {
@@ -576,68 +566,20 @@ function VehicleCanvasComponent({
         }
       }
 
-      // =======================================================================
-      // PHASE 3: 911 (p >= 0.65)
-      // Enters at p = 0.65 after Boxster has fully exited and cleared the center
-      // Full iconic focus in [0.75, 0.88], graceful descent into boutique store for p > 0.88
-      // Completely hidden at p < 0.65 -> Zero collision
-      // =======================================================================
-      if (p >= 0.65 && renderNineElevenInThree) {
-        if (nineEleven) {
-          nineEleven.visible = true;
-          if (p < 0.75) {
-            // Controlled cinematic entrance: glides from perspective into center
-            const t = (p - 0.65) / 0.10; // 0 to 1
-            const tEase = 1 - (1 - t) * (1 - t);
-            nineEleven.position.set(-1.2 * (1 - tEase), 0, 3.6 * (1 - tEase));
-            nineEleven.rotation.y = -0.65 + 0.35 * tEase + dragRotationY;
-            nineEleven.scale.setScalar(0.85 + 0.15 * tEase);
-            const opacity = tEase;
-            updateVehicleOpacity("nineEleven", mats.nineEleven, opacity);
-            currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
-          } else if (p >= 0.75 && p <= 0.88) {
-            // Full iconic center focus inside halo, grounded at Y = 0
-            nineEleven.position.set(0, 0, 0);
-            nineEleven.rotation.y = -0.30 + (p - 0.75) * 0.20 + dragRotationY;
-            nineEleven.scale.setScalar(1.0);
-            updateVehicleOpacity("nineEleven", mats.nineEleven, 1.0);
-            currentShadowOpacity = 0.85;
-          } else {
-            // Gliding smoothly into the accessories boutique
-            const t = (p - 0.88) / 0.12;
-            nineEleven.position.set(0, 0, -2.2 * t);
-            nineEleven.rotation.y = -0.274 + 0.15 * t + dragRotationY;
-            nineEleven.scale.setScalar(1.0 - 0.15 * t);
-            const opacity = 1.0 - 0.65 * t;
-            updateVehicleOpacity("nineEleven", mats.nineEleven, opacity);
-            currentShadowOpacity = Math.max(0.15, 0.85 * opacity);
-          }
-        }
-      } else {
-        if (nineEleven) {
-          nineEleven.visible = false;
-          updateVehicleOpacity("nineEleven", mats.nineEleven, 0.0);
-        }
-      }
-
       // Update Contact Shadow disc opacity
       contactShadow.material.opacity = currentShadowOpacity;
 
-      // Studio Camera choreography based on scroll progress with responsive mobile scaling
-      if (p <= 0.33) {
-        baseCamX = 4.8 + p * 0.7;
-        baseCamY = 1.95 - p * 0.2;
-        baseCamZ = 6.2 - p * 0.5;
-      } else if (p > 0.33 && p <= 0.66) {
-        const p2 = (p - 0.33) / 0.33;
-        baseCamX = 4.5 - p2 * 0.3;
-        baseCamY = 1.75 + p2 * 0.2;
-        baseCamZ = 5.8 - p2 * 0.2;
+      // Studio Camera choreography for 2 vehicles with responsive mobile scaling
+      if (p <= 0.50) {
+        const p1 = p / 0.50;
+        baseCamX = 4.8 + p1 * 0.4;
+        baseCamY = 1.95 - p1 * 0.15;
+        baseCamZ = 6.2 - p1 * 0.4;
       } else {
-        const p3 = (p - 0.66) / 0.34;
-        baseCamX = 4.6 + p3 * 0.5;
-        baseCamY = 1.85 - p3 * 0.15;
-        baseCamZ = 5.9 + p3 * 0.3;
+        const p2 = (p - 0.50) / 0.50;
+        baseCamX = 4.6 + p2 * 0.4;
+        baseCamY = 1.80 + p2 * 0.15;
+        baseCamZ = 5.8 + p2 * 0.4;
       }
 
       const targetCamX = baseCamX * mobileScale + mouseCurrent.current.x;
@@ -691,7 +633,7 @@ function VehicleCanvasComponent({
 
       renderer.dispose();
     };
-  }, [onSceneReady, renderMacanInThree, renderBoxsterInThree, renderNineElevenInThree, scrollProgressRef]);
+  }, [onSceneReady, renderMacanInThree, renderBoxsterInThree, scrollProgressRef]);
 
   return (
     <div
