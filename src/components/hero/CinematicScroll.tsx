@@ -12,8 +12,8 @@ export default function CinematicScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
-  // Scene scroll progress (0 to 1)
-  const [scrollProgress, setScrollProgress] = useState(0);
+  // Scene scroll progress stored in ref to eliminate React re-renders on scroll
+  const scrollProgressRef = useRef(0);
   const [activeSceneIndex, setActiveSceneIndex] = useState(0);
 
   useEffect(() => {
@@ -28,16 +28,11 @@ export default function CinematicScroll() {
       scrub: 1.2,
       onUpdate: (self) => {
         const p = self.progress;
-        setScrollProgress(p);
+        scrollProgressRef.current = p;
 
-        // Update active index based on scroll position
-        if (p < 0.33) {
-          setActiveSceneIndex(0);
-        } else if (p >= 0.33 && p < 0.66) {
-          setActiveSceneIndex(1);
-        } else {
-          setActiveSceneIndex(2);
-        }
+        // Only update active index state when the model boundary actually changes
+        const nextIndex = p < 0.33 ? 0 : p < 0.66 ? 1 : 2;
+        setActiveSceneIndex((prev) => (prev !== nextIndex ? nextIndex : prev));
       },
     });
 
@@ -76,7 +71,7 @@ export default function CinematicScroll() {
         {/* ------------------------------------------------------------------ */}
         {/* TRUE REAL-TIME 3D WEBGL ENGINE (Rendered behind typography)        */}
         {/* ------------------------------------------------------------------ */}
-        <VehicleCanvas scrollProgress={scrollProgress} />
+        <VehicleCanvas scrollProgressRef={scrollProgressRef} />
 
         {/* Soft Studio Overhead Light Diffusion Overlay */}
         <div className="absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-[#F6F6F8]/80 to-transparent pointer-events-none z-10" />

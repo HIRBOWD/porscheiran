@@ -93,19 +93,18 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
 
     model.updateMatrixWorld(true);
 
-    // Enable shadows on all child meshes and configure materials
+    // Enable castShadow on child meshes; leave receiveShadow false to avoid heavy fragment shadow lookups
     model.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
         mesh.castShadow = true;
-        mesh.receiveShadow = true;
+        mesh.receiveShadow = false;
 
         if (mesh.material) {
           const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
           mats.forEach((m) => {
-            m.needsUpdate = true;
             if ("envMapIntensity" in m) {
-              (m as THREE.MeshStandardMaterial).envMapIntensity = 1.25;
+              (m as THREE.MeshStandardMaterial).envMapIntensity = 1.15;
             }
           });
         }

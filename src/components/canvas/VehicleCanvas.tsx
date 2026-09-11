@@ -5,15 +5,17 @@ import * as THREE from "three";
 import { loadVehicleModel, VehicleKey } from "./ModelLoader";
 
 interface VehicleCanvasProps {
-  scrollProgress: number; // 0 to 1
+  scrollProgress?: number; // 0 to 1 (legacy fallback)
+  scrollProgressRef?: React.RefObject<number>; // Non-re-rendering ref for smooth 60-120fps updates
   onSceneReady?: () => void;
   renderMacanInThree?: boolean;
   renderBoxsterInThree?: boolean;
   renderNineElevenInThree?: boolean;
 }
 
-export default function VehicleCanvas({
+function VehicleCanvasComponent({
   scrollProgress,
+  scrollProgressRef,
   onSceneReady,
   renderMacanInThree = true,
   renderBoxsterInThree = true,
@@ -54,10 +56,12 @@ export default function VehicleCanvas({
   const keyLightRef = useRef<THREE.DirectionalLight | null>(null);
   const rimLightRef = useRef<THREE.DirectionalLight | null>(null);
 
-  // Normalized scroll ref
-  const progressRef = useRef(scrollProgress);
+  // Fallback normalized scroll ref when prop is used
+  const fallbackProgressRef = useRef(scrollProgress ?? 0);
   useEffect(() => {
-    progressRef.current = scrollProgress;
+    if (scrollProgress !== undefined) {
+      fallbackProgressRef.current = scrollProgress;
+    }
   }, [scrollProgress]);
 
   useEffect(() => {
@@ -80,7 +84,8 @@ export default function VehicleCanvas({
     camera.lookAt(0, 0.45, 0);
     cameraRef.current = camera;
 
-    // 3. Initialize WebGL Renderer
+    // 3. Initialize WebGL Renderer (Capped DPR to 1.5 to eliminate Retina GPU fill-rate lag)
+    const dpr = Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 1.5);
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true,
@@ -88,9 +93,9 @@ export default function VehicleCanvas({
       powerPreference: "high-performance",
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(dpr);
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.18;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -100,12 +105,12 @@ export default function VehicleCanvas({
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambientLight);
 
-    // Key Light (Overhead front three-quarter)
+    // Key Light (Overhead front three-quarter, optimized 1024x1024 shadow map)
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
     keyLight.position.set(6, 12, 8);
     keyLight.castShadow = true;
-    keyLight.shadow.mapSize.width = 2048;
-    keyLight.shadow.mapSize.height = 2048;
+    keyLight.shadow.mapSize.width = 1024;
+    keyLight.shadow.mapSize.height = 1024;
     keyLight.shadow.camera.near = 0.5;
     keyLight.shadow.camera.far = 30;
     keyLight.shadow.camera.left = -6;
@@ -243,9 +248,21 @@ export default function VehicleCanvas({
       return mats;
     };
 
-    // Helper to adjust opacity of vehicle materials without visual artifacts
-    const setVehicleOpacity = (materials: THREE.Material[], opacity: number) => {
+    // Cached opacity levels to eliminate per-frame material iteration churn
+    const currentOpacities = { macan: -1, boxster: -1, nineEleven: -1 };
+
+    // Helper to adjust opacity of vehicle materials only when target opacity actually changes
+    const updateVehicleOpacity = (
+      key: "macan" | "boxster" | "nineEleven",
+      materials: THREE.Material[],
+      opacity: number
+    ) => {
       const clamped = Math.max(0, Math.min(1, opacity));
+      if (Math.abs(currentOpacities[key] - clamped) < 0.003) {
+        return; // Skip redundant property iterations
+      }
+      currentOpacities[key] = clamped;
+
       const isFullyOpaque = clamped >= 0.995;
       for (let i = 0; i < materials.length; i++) {
         const mat = materials[i];
@@ -287,9 +304,9 @@ export default function VehicleCanvas({
       macanRes.group.visible = true;
       boxsterRes.group.visible = false;
       nineElevenRes.group.visible = false;
-      setVehicleOpacity(vehicleMaterialsRef.current.macan, 1.0);
-      setVehicleOpacity(vehicleMaterialsRef.current.boxster, 0.0);
-      setVehicleOpacity(vehicleMaterialsRef.current.nineEleven, 0.0);
+      updateVehicleOpacity("macan", vehicleMaterialsRef.current.macan, 1.0);
+      updateVehicleOpacity("boxster", vehicleMaterialsRef.current.boxster, 0.0);
+      updateVehicleOpacity("nineEleven", vehicleMaterialsRef.current.nineEleven, 0.0);
 
       scene.add(macanRes.group);
       scene.add(boxsterRes.group);
@@ -307,7 +324,29 @@ export default function VehicleCanvas({
 
     loadAllVehicles();
 
-    // 8. Mouse Parallax & Drag Orbit Handler
+    // 8. Visibility & Viewport Observer (Halts WebGL rendering when scrolled out of view)
+    let isVisible = true;
+    const container = containerRef.current;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { threshold: 0.01 }
+    );
+    observer.observe(container);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isVisible = false;
+      } else if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        isVisible = rect.bottom > 0 && rect.top < window.innerHeight;
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // 9. Mouse Parallax & Scoped Drag Orbit Handler
     let isDragging = false;
     let prevMouseX = 0;
     let dragRotationY = 0;
@@ -336,30 +375,38 @@ export default function VehicleCanvas({
       }
     };
 
-    window.addEventListener("mousedown", handleMouseDown);
+    container.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    // 9. Resize Handler
+    // 10. Debounced Resize Handler
+    let resizeTimer: number | null = null;
     const handleResize = () => {
-      if (!containerRef.current || !renderer || !camera) return;
-      const w = containerRef.current.clientWidth;
-      const h = containerRef.current.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      if (resizeTimer !== null) cancelAnimationFrame(resizeTimer);
+      resizeTimer = requestAnimationFrame(() => {
+        if (!containerRef.current || !rendererRef.current || !cameraRef.current) return;
+        const w = containerRef.current.clientWidth;
+        const h = containerRef.current.clientHeight;
+        cameraRef.current.aspect = w / h;
+        cameraRef.current.updateProjectionMatrix();
+        rendererRef.current.setSize(w, h);
+      });
     };
 
     window.addEventListener("resize", handleResize);
 
-    // 10. Animation & Render Loop
+    // 11. Animation & Render Loop
     let animationFrameId: number;
     let clock = new THREE.Clock();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+
+      // Completely pause render pass and GPU compute when off-screen or tab is inactive
+      if (!isVisible) return;
+
       const delta = clock.getDelta();
-      const p = progressRef.current; // 0 to 1
+      const p = scrollProgressRef ? scrollProgressRef.current : fallbackProgressRef.current;
 
       // Mouse Parallax Smooth Damping
       mouseCurrent.current.x += (mouseTarget.current.x - mouseCurrent.current.x) * 0.05;
@@ -405,7 +452,7 @@ export default function VehicleCanvas({
             macan.position.set(0, 0, 0);
             macan.rotation.y = -0.32 + p * 0.22 + dragRotationY;
             macan.scale.setScalar(1.0);
-            setVehicleOpacity(mats.macan, 1.0);
+            updateVehicleOpacity("macan", mats.macan, 1.0);
           } else {
             // Controlled cinematic exit: recedes smoothly into background depth
             const t = (p - 0.18) / 0.12; // 0 to 1
@@ -414,14 +461,14 @@ export default function VehicleCanvas({
             macan.rotation.y = -0.28 + 0.35 * tSmooth + dragRotationY;
             macan.scale.setScalar(1.0 - 0.32 * tSmooth);
             const opacity = 1.0 - tSmooth;
-            setVehicleOpacity(mats.macan, opacity);
+            updateVehicleOpacity("macan", mats.macan, opacity);
             currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
           }
         }
       } else {
         if (macan) {
           macan.visible = false;
-          setVehicleOpacity(mats.macan, 0.0);
+          updateVehicleOpacity("macan", mats.macan, 0.0);
         }
       }
 
@@ -442,14 +489,14 @@ export default function VehicleCanvas({
             boxster.rotation.y = -0.65 + 0.35 * tEase + dragRotationY;
             boxster.scale.setScalar(0.85 + 0.15 * tEase);
             const opacity = tEase;
-            setVehicleOpacity(mats.boxster, opacity);
+            updateVehicleOpacity("boxster", mats.boxster, opacity);
             currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
           } else if (p >= 0.42 && p <= 0.53) {
             // Full center focus inside halo, grounded at Y = 0
             boxster.position.set(0, 0, 0);
             boxster.rotation.y = -0.30 + (p - 0.42) * 0.20 + dragRotationY;
             boxster.scale.setScalar(1.0);
-            setVehicleOpacity(mats.boxster, 1.0);
+            updateVehicleOpacity("boxster", mats.boxster, 1.0);
             currentShadowOpacity = 0.85;
           } else {
             // Controlled cinematic exit: recedes smoothly into background depth
@@ -459,14 +506,14 @@ export default function VehicleCanvas({
             boxster.rotation.y = -0.278 - 0.35 * tSmooth + dragRotationY;
             boxster.scale.setScalar(1.0 - 0.32 * tSmooth);
             const opacity = 1.0 - tSmooth;
-            setVehicleOpacity(mats.boxster, opacity);
+            updateVehicleOpacity("boxster", mats.boxster, opacity);
             currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
           }
         }
       } else {
         if (boxster) {
           boxster.visible = false;
-          setVehicleOpacity(mats.boxster, 0.0);
+          updateVehicleOpacity("boxster", mats.boxster, 0.0);
         }
       }
 
@@ -487,14 +534,14 @@ export default function VehicleCanvas({
             nineEleven.rotation.y = -0.65 + 0.35 * tEase + dragRotationY;
             nineEleven.scale.setScalar(0.85 + 0.15 * tEase);
             const opacity = tEase;
-            setVehicleOpacity(mats.nineEleven, opacity);
+            updateVehicleOpacity("nineEleven", mats.nineEleven, opacity);
             currentShadowOpacity = Math.max(0.08, 0.85 * opacity);
           } else if (p >= 0.75 && p <= 0.88) {
             // Full iconic center focus inside halo, grounded at Y = 0
             nineEleven.position.set(0, 0, 0);
             nineEleven.rotation.y = -0.30 + (p - 0.75) * 0.20 + dragRotationY;
             nineEleven.scale.setScalar(1.0);
-            setVehicleOpacity(mats.nineEleven, 1.0);
+            updateVehicleOpacity("nineEleven", mats.nineEleven, 1.0);
             currentShadowOpacity = 0.85;
           } else {
             // Gliding smoothly into the accessories boutique
@@ -503,14 +550,14 @@ export default function VehicleCanvas({
             nineEleven.rotation.y = -0.274 + 0.15 * t + dragRotationY;
             nineEleven.scale.setScalar(1.0 - 0.15 * t);
             const opacity = 1.0 - 0.65 * t;
-            setVehicleOpacity(mats.nineEleven, opacity);
+            updateVehicleOpacity("nineEleven", mats.nineEleven, opacity);
             currentShadowOpacity = Math.max(0.15, 0.85 * opacity);
           }
         }
       } else {
         if (nineEleven) {
           nineEleven.visible = false;
-          setVehicleOpacity(mats.nineEleven, 0.0);
+          updateVehicleOpacity("nineEleven", mats.nineEleven, 0.0);
         }
       }
 
@@ -556,7 +603,10 @@ export default function VehicleCanvas({
     return () => {
       isMounted = false;
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("mousedown", handleMouseDown);
+      if (resizeTimer !== null) cancelAnimationFrame(resizeTimer);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      container.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
@@ -575,7 +625,7 @@ export default function VehicleCanvas({
 
       renderer.dispose();
     };
-  }, [onSceneReady]);
+  }, [onSceneReady, renderMacanInThree, renderBoxsterInThree, renderNineElevenInThree, scrollProgressRef]);
 
   return (
     <div
@@ -602,3 +652,6 @@ export default function VehicleCanvas({
     </div>
   );
 }
+
+const VehicleCanvas = React.memo(VehicleCanvasComponent);
+export default VehicleCanvas;
