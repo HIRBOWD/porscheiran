@@ -78,14 +78,19 @@ function VehicleCanvasComponent({
     scene.background = new THREE.Color(0xf6f6f8);
     scene.fog = new THREE.FogExp2(0xf6f6f8, 0.035);
 
-    // 2. Initialize Camera
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    // 2. Initialize Camera with Mobile Aspect Ratio Awareness
+    const aspect = width / height;
+    const isMobile = width < 768;
+    const camera = new THREE.PerspectiveCamera(38, aspect, 0.1, 100);
     camera.position.set(4.8, 1.8, 6.2);
     camera.lookAt(0, 0.45, 0);
     cameraRef.current = camera;
 
-    // 3. Initialize WebGL Renderer (Capped DPR to 1.5 to eliminate Retina GPU fill-rate lag)
-    const dpr = Math.min(typeof window !== "undefined" ? window.devicePixelRatio : 1, 1.5);
+    // 3. Initialize WebGL Renderer (Tuned DPR: 1.25 on mobile to save battery/GPU, 1.5 on desktop)
+    const dpr = Math.min(
+      typeof window !== "undefined" ? window.devicePixelRatio : 1,
+      isMobile ? 1.25 : 1.5
+    );
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true,
@@ -346,7 +351,10 @@ function VehicleCanvasComponent({
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // 9. Mouse Parallax & Scoped Drag Orbit Handler
+    // Track aspect ratio for responsive portrait framing
+    let currentAspect = width / height;
+
+    // 9. Mouse & Touch Parallax & Scoped Drag Orbit Handler
     let isDragging = false;
     let prevMouseX = 0;
     let dragRotationY = 0;
@@ -375,9 +383,56 @@ function VehicleCanvasComponent({
       }
     };
 
+    // Mobile touch handling: Horizontal swipe rotates vehicle; vertical swipe preserves fluid native scrolling
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isTouchHorizontal = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isTouchHorizontal = false;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        const clientX = e.touches[0].clientX;
+        const clientY = e.touches[0].clientY;
+        const dx = clientX - touchStartX;
+        const dy = clientY - touchStartY;
+
+        // Subtle mouse parallax tilt on touch
+        const normX = (clientX / window.innerWidth) * 2 - 1;
+        const normY = -(clientY / window.innerHeight) * 2 + 1;
+        mouseTarget.current.x = normX * 0.25;
+        mouseTarget.current.y = normY * 0.15;
+
+        // Detect horizontal intent
+        if (!isTouchHorizontal && Math.abs(dx) > Math.abs(dy) + 5) {
+          isTouchHorizontal = true;
+        }
+
+        if (isTouchHorizontal) {
+          dragRotationY += dx * 0.007;
+          touchStartX = clientX;
+          touchStartY = clientY;
+        }
+      }
+    };
+
+    const handleTouchEnd = () => {
+      isTouchHorizontal = false;
+    };
+
     container.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    container.addEventListener("touchstart", handleTouchStart, { passive: true });
+    container.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     // 10. Debounced Resize Handler
     let resizeTimer: number | null = null;
@@ -387,7 +442,8 @@ function VehicleCanvasComponent({
         if (!containerRef.current || !rendererRef.current || !cameraRef.current) return;
         const w = containerRef.current.clientWidth;
         const h = containerRef.current.clientHeight;
-        cameraRef.current.aspect = w / h;
+        currentAspect = w / h;
+        cameraRef.current.aspect = currentAspect;
         cameraRef.current.updateProjectionMatrix();
         rendererRef.current.setSize(w, h);
       });
@@ -425,10 +481,13 @@ function VehicleCanvasComponent({
       const nineEleven = vehiclesRef.current.nineEleven;
       const mats = vehicleMaterialsRef.current;
 
+      // Responsive portrait framing: Automatically adapt camera distance for narrow mobile screens
+      const mobileScale = Math.min(1.95, Math.max(1.0, 0.88 / currentAspect));
+
       // Base camera coordinates targeting halo & vehicle mid-height center (Y = 0.65)
-      let targetCamX = 4.8 + mouseCurrent.current.x;
-      let targetCamY = 1.95 + mouseCurrent.current.y;
-      let targetCamZ = 6.2;
+      let baseCamX = 4.8;
+      let baseCamY = 1.95;
+      let baseCamZ = 6.2;
       const targetLookAtY = 0.65;
 
       // Decay drag rotation smoothly when not actively dragging
@@ -564,22 +623,26 @@ function VehicleCanvasComponent({
       // Update Contact Shadow disc opacity
       contactShadow.material.opacity = currentShadowOpacity;
 
-      // Studio Camera choreography based on scroll progress
+      // Studio Camera choreography based on scroll progress with responsive mobile scaling
       if (p <= 0.33) {
-        targetCamX = 4.8 + p * 0.7 + mouseCurrent.current.x;
-        targetCamY = 1.95 - p * 0.2 + mouseCurrent.current.y;
-        targetCamZ = 6.2 - p * 0.5;
+        baseCamX = 4.8 + p * 0.7;
+        baseCamY = 1.95 - p * 0.2;
+        baseCamZ = 6.2 - p * 0.5;
       } else if (p > 0.33 && p <= 0.66) {
         const p2 = (p - 0.33) / 0.33;
-        targetCamX = 4.5 - p2 * 0.3 + mouseCurrent.current.x;
-        targetCamY = 1.75 + p2 * 0.2 + mouseCurrent.current.y;
-        targetCamZ = 5.8 - p2 * 0.2;
+        baseCamX = 4.5 - p2 * 0.3;
+        baseCamY = 1.75 + p2 * 0.2;
+        baseCamZ = 5.8 - p2 * 0.2;
       } else {
         const p3 = (p - 0.66) / 0.34;
-        targetCamX = 4.6 + p3 * 0.5 + mouseCurrent.current.x;
-        targetCamY = 1.85 - p3 * 0.15 + mouseCurrent.current.y;
-        targetCamZ = 5.9 + p3 * 0.3;
+        baseCamX = 4.6 + p3 * 0.5;
+        baseCamY = 1.85 - p3 * 0.15;
+        baseCamZ = 5.9 + p3 * 0.3;
       }
+
+      const targetCamX = baseCamX * mobileScale + mouseCurrent.current.x;
+      const targetCamY = baseCamY * (0.85 + 0.15 * mobileScale) + mouseCurrent.current.y;
+      const targetCamZ = baseCamZ * mobileScale;
 
       // Interpolate camera smoothly towards target
       camera.position.x += (targetCamX - camera.position.x) * 0.1;
@@ -609,6 +672,9 @@ function VehicleCanvasComponent({
       container.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
       window.removeEventListener("resize", handleResize);
 
       scene.traverse((obj) => {
@@ -634,7 +700,7 @@ function VehicleCanvasComponent({
     >
       <canvas
         ref={canvasRef}
-        className="w-full h-full block touch-none"
+        className="w-full h-full block touch-pan-y"
         style={{ width: "100%", height: "100%" }}
       />
 

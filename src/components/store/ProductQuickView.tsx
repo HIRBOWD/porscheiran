@@ -30,21 +30,21 @@ export default function ProductQuickView({ product, onClose }: ProductQuickViewP
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-4xl bg-white border border-black/[0.08] shadow-2xl overflow-hidden z-10 grid grid-cols-1 md:grid-cols-2 max-h-[90vh]">
+      <div className="relative w-full max-w-4xl bg-white border border-black/[0.08] shadow-2xl overflow-y-auto md:overflow-hidden z-10 grid grid-cols-1 md:grid-cols-2 max-h-[88vh] md:max-h-[90vh]">
         {/* Close Button */}
         <button
           onClick={() => {
             soundManager.playClick();
             onClose();
           }}
-          className="absolute top-4 right-4 z-20 w-9 h-9 bg-white/90 backdrop-blur-sm border border-black/[0.08] rounded-full flex items-center justify-center text-neutral-600 hover:text-black cursor-pointer transition-transform hover:scale-105"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 w-9 h-9 bg-white/95 backdrop-blur-sm border border-black/[0.08] rounded-full flex items-center justify-center text-neutral-600 hover:text-black cursor-pointer transition-transform hover:scale-105 active:scale-95 shadow-xs"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Product Image Panel */}
-        <div className="relative aspect-square md:aspect-auto w-full bg-[#F4F4F6] p-8 md:p-12 flex items-center justify-center">
-          <div className="relative w-full h-full min-h-[300px]">
+        <div className="relative aspect-[4/3] md:aspect-auto w-full bg-[#F4F4F6] p-6 md:p-12 flex items-center justify-center">
+          <div className="relative w-full h-full min-h-[200px] sm:min-h-[260px] md:min-h-[300px]">
             <Image
               src={product.image}
               alt={product.name}

@@ -47,7 +47,7 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
             : "bg-transparent py-6 md:py-7 border-b border-black/[0.03]"
         }`}
       >
-        <div className="max-w-[1720px] mx-auto px-6 md:px-12 flex items-center justify-between">
+        <div className="max-w-[1720px] mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between">
           {/* Left Navigation */}
           <nav className="hidden lg:flex items-center space-x-10 text-[11px] font-medium tracking-[0.25em] text-neutral-800">
             <div
@@ -130,7 +130,7 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
                 soundManager.playClick();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="inline-block text-xl md:text-2xl font-bold tracking-[0.38em] text-neutral-950 hover:opacity-85 transition-opacity"
+              className="inline-block text-lg sm:text-xl md:text-2xl font-bold tracking-[0.34em] sm:tracking-[0.38em] text-neutral-950 hover:opacity-85 transition-opacity"
               style={{ fontFamily: "'Helvetica Neue', Arial, sans-serif" }}
             >
               PORSCHE
@@ -138,7 +138,7 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
           </div>
 
           {/* Right Navigation */}
-          <div className="flex items-center space-x-6 md:space-x-8 text-[11px] font-medium tracking-[0.25em] text-neutral-800">
+          <div className="flex items-center space-x-3 sm:space-x-6 md:space-x-8 text-[10px] sm:text-[11px] font-medium tracking-[0.2em] sm:tracking-[0.25em] text-neutral-800">
             {/* Audio Toggle */}
             <button
               onClick={toggleAudio}

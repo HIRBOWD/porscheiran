@@ -19,7 +19,13 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
   return (
     <div className="group relative flex flex-col bg-[#FFFFFF]/70 hover:bg-[#FFFFFF] border border-black/[0.06] hover:border-black/[0.14] transition-all duration-500 rounded-none overflow-hidden">
       {/* Product Image Stage */}
-      <div className="relative aspect-square w-full bg-[#F4F4F6] overflow-hidden flex items-center justify-center p-8">
+      <div
+        onClick={() => {
+          soundManager.playClick();
+          onQuickView(product);
+        }}
+        className="relative aspect-square w-full bg-[#F4F4F6] overflow-hidden flex items-center justify-center p-8 cursor-pointer"
+      >
         {/* Subtle hover gradient */}
         <div className="absolute inset-0 bg-radial from-white/40 via-transparent to-black/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
@@ -32,13 +38,14 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
           </div>
         )}
 
-        {/* Quick View Button on Image */}
+        {/* Quick View Button on Image (Visible on mobile touch screens, hover on desktop) */}
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             soundManager.playClick();
             onQuickView(product);
           }}
-          className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm border border-black/[0.06] flex items-center justify-center text-neutral-600 hover:text-black hover:scale-105 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer shadow-sm"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 w-8 h-8 rounded-full bg-white/95 backdrop-blur-sm border border-black/[0.08] flex items-center justify-center text-neutral-700 hover:text-black hover:scale-105 active:scale-95 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 cursor-pointer shadow-xs"
           title="Quick View"
         >
           <Eye className="w-3.5 h-3.5" />
