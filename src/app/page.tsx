@@ -35,7 +35,7 @@ export default function HomePage() {
         onSelectModel={handleSelectModel}
       />
 
-      {/* Hero: Real-Time 3D WebGL Boxster Cinematic Showcase */}
+      {/* Hero: Real-Time 3D WebGL 911 GT3 RS Cinematic Showcase */}
       <CinematicScroll />
 
       {/* 1px Architectural Physical Separation Layer */}

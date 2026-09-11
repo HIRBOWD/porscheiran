@@ -8,14 +8,14 @@ interface VehicleCanvasProps {
   scrollProgress?: number; // 0 to 1 (legacy fallback)
   scrollProgressRef?: React.RefObject<number>; // Non-re-rendering ref for smooth 60-120fps updates
   onSceneReady?: () => void;
-  renderBoxsterInThree?: boolean;
+  renderGt3InThree?: boolean;
 }
 
 function VehicleCanvasComponent({
   scrollProgress,
   scrollProgressRef,
   onSceneReady,
-  renderBoxsterInThree = true,
+  renderGt3InThree = true,
 }: VehicleCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -33,13 +33,13 @@ function VehicleCanvasComponent({
 
   // Vehicle 3D groups
   const vehiclesRef = useRef<{
-    boxster?: THREE.Group;
+    gt3?: THREE.Group;
   }>({});
 
   // Cached materials for smooth opacity transitions
   const vehicleMaterialsRef = useRef<{
-    boxster: THREE.Material[];
-  }>({ boxster: [] });
+    gt3: THREE.Material[];
+  }>({ gt3: [] });
 
   // 3D Halo Ring
   const haloGroupRef = useRef<THREE.Group | null>(null);
@@ -246,11 +246,11 @@ function VehicleCanvasComponent({
     };
 
     // Cached opacity levels to eliminate per-frame material iteration churn
-    const currentOpacities = { boxster: -1 };
+    const currentOpacities = { gt3: -1 };
 
     // Helper to adjust opacity of vehicle materials only when target opacity actually changes
     const updateVehicleOpacity = (
-      key: "boxster",
+      key: "gt3",
       materials: THREE.Material[],
       opacity: number
     ) => {
@@ -274,30 +274,30 @@ function VehicleCanvasComponent({
       }
     };
 
-    // 7. Load Boxster Vehicle (with GLB support and procedural fallback)
+    // 7. Load 911 GT3 RS Vehicle (with GLB support and procedural fallback)
     let isMounted = true;
 
     async function loadAllVehicles() {
-      const boxsterRes = await loadVehicleModel("boxster");
+      const gt3Res = await loadVehicleModel("gt3");
 
       if (!isMounted) return;
 
       // Position model firmly grounded on floor (Y = 0) with wheels flush on contact shadow
-      boxsterRes.group.position.set(0, 0, 0);
+      gt3Res.group.position.set(0, 0, 0);
 
       // Cache materials for zero-allocation opacity fading
       vehicleMaterialsRef.current = {
-        boxster: collectMaterials(boxsterRes.group),
+        gt3: collectMaterials(gt3Res.group),
       };
 
-      // Show Boxster (fully opaque) inside halo
-      boxsterRes.group.visible = true;
-      updateVehicleOpacity("boxster", vehicleMaterialsRef.current.boxster, 1.0);
+      // Show GT3 (fully opaque) inside halo
+      gt3Res.group.visible = true;
+      updateVehicleOpacity("gt3", vehicleMaterialsRef.current.gt3, 1.0);
 
-      scene.add(boxsterRes.group);
+      scene.add(gt3Res.group);
 
       vehiclesRef.current = {
-        boxster: boxsterRes.group,
+        gt3: gt3Res.group,
       };
 
       setIsLoading(false);
@@ -451,9 +451,9 @@ function VehicleCanvasComponent({
       }
 
       // -----------------------------------------------------------------------
-      // REAL-TIME 3D SCROLL CHOREOGRAPHY (718 Boxster GTS 4.0 Showcase)
+      // REAL-TIME 3D SCROLL CHOREOGRAPHY (911 GT3 RS Showcase)
       // -----------------------------------------------------------------------
-      const boxster = vehiclesRef.current.boxster;
+      const gt3 = vehiclesRef.current.gt3;
       const mats = vehicleMaterialsRef.current;
 
       // Responsive portrait framing: Automatically adapt camera distance for narrow mobile screens
@@ -474,27 +474,27 @@ function VehicleCanvasComponent({
       let currentShadowOpacity = 0.85;
 
       // =======================================================================
-      // 718 BOXSTER GTS 4.0: ICONIC STUDIO CENTERPIECE
+      // 911 GT3 RS: ICONIC MOTORSPORT CENTERPIECE
       // Full dominance inside halo for p in [0.00, 0.68]
       // Smooth descent towards accessories boutique for p > 0.68
       // =======================================================================
-      if (boxster && renderBoxsterInThree) {
-        boxster.visible = true;
+      if (gt3 && renderGt3InThree) {
+        gt3.visible = true;
         if (p <= 0.68) {
           // Full center focus inside halo, grounded firmly at Y = 0
-          boxster.position.set(0, 0, 0);
-          boxster.rotation.y = -0.32 + p * 0.36 + dragRotationY;
-          boxster.scale.setScalar(1.0);
-          updateVehicleOpacity("boxster", mats.boxster, 1.0);
+          gt3.position.set(0, 0, 0);
+          gt3.rotation.y = -0.32 + p * 0.36 + dragRotationY;
+          gt3.scale.setScalar(1.0);
+          updateVehicleOpacity("gt3", mats.gt3, 1.0);
           currentShadowOpacity = 0.85;
         } else {
           // Smooth glide down into the accessories boutique
           const t = (p - 0.68) / 0.32;
-          boxster.position.set(0, 0, -2.5 * t);
-          boxster.rotation.y = -0.32 + 0.36 * 0.68 + 0.15 * t + dragRotationY;
-          boxster.scale.setScalar(1.0 - 0.18 * t);
+          gt3.position.set(0, 0, -2.5 * t);
+          gt3.rotation.y = -0.32 + 0.36 * 0.68 + 0.15 * t + dragRotationY;
+          gt3.scale.setScalar(1.0 - 0.18 * t);
           const opacity = Math.max(0.2, 1.0 - 0.65 * t);
-          updateVehicleOpacity("boxster", mats.boxster, opacity);
+          updateVehicleOpacity("gt3", mats.gt3, opacity);
           currentShadowOpacity = Math.max(0.15, 0.85 * opacity);
         }
       }
@@ -502,7 +502,7 @@ function VehicleCanvasComponent({
       // Update Contact Shadow disc opacity
       contactShadow.material.opacity = currentShadowOpacity;
 
-      // Studio Camera choreography for Boxster with responsive mobile scaling
+      // Studio Camera choreography for 911 GT3 RS with responsive mobile scaling
       const camT = Math.min(1, Math.max(0, p / 0.70));
       baseCamX = 4.8 + camT * 0.35;
       baseCamY = 1.92 - camT * 0.12;
@@ -559,7 +559,7 @@ function VehicleCanvasComponent({
 
       renderer.dispose();
     };
-  }, [onSceneReady, renderBoxsterInThree, scrollProgressRef]);
+  }, [onSceneReady, renderGt3InThree, scrollProgressRef]);
 
   return (
     <div

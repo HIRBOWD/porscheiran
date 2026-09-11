@@ -61,7 +61,7 @@ class SoundManager {
   /**
    * Synthetic Porsche flat-six engine rev resonance
    */
-  public playEngineRev(modelType: "macan" | "boxster" | "911" = "911") {
+  public playEngineRev(modelType: "macan" | "boxster" | "911" | "gt3" = "gt3") {
     if (this.isMuted) return;
     try {
       this.init();
@@ -70,9 +70,9 @@ class SoundManager {
       const now = this.ctx.currentTime;
       const duration = 1.4;
 
-      // Base frequencies depending on model
-      const baseFreq = modelType === "macan" ? 65 : modelType === "boxster" ? 85 : 95;
-      const peakFreq = modelType === "macan" ? 180 : modelType === "boxster" ? 260 : 310;
+      // Base frequencies depending on model (GT3 revs higher to 9,000 RPM)
+      const baseFreq = modelType === "macan" ? 65 : modelType === "boxster" ? 85 : 98;
+      const peakFreq = modelType === "macan" ? 180 : modelType === "boxster" ? 260 : 330;
 
       // 1. Fundamental engine rumble oscillator
       const osc1 = this.ctx.createOscillator();

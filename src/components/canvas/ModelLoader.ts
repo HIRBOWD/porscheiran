@@ -6,7 +6,7 @@ import {
   create911Model,
 } from "./ProceduralPorsche";
 
-export type VehicleKey = "macan" | "boxster" | "911";
+export type VehicleKey = "gt3" | "boxster" | "macan" | "911";
 
 interface ModelConfig {
   key: VehicleKey;
@@ -15,15 +15,20 @@ interface ModelConfig {
 }
 
 const MODEL_CONFIGS: Record<VehicleKey, ModelConfig> = {
-  macan: {
-    key: "macan",
-    path: "/models/Macan.glb",
-    createFallback: createMacanModel,
+  gt3: {
+    key: "gt3",
+    path: "/models/porschegt3.glb",
+    createFallback: create911Model,
   },
   boxster: {
     key: "boxster",
     path: "/models/Boxster.glb",
     createFallback: createBoxsterModel,
+  },
+  macan: {
+    key: "macan",
+    path: "/models/Macan.glb",
+    createFallback: createMacanModel,
   },
   911: {
     key: "911",
@@ -105,6 +110,15 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
           mats.forEach((m) => {
             if ("envMapIntensity" in m) {
               (m as THREE.MeshStandardMaterial).envMapIntensity = 1.15;
+            }
+            // Ensure subtle diffuse roughness so studio directional lights catch car curves nicely
+            const matName = (m.name || "").toLowerCase();
+            if (
+              "roughness" in m &&
+              !matName.includes("glass") &&
+              (m as THREE.MeshStandardMaterial).roughness < 0.12
+            ) {
+              (m as THREE.MeshStandardMaterial).roughness = 0.22;
             }
           });
         }

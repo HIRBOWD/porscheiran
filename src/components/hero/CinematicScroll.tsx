@@ -43,7 +43,7 @@ export default function CinematicScroll() {
     const triggerTop = triggerRef.current.offsetTop;
 
     // Trigger synthetic audio rev for the vehicle
-    soundManager.playEngineRev("boxster");
+    soundManager.playEngineRev("gt3");
 
     window.scrollTo({
       top: triggerTop,
