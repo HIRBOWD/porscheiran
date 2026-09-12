@@ -8,7 +8,6 @@ import HeroScrollCapsule from "@/components/hero/HeroScrollCapsule";
 import StoreSection from "@/components/store/StoreSection";
 import HeritageBanner from "@/components/editorial/HeritageBanner";
 import Manifesto from "@/components/editorial/Manifesto";
-import CartDrawer from "@/components/layout/CartDrawer";
 import SearchModal from "@/components/layout/SearchModal";
 import MobileMenu from "@/components/layout/MobileMenu";
 import ProductQuickView from "@/components/store/ProductQuickView";
@@ -97,8 +96,6 @@ export default function HomePage() {
       <Footer />
 
       {/* Drawers & Modals */}
-      <CartDrawer />
-
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}

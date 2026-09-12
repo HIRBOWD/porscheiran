@@ -4,9 +4,8 @@ import React from "react";
 import Image from "next/image";
 import { Product } from "@/data/products";
 import { formatPrice } from "@/lib/utils";
-import { useCart } from "@/context/CartContext";
 import { soundManager } from "@/lib/audio";
-import { Eye, Plus } from "lucide-react";
+import { Eye } from "lucide-react";
 
 interface ProductCardProps {
   product: Product;
@@ -14,7 +13,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, onQuickView }: ProductCardProps) {
-  const { addToCart } = useCart();
 
   return (
     <div className="group relative flex flex-col bg-[#FFFFFF]/70 hover:bg-[#FFFFFF] dark:bg-[#121216]/80 dark:hover:bg-[#15151a] border border-black/[0.06] hover:border-black/[0.14] dark:border-white/[0.08] dark:hover:border-white/[0.18] transition-all duration-500 rounded-none overflow-hidden">
@@ -95,11 +93,11 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
           </div>
 
           <button
-            onClick={() => addToCart(product)}
+            onClick={() => onQuickView(product)}
             className="flex items-center space-x-2 text-[10px] tracking-[0.2em] uppercase font-medium px-4 py-2.5 bg-neutral-900 hover:bg-black dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-950 transition-all duration-300 cursor-pointer group/btn"
           >
-            <Plus className="w-3 h-3 text-neutral-400 dark:text-neutral-500 group-hover/btn:text-white dark:group-hover/btn:text-neutral-950 transition-colors" />
-            <span>ADD TO BAG</span>
+            <Eye className="w-3 h-3 text-neutral-400 dark:text-neutral-500 group-hover/btn:text-white dark:group-hover/btn:text-neutral-950 transition-colors" />
+            <span>DISCOVER</span>
           </button>
         </div>
       </div>

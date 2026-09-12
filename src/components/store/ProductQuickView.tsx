@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import { Product } from "@/data/products";
 import { formatPrice } from "@/lib/utils";
-import { useCart } from "@/context/CartContext";
 import { soundManager } from "@/lib/audio";
 import { X, Check, ShieldCheck, Truck, RotateCcw } from "lucide-react";
 
@@ -14,7 +13,6 @@ interface ProductQuickViewProps {
 }
 
 export default function ProductQuickView({ product, onClose }: ProductQuickViewProps) {
-  const { addToCart } = useCart();
 
   if (!product) return null;
 
@@ -119,14 +117,12 @@ export default function ProductQuickView({ product, onClose }: ProductQuickViewP
           <div className="mt-8 pt-6 border-t border-black/[0.06] dark:border-white/[0.08]">
             <button
               onClick={() => {
-                addToCart(product);
+                soundManager.playClick();
                 onClose();
               }}
               className="w-full py-3.5 bg-neutral-950 hover:bg-black dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-950 text-[11px] font-medium tracking-[0.25em] uppercase transition-colors cursor-pointer flex items-center justify-center gap-2"
             >
-              <span>ADD TO BAG</span>
-              <span>—</span>
-              <span>{formatPrice(product.price)}</span>
+              <span>INQUIRE AT PORSCHE CENTRE</span>
             </button>
 
             {/* Showroom Guarantees */}

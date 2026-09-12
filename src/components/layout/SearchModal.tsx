@@ -4,7 +4,6 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import { PRODUCTS, Product } from "@/data/products";
 import { formatPrice } from "@/lib/utils";
-import { useCart } from "@/context/CartContext";
 import { soundManager } from "@/lib/audio";
 import { Search, X, ArrowUpRight } from "lucide-react";
 
@@ -16,7 +15,6 @@ interface SearchModalProps {
 
 export default function SearchModal({ isOpen, onClose, onSelectProduct }: SearchModalProps) {
   const [query, setQuery] = useState("");
-  const { addToCart } = useCart();
 
   const searchResults = useMemo(() => {
     if (!query.trim()) return [];
@@ -153,12 +151,13 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
                     </span>
                     <button
                       onClick={() => {
-                        addToCart(product);
+                        soundManager.playClick();
+                        onSelectProduct?.(product);
                         onClose();
                       }}
                       className="px-3 py-1.5 bg-neutral-900 hover:bg-black dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-950 text-[9px] font-mono tracking-widest uppercase cursor-pointer"
                     >
-                      ADD
+                      VIEW
                     </button>
                   </div>
                 </div>

@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useCart } from "@/context/CartContext";
 import { useTheme } from "@/context/ThemeContext";
 import { soundManager } from "@/lib/audio";
-import { Search, ShoppingBag, Sun, Moon, Menu } from "lucide-react";
+import { Search, Sun, Moon, Menu } from "lucide-react";
 
 interface HeaderProps {
   onOpenSearch: () => void;
@@ -13,7 +12,6 @@ interface HeaderProps {
 }
 
 export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: HeaderProps) {
-  const { itemCount, openCart } = useCart();
   const { isDark, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [showModelsDropdown, setShowModelsDropdown] = useState(false);
@@ -143,20 +141,6 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
             >
               <Search className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors" />
               <span className="hidden sm:inline">SEARCH</span>
-            </button>
-
-            {/* Bag */}
-            <button
-              onClick={() => {
-                soundManager.playClick();
-                openCart();
-              }}
-              className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-2 uppercase cursor-pointer group"
-            >
-              <ShoppingBag className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors" />
-              <span>
-                BAG <span className="text-neutral-500 dark:text-neutral-400 font-normal">({itemCount})</span>
-              </span>
             </button>
 
             {/* Menu */}
