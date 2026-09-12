@@ -17,15 +17,15 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative w-full bg-[#111113] text-neutral-400 py-20 md:py-28 px-8 md:px-16 border-t border-neutral-800">
+    <footer className="relative w-full bg-[#111113] dark:bg-[#070709] text-neutral-400 py-20 md:py-28 px-8 md:px-16 border-t border-neutral-800 dark:border-white/[0.08]">
       <div className="max-w-[1720px] mx-auto">
         {/* Top Tier: Wordmark & Newsletter */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between pb-16 border-b border-neutral-800 gap-12">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between pb-16 border-b border-neutral-800 dark:border-white/[0.08] gap-12">
           <div>
             <span className="text-2xl md:text-3xl font-bold tracking-[0.4em] text-white uppercase block mb-3 font-mono">
               PORSCHE
             </span>
-            <span className="text-xs tracking-[0.25em] uppercase text-neutral-500 font-mono">
+            <span className="text-xs tracking-[0.25em] uppercase text-neutral-500 dark:text-neutral-400 font-mono">
               TEQUIPMENT & ACCESSORIES BOUTIQUE
             </span>
           </div>
@@ -35,7 +35,7 @@ export default function Footer() {
             <span className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 font-mono block mb-2">
               DISPATCHES FROM WEISSACH
             </span>
-            <p className="text-xs text-neutral-500 font-light mb-4">
+            <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light mb-4">
               Receive private invitations to limited production allocations and bespoke design releases.
             </p>
 
@@ -45,7 +45,7 @@ export default function Footer() {
                 <span>YOU ARE SUBSCRIBED TO PRIVATE DISPATCHES.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex border-b border-neutral-700 focus-within:border-white transition-colors">
+              <form onSubmit={handleSubscribe} className="flex border-b border-neutral-700 dark:border-neutral-700 focus-within:border-white transition-colors">
                 <input
                   type="email"
                   value={email}
@@ -67,7 +67,7 @@ export default function Footer() {
         </div>
 
         {/* Middle Tier: Navigation Links */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16 border-b border-neutral-800 text-xs">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16 border-b border-neutral-800 dark:border-white/[0.08] text-xs">
           <div>
             <h5 className="text-[10px] font-mono tracking-[0.25em] uppercase text-white font-medium mb-4">
               VEHICLE MODELS

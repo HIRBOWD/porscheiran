@@ -5,6 +5,7 @@ import * as THREE from "three";
 import gsap from "gsap";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { loadVehicleModel, VehicleKey } from "./ModelLoader";
+import { useTheme } from "@/context/ThemeContext";
 
 interface VehicleCanvasProps {
   scrollProgress?: number; // 0 to 1 (legacy fallback)
@@ -19,6 +20,10 @@ function VehicleCanvasComponent({
   onSceneReady,
   renderGt3InThree = true,
 }: VehicleCanvasProps) {
+  const { isDark } = useTheme();
+  const isDarkRef = useRef(isDark);
+  isDarkRef.current = isDark;
+
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -64,13 +69,31 @@ function VehicleCanvasComponent({
     const width = containerRef.current.clientWidth;
     const height = containerRef.current.clientHeight;
 
-    // 1. Initialize Scene
+    // 1. Initialize Scene & Theme Adaptive Palette (Light / Dark)
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    // Soft studio background color & subtle fog
-    scene.background = new THREE.Color(0xf6f6f8);
-    scene.fog = new THREE.FogExp2(0xf6f6f8, 0.035);
+    const lightBg = new THREE.Color(0xf6f6f8);
+    const darkBg = new THREE.Color(0x0b0b0d);
+    const activeBg = new THREE.Color(isDarkRef.current ? 0x0b0b0d : 0xf6f6f8);
+
+    scene.background = activeBg;
+    const fog = new THREE.FogExp2(activeBg.getHex(), 0.035);
+    scene.fog = fog;
+
+    const lightGround = new THREE.Color(0xf3f3f6);
+    const darkGround = new THREE.Color(0x111114);
+
+    const lightHaloColor = new THREE.Color(0xd6d9e0);
+    const darkHaloColor = new THREE.Color(0xffffff);
+
+    const lightHaloEmissive = new THREE.Color(0x222630);
+    const darkHaloEmissive = new THREE.Color(0x99bbff);
+
+    const lightOuterColor = new THREE.Color(0x999da8);
+    const darkOuterColor = new THREE.Color(0xffffff);
+
+    let themeT = isDarkRef.current ? 1.0 : 0.0;
 
     // 2. Initialize Camera with Mobile Aspect Ratio Awareness
     const aspect = width / height;
@@ -161,9 +184,9 @@ function VehicleCanvasComponent({
     // 5. Studio Ground Plane & Contact Shadow Disc
     const groundGeo = new THREE.PlaneGeometry(80, 80);
     const groundMat = new THREE.MeshStandardMaterial({
-      color: 0xf3f3f6,
-      roughness: 0.65,
-      metalness: 0.05,
+      color: isDarkRef.current ? 0x111114 : 0xf3f3f6,
+      roughness: isDarkRef.current ? 0.50 : 0.65,
+      metalness: isDarkRef.current ? 0.20 : 0.05,
     });
     const ground = new THREE.Mesh(groundGeo, groundMat);
     ground.rotation.x = -Math.PI / 2;
@@ -192,7 +215,7 @@ function VehicleCanvasComponent({
     const shadowMat = new THREE.MeshBasicMaterial({
       map: shadowTexture,
       transparent: true,
-      opacity: 0.85,
+      opacity: isDarkRef.current ? 0.65 : 0.85,
       depthWrite: false,
     });
     const contactShadow = new THREE.Mesh(shadowGeo, shadowMat);
@@ -215,11 +238,11 @@ function VehicleCanvasComponent({
       isMobile ? 80 : 160
     );
     const haloRingMat = new THREE.MeshStandardMaterial({
-      color: 0xd6d9e0,
-      metalness: 0.9,
-      roughness: 0.2,
-      emissive: 0x222630,
-      emissiveIntensity: 0.3,
+      color: isDarkRef.current ? 0xffffff : 0xd6d9e0,
+      metalness: 0.95,
+      roughness: 0.18,
+      emissive: isDarkRef.current ? 0x99bbff : 0x222630,
+      emissiveIntensity: isDarkRef.current ? 0.85 : 0.3,
     });
     const haloRing = new THREE.Mesh(haloRingGeo, haloRingMat);
     haloGroup.add(haloRing);
@@ -232,9 +255,9 @@ function VehicleCanvasComponent({
       isMobile ? 80 : 160
     );
     const outerRingMat = new THREE.MeshBasicMaterial({
-      color: 0x999da8,
+      color: isDarkRef.current ? 0xffffff : 0x999da8,
       transparent: true,
-      opacity: 0.45,
+      opacity: isDarkRef.current ? 0.70 : 0.45,
     });
     const outerRing = new THREE.Mesh(outerRingGeo, outerRingMat);
     haloGroup.add(outerRing);
@@ -540,6 +563,32 @@ function VehicleCanvasComponent({
       // Dynamic Contact Shadow Opacity
       let currentShadowOpacity = 0.85;
 
+      // -----------------------------------------------------------------------
+      // REAL-TIME DYNAMIC THEME INTERPOLATION (Smooth 3D Light/Dark Transition)
+      // -----------------------------------------------------------------------
+      const targetThemeT = isDarkRef.current ? 1.0 : 0.0;
+      if (Math.abs(themeT - targetThemeT) > 0.001) {
+        themeT += (targetThemeT - themeT) * (1 - Math.exp(-8 * delta));
+        activeBg.copy(lightBg).lerp(darkBg, themeT);
+        fog.color.copy(activeBg);
+
+        groundMat.color.copy(lightGround).lerp(darkGround, themeT);
+        groundMat.roughness = 0.65 - 0.15 * themeT;
+        groundMat.metalness = 0.05 + 0.15 * themeT;
+
+        haloRingMat.color.copy(lightHaloColor).lerp(darkHaloColor, themeT);
+        haloRingMat.emissive.copy(lightHaloEmissive).lerp(darkHaloEmissive, themeT);
+        haloRingMat.emissiveIntensity = 0.3 + 0.55 * themeT;
+
+        outerRingMat.color.copy(lightOuterColor).lerp(darkOuterColor, themeT);
+        outerRingMat.opacity = 0.45 + 0.25 * themeT;
+
+        ambientLight.intensity = 0.85 - 0.35 * themeT;
+        keyLight.intensity = 1.85 + 0.40 * themeT;
+        rimLight.intensity = 1.45 + 0.55 * themeT;
+        topLight.intensity = 1.25 + 0.40 * themeT;
+      }
+
       // =======================================================================
       // 911 GT3 RS: PROPORTIONAL CHOREOGRAPHY (Silky Smooth Scroll Response)
       // Center stage dominance inside halo for p in [0.00, 0.55]
@@ -566,8 +615,9 @@ function VehicleCanvasComponent({
       }
 
       // Update Contact Shadow disc opacity only when value meaningfully changes
-      if (Math.abs(contactShadow.material.opacity - currentShadowOpacity) > 0.015) {
-        contactShadow.material.opacity = currentShadowOpacity;
+      const effectiveShadowOpacity = currentShadowOpacity * (1 - 0.25 * themeT);
+      if (Math.abs(contactShadow.material.opacity - effectiveShadowOpacity) > 0.015) {
+        contactShadow.material.opacity = effectiveShadowOpacity;
       }
 
       // Studio Camera choreography for 911 GT3 RS with smooth cubic ease-in-out

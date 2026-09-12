@@ -27,7 +27,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#F6F6F8] text-neutral-900 selection:bg-neutral-900 selection:text-white">
+    <main className="relative min-h-screen bg-[#F6F6F8] dark:bg-[#0B0B0D] text-neutral-900 dark:text-neutral-100 selection:bg-neutral-900 dark:selection:bg-white selection:text-white dark:selection:text-neutral-950 transition-colors duration-300">
       {/* Top Header */}
       <Header
         onOpenSearch={() => setIsSearchOpen(true)}
