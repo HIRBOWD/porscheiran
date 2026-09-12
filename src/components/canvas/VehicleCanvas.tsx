@@ -481,12 +481,30 @@ function VehicleCanvasComponent({
     window.addEventListener("resize", handleResize);
 
     // 11. Single Coordinated Animation & Render Loop (Unified on GSAP Ticker)
+    let smoothedP = scrollProgressRef
+      ? Math.max(0, Math.min(1, scrollProgressRef.current))
+      : 0;
+
     const animate = (time: number, deltaTime: number) => {
       // Completely pause render pass and GPU compute when off-screen or tab is inactive
       if (!isVisible) return;
 
-      const delta = (deltaTime || 16.66) / 1000;
-      const p = scrollProgressRef ? scrollProgressRef.current : fallbackProgressRef.current;
+      const delta = Math.min((deltaTime || 16.66) / 1000, 0.1);
+      const targetP = Math.max(
+        0,
+        Math.min(
+          1,
+          scrollProgressRef
+            ? scrollProgressRef.current
+            : fallbackProgressRef.current
+        )
+      );
+
+      // Framerate-independent exponential smoothing for buttery-smooth car rotation & transitions
+      // Adapts seamlessly to 60Hz, 90Hz, 120Hz ProMotion displays without stepping or lag
+      const smoothFactor = 1 - Math.exp(-14 * delta);
+      smoothedP += (targetP - smoothedP) * smoothFactor;
+      const p = Math.abs(targetP - smoothedP) < 0.00005 ? targetP : smoothedP;
 
       // Mouse Parallax Smooth Damping (Desktop only)
       if (!isMobile) {
@@ -523,7 +541,7 @@ function VehicleCanvasComponent({
       let currentShadowOpacity = 0.85;
 
       // =======================================================================
-      // 911 GT3 RS: PROPORTIONAL CHOREOGRAPHY (Direct 1:1 Scroll Response)
+      // 911 GT3 RS: PROPORTIONAL CHOREOGRAPHY (Silky Smooth Scroll Response)
       // Center stage dominance inside halo for p in [0.00, 0.55]
       // Smooth descent towards accessories boutique for p in [0.55, 1.00]
       // =======================================================================
@@ -532,13 +550,14 @@ function VehicleCanvasComponent({
         if (p <= 0.55) {
           // Full center focus inside halo, grounded firmly at Y = 0
           gt3.position.set(0, 0, 0);
-          // Direct 1:1 scroll-to-car rotation: turns in lockstep with finger scroll
+          // Continuous, silky smooth scroll-to-car rotation
           gt3.rotation.y = -0.38 + p * 0.55 + dragRotationY;
           gt3.scale.setScalar(1.0);
           currentShadowOpacity = 0.85;
         } else {
-          // Smooth glide down into the accessories boutique
-          const t = (p - 0.55) / 0.45;
+          // Smooth glide down into the accessories boutique with cubic ease-in-out
+          const rawT = (p - 0.55) / 0.45;
+          const t = rawT * rawT * (3 - 2 * rawT);
           gt3.position.set(0, 0, -2.4 * t);
           gt3.rotation.y = -0.38 + 0.55 * 0.55 + 0.15 * t + dragRotationY;
           gt3.scale.setScalar(1.0 - 0.18 * t);
@@ -551,8 +570,9 @@ function VehicleCanvasComponent({
         contactShadow.material.opacity = currentShadowOpacity;
       }
 
-      // Studio Camera choreography for 911 GT3 RS with responsive mobile scaling
-      const camT = Math.min(1, Math.max(0, p / 0.60));
+      // Studio Camera choreography for 911 GT3 RS with smooth cubic ease-in-out
+      const rawCamT = Math.min(1, Math.max(0, p / 0.60));
+      const camT = rawCamT * rawCamT * (3 - 2 * rawCamT);
       baseCamX = 4.8 + camT * 0.35;
       baseCamY = 1.92 - camT * 0.12;
       baseCamZ = 6.1 - camT * 0.3;
@@ -561,15 +581,8 @@ function VehicleCanvasComponent({
       const targetCamY = baseCamY * (0.85 + 0.15 * mobileScale) + mouseCurrent.current.y;
       const targetCamZ = baseCamZ * mobileScale;
 
-      // On mobile: 100% direct camera tracking (0ms lag, zero perspective float)
-      // On desktop: subtle 0.12 lerp for silky mouse parallax smoothing
-      if (isMobile) {
-        camera.position.set(targetCamX, targetCamY, targetCamZ);
-      } else {
-        camera.position.x += (targetCamX - camera.position.x) * 0.12;
-        camera.position.y += (targetCamY - camera.position.y) * 0.12;
-        camera.position.z += (targetCamZ - camera.position.z) * 0.12;
-      }
+      // Lockstep camera tracking: smooth and unified with car rotation
+      camera.position.set(targetCamX, targetCamY, targetCamZ);
       camera.lookAt(0, targetLookAtY, 0);
 
       // Halo Scale & Position
