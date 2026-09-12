@@ -86,7 +86,7 @@ export default function HeroScrollCapsule({
   };
 
   return (
-    <div className="fixed right-3 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 z-30 pointer-events-auto flex items-center select-none">
+    <div className="fixed right-3 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 z-40 pointer-events-auto flex items-center select-none">
       {/* SECTION MARKERS (Desktop / Tablet) */}
       <div className="hidden md:flex flex-col justify-between h-[320px] py-1 mr-3 text-right">
         {SECTIONS.map((sec, idx) => {

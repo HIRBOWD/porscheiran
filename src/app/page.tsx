@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CinematicScroll from "@/components/hero/CinematicScroll";
+import HeroScrollCapsule from "@/components/hero/HeroScrollCapsule";
 import StoreSection from "@/components/store/StoreSection";
 import HeritageBanner from "@/components/editorial/HeritageBanner";
 import Manifesto from "@/components/editorial/Manifesto";
@@ -17,6 +18,27 @@ export default function HomePage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  // Shared scroll progress ref connecting ScrollTrigger to both 3D Hero and Global Capsule
+  const scrollProgressRef = useRef(0);
+
+  const handleNavigateSection = (targetProgress: number) => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const runwayDistance = isMobile ? 700 : 750;
+
+    if (targetProgress >= 0.95) {
+      const storeEl = document.getElementById("boutique-store");
+      if (storeEl) {
+        storeEl.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    }
+
+    window.scrollTo({
+      top: targetProgress * runwayDistance,
+      behavior: "smooth",
+    });
+  };
 
   const handleSelectModel = (_index: number = 0) => {
     // Smooth scroll to top of the pinned 3D showroom
@@ -36,7 +58,13 @@ export default function HomePage() {
       />
 
       {/* Hero: Real-Time 3D WebGL 911 GT3 RS Cinematic Showcase */}
-      <CinematicScroll />
+      <CinematicScroll scrollProgressRef={scrollProgressRef} />
+
+      {/* Persistent Global Floating Capsule across the entire website */}
+      <HeroScrollCapsule
+        scrollProgressRef={scrollProgressRef}
+        onNavigateSection={handleNavigateSection}
+      />
 
       {/* 1px Architectural Physical Separation Layer */}
       <div className="arch-separator" />

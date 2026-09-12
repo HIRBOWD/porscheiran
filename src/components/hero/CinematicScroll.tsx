@@ -4,17 +4,23 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import VehicleCanvas from "@/components/canvas/VehicleCanvas";
-import HeroScrollCapsule from "./HeroScrollCapsule";
 import { VEHICLES } from "@/data/vehicles";
 import { soundManager } from "@/lib/audio";
 import { ChevronDown } from "lucide-react";
 
-export default function CinematicScroll() {
+interface CinematicScrollProps {
+  scrollProgressRef?: React.RefObject<number>;
+}
+
+export default function CinematicScroll({
+  scrollProgressRef: externalProgressRef,
+}: CinematicScrollProps = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
   // Scene scroll progress stored in ref to eliminate React re-renders on scroll
-  const scrollProgressRef = useRef(0);
+  const internalProgressRef = useRef(0);
+  const scrollProgressRef = externalProgressRef || internalProgressRef;
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -157,12 +163,6 @@ export default function CinematicScroll() {
             </button>
           </div>
         </div>
-
-        {/* Vertical Capsule Scroll Indicator with synchronized miniature GT3 */}
-        <HeroScrollCapsule
-          scrollProgressRef={scrollProgressRef}
-          onNavigateSection={handleNavigateSection}
-        />
 
         {/* 1px Architectural Physical Separation Layer */}
         <div className="arch-separator z-30" />
