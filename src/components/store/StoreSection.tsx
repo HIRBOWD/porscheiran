@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import {
   VEHICLE_CATEGORIES,
   SUB_CATEGORIES,
@@ -11,15 +11,39 @@ import {
 import ProductCard from "./ProductCard";
 import ProductQuickView from "./ProductQuickView";
 import { soundManager } from "@/lib/audio";
-import { SlidersHorizontal, ChevronRight, Layers, RotateCcw } from "lucide-react";
+import {
+  SlidersHorizontal,
+  ChevronRight,
+  ChevronDown,
+  Check,
+  RotateCcw,
+} from "lucide-react";
 
 export default function StoreSection() {
-  const [selectedModel, setSelectedModel] = useState<string>("all");
+  const [selectedModel, setSelectedModel] = useState<string>("macan");
   const [selectedGeneration, setSelectedGeneration] = useState<string>("all");
   const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategoryId>("all");
+  const [openDropdownModel, setOpenDropdownModel] = useState<string | null>(null);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc">("featured");
-  const [showDirectory, setShowDirectory] = useState(true);
+
+  const modelRowRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modelRowRef.current &&
+        !modelRowRef.current.contains(event.target as Node)
+      ) {
+        setOpenDropdownModel(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Active vehicle model object
   const activeModelObj = useMemo(() => {
@@ -27,11 +51,7 @@ export default function StoreSection() {
   }, [selectedModel]);
 
   const filteredProducts = useMemo(() => {
-    let list = PRODUCTS;
-
-    if (selectedModel !== "all") {
-      list = list.filter((p) => p.model === selectedModel);
-    }
+    let list = PRODUCTS.filter((p) => p.model === selectedModel);
 
     if (selectedGeneration !== "all") {
       list = list.filter((p) => p.generation === selectedGeneration);
@@ -50,13 +70,20 @@ export default function StoreSection() {
     return list;
   }, [selectedModel, selectedGeneration, selectedSubCategory, sortBy]);
 
-  const handleSelectModel = (modelId: string) => {
+  const handleModelClick = (modelId: string) => {
     soundManager.playClick();
-    setSelectedModel(modelId);
-    setSelectedGeneration("all");
+    if (selectedModel !== modelId) {
+      setSelectedModel(modelId);
+      setSelectedGeneration("all");
+      setSelectedSubCategory("all");
+      setOpenDropdownModel(modelId);
+    } else {
+      // Toggle dropdown for active model
+      setOpenDropdownModel(openDropdownModel === modelId ? null : modelId);
+    }
   };
 
-  const handleSelectQuickCategory = (
+  const handleSelectSubOption = (
     modelId: string,
     genId: string = "all",
     subCat: SubCategoryId = "all"
@@ -65,17 +92,11 @@ export default function StoreSection() {
     setSelectedModel(modelId);
     setSelectedGeneration(genId);
     setSelectedSubCategory(subCat);
-
-    // Scroll to products grid
-    const target = document.getElementById("products-catalog-grid");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
+    setOpenDropdownModel(null);
   };
 
   const handleResetFilters = () => {
     soundManager.playClick();
-    setSelectedModel("all");
     setSelectedGeneration("all");
     setSelectedSubCategory("all");
   };
@@ -100,556 +121,238 @@ export default function StoreSection() {
             </p>
           </div>
 
-          {/* Directory Toggle & Sort */}
-          <div className="flex items-center flex-wrap gap-4">
-            <button
-              onClick={() => setShowDirectory(!showDirectory)}
-              className="flex items-center gap-2 px-3.5 py-2 text-[10px] font-mono tracking-widest uppercase border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#121216] text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors cursor-pointer"
+          {/* Sort Selector */}
+          <div className="flex items-center space-x-2 text-[11px] font-mono tracking-wider text-neutral-500 dark:text-neutral-400 border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#121216] px-3.5 py-2 self-start md:self-auto">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-500" />
+            <span>مرتب‌سازی:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => {
+                soundManager.playClick();
+                setSortBy(e.target.value as "featured" | "price-asc" | "price-desc");
+              }}
+              aria-label="Sort products"
+              className="bg-transparent text-neutral-900 dark:text-neutral-100 font-medium focus:outline-none cursor-pointer uppercase text-[10px] tracking-[0.15em]"
             >
-              <Layers className="w-3.5 h-3.5" />
-              <span>{showDirectory ? "پنهان کردن فهرست مدل‌ها" : "نمایش فهرست کامل مدل‌ها"}</span>
-            </button>
-
-            <div className="flex items-center space-x-2 text-[11px] font-mono tracking-wider text-neutral-500 dark:text-neutral-400 border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#121216] px-3.5 py-2">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-500" />
-              <span>مرتب‌سازی:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => {
-                  soundManager.playClick();
-                  setSortBy(e.target.value as "featured" | "price-asc" | "price-desc");
-                }}
-                aria-label="Sort products"
-                className="bg-transparent text-neutral-900 dark:text-neutral-100 font-medium focus:outline-none cursor-pointer uppercase text-[10px] tracking-[0.15em]"
-              >
-                <option value="featured" className="bg-white dark:bg-[#121216] text-neutral-900 dark:text-neutral-100">
-                  پیش‌فرض (Featured)
-                </option>
-                <option value="price-asc" className="bg-white dark:bg-[#121216] text-neutral-900 dark:text-neutral-100">
-                  قیمت: کم به زیاد
-                </option>
-                <option value="price-desc" className="bg-white dark:bg-[#121216] text-neutral-900 dark:text-neutral-100">
-                  قیمت: زیاد به کم
-                </option>
-              </select>
-            </div>
+              <option value="featured" className="bg-white dark:bg-[#121216] text-neutral-900 dark:text-neutral-100">
+                پیش‌فرض (Featured)
+              </option>
+              <option value="price-asc" className="bg-white dark:bg-[#121216] text-neutral-900 dark:text-neutral-100">
+                قیمت: کم به زیاد
+              </option>
+              <option value="price-desc" className="bg-white dark:bg-[#121216] text-neutral-900 dark:text-neutral-100">
+                قیمت: زیاد به کم
+              </option>
+            </select>
           </div>
         </div>
 
         {/* ------------------------------------------------------------------ */}
-        {/* COMPREHENSIVE VEHICLE MODEL CATEGORY DIRECTORY LIST                */}
+        {/* VEHICLE MODEL SELECTOR WITH INDIVIDUAL DROPDOWNS                   */}
         {/* ------------------------------------------------------------------ */}
-        {showDirectory && (
-          <div className="mb-14 p-6 sm:p-8 bg-white dark:bg-[#121216] border border-black/[0.08] dark:border-white/[0.1] shadow-xs animate-in fade-in slide-in-from-top-4 duration-300">
-            <div className="flex items-center justify-between pb-4 mb-6 border-b border-black/[0.06] dark:border-white/[0.08]">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#D5001C]" />
-                <h3 className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-neutral-900 dark:text-white font-mono">
-                  فهرست دسته‌بندی مدل‌های پورشه (PORSCHE CATEGORY LIST)
-                </h3>
-              </div>
-              <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-widest hidden sm:inline">
-                انتخاب مدل و دسته‌بندی جهت مشاهده قطعات
-              </span>
-            </div>
+        <div id="products-catalog-grid" className="mb-6">
+          <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 block mb-3 font-semibold">
+            انتخاب مدل خودرو و دسته‌بندی قطعات (SELECT VEHICLE MODEL & CATEGORY)
+          </span>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {/* 1. Macan */}
-              <div className="p-4 rounded-none bg-[#F9F9FB] dark:bg-[#18181D] border border-black/[0.04] dark:border-white/[0.06] hover:border-black/[0.15] dark:hover:border-white/[0.15] transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold tracking-[0.2em] uppercase text-neutral-900 dark:text-white font-mono">
-                    Macan
-                  </span>
+          <div
+            ref={modelRowRef}
+            className="flex flex-wrap items-center gap-2.5 sm:gap-3"
+          >
+            {VEHICLE_CATEGORIES.map((m, index) => {
+              const isSelected = selectedModel === m.id;
+              const isDropdownOpen = openDropdownModel === m.id;
+              const isRightAligned = index >= 3;
+
+              return (
+                <div key={m.id} className="relative">
+                  {/* Model Tab Button with Dropdown Chevron */}
                   <button
-                    onClick={() => handleSelectQuickCategory("macan")}
-                    className="text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
-                  >
-                    مشاهده همه
-                  </button>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {SUB_CATEGORIES.map((sub) => {
-                    const isSelected =
-                      selectedModel === "macan" && selectedSubCategory === sub.id;
-                    return (
-                      <button
-                        key={`macan-${sub.id}`}
-                        onClick={() => handleSelectQuickCategory("macan", "all", sub.id)}
-                        className={`text-[11px] px-3 py-1.5 transition-colors cursor-pointer border ${
-                          isSelected
-                            ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white font-medium"
-                            : "bg-white dark:bg-[#202026] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-500"
-                        }`}
-                      >
-                        {sub.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 2. Cayman */}
-              <div className="p-4 rounded-none bg-[#F9F9FB] dark:bg-[#18181D] border border-black/[0.04] dark:border-white/[0.06] hover:border-black/[0.15] dark:hover:border-white/[0.15] transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold tracking-[0.2em] uppercase text-neutral-900 dark:text-white font-mono">
-                    Cayman
-                  </span>
-                  <button
-                    onClick={() => handleSelectQuickCategory("cayman")}
-                    className="text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
-                  >
-                    مشاهده همه
-                  </button>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {SUB_CATEGORIES.map((sub) => {
-                    const isSelected =
-                      selectedModel === "cayman" && selectedSubCategory === sub.id;
-                    return (
-                      <button
-                        key={`cayman-${sub.id}`}
-                        onClick={() => handleSelectQuickCategory("cayman", "all", sub.id)}
-                        className={`text-[11px] px-3 py-1.5 transition-colors cursor-pointer border ${
-                          isSelected
-                            ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white font-medium"
-                            : "bg-white dark:bg-[#202026] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-500"
-                        }`}
-                      >
-                        {sub.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 3. Cayenne */}
-              <div className="p-4 rounded-none bg-[#F9F9FB] dark:bg-[#18181D] border border-black/[0.04] dark:border-white/[0.06] hover:border-black/[0.15] dark:hover:border-white/[0.15] transition-all">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-bold tracking-[0.2em] uppercase text-neutral-900 dark:text-white font-mono">
-                    Cayenne
-                  </span>
-                  <button
-                    onClick={() => handleSelectQuickCategory("cayenne")}
-                    className="text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
-                  >
-                    مشاهده همه
-                  </button>
-                </div>
-
-                {/* Sublist: Cayenne 2008-2010 */}
-                <div className="mt-2.5 pt-2 border-t border-black/[0.04] dark:border-white/[0.06]">
-                  <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block mb-1.5 font-semibold">
-                    Cayenne 2008–2010:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {SUB_CATEGORIES.map((sub) => {
-                      const isSelected =
-                        selectedModel === "cayenne" &&
-                        selectedGeneration === "cayenne-2008-2010" &&
-                        selectedSubCategory === sub.id;
-                      return (
-                        <button
-                          key={`cayenne-08-10-${sub.id}`}
-                          onClick={() =>
-                            handleSelectQuickCategory("cayenne", "cayenne-2008-2010", sub.id)
-                          }
-                          className={`text-[10px] px-2.5 py-1 transition-colors cursor-pointer border ${
-                            isSelected
-                              ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white font-medium"
-                              : "bg-white dark:bg-[#202026] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-500"
-                          }`}
-                        >
-                          {sub.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Sublist: Cayenne 2011-2014 */}
-                <div className="mt-2.5 pt-2 border-t border-black/[0.04] dark:border-white/[0.06]">
-                  <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block mb-1.5 font-semibold">
-                    Cayenne 2011–2014:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {SUB_CATEGORIES.map((sub) => {
-                      const isSelected =
-                        selectedModel === "cayenne" &&
-                        selectedGeneration === "cayenne-2011-2014" &&
-                        selectedSubCategory === sub.id;
-                      return (
-                        <button
-                          key={`cayenne-11-14-${sub.id}`}
-                          onClick={() =>
-                            handleSelectQuickCategory("cayenne", "cayenne-2011-2014", sub.id)
-                          }
-                          className={`text-[10px] px-2.5 py-1 transition-colors cursor-pointer border ${
-                            isSelected
-                              ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white font-medium"
-                              : "bg-white dark:bg-[#202026] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-500"
-                          }`}
-                        >
-                          {sub.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* 4. Boxster */}
-              <div className="p-4 rounded-none bg-[#F9F9FB] dark:bg-[#18181D] border border-black/[0.04] dark:border-white/[0.06] hover:border-black/[0.15] dark:hover:border-white/[0.15] transition-all">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-bold tracking-[0.2em] uppercase text-neutral-900 dark:text-white font-mono">
-                    Boxster
-                  </span>
-                  <button
-                    onClick={() => handleSelectQuickCategory("boxster")}
-                    className="text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
-                  >
-                    مشاهده همه
-                  </button>
-                </div>
-
-                {/* Sublist: Boxster 2010-2012 */}
-                <div className="mt-2.5 pt-2 border-t border-black/[0.04] dark:border-white/[0.06]">
-                  <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block mb-1.5 font-semibold">
-                    Boxster 2010–2012:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {SUB_CATEGORIES.map((sub) => {
-                      const isSelected =
-                        selectedModel === "boxster" &&
-                        selectedGeneration === "boxster-2010-2012" &&
-                        selectedSubCategory === sub.id;
-                      return (
-                        <button
-                          key={`boxster-10-12-${sub.id}`}
-                          onClick={() =>
-                            handleSelectQuickCategory("boxster", "boxster-2010-2012", sub.id)
-                          }
-                          className={`text-[10px] px-2.5 py-1 transition-colors cursor-pointer border ${
-                            isSelected
-                              ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white font-medium"
-                              : "bg-white dark:bg-[#202026] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-500"
-                          }`}
-                        >
-                          {sub.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Sublist: Boxster 2017-2018 */}
-                <div className="mt-2.5 pt-2 border-t border-black/[0.04] dark:border-white/[0.06]">
-                  <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block mb-1.5 font-semibold">
-                    Boxster (718) 2017–2018:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {SUB_CATEGORIES.map((sub) => {
-                      const isSelected =
-                        selectedModel === "boxster" &&
-                        selectedGeneration === "boxster-2017-2018" &&
-                        selectedSubCategory === sub.id;
-                      return (
-                        <button
-                          key={`boxster-17-18-${sub.id}`}
-                          onClick={() =>
-                            handleSelectQuickCategory("boxster", "boxster-2017-2018", sub.id)
-                          }
-                          className={`text-[10px] px-2.5 py-1 transition-colors cursor-pointer border ${
-                            isSelected
-                              ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white font-medium"
-                              : "bg-white dark:bg-[#202026] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-500"
-                          }`}
-                        >
-                          {sub.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* 5. 911 */}
-              <div className="p-4 rounded-none bg-[#F9F9FB] dark:bg-[#18181D] border border-black/[0.04] dark:border-white/[0.06] hover:border-black/[0.15] dark:hover:border-white/[0.15] transition-all">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-bold tracking-[0.2em] uppercase text-neutral-900 dark:text-white font-mono">
-                    911
-                  </span>
-                  <button
-                    onClick={() => handleSelectQuickCategory("911")}
-                    className="text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
-                  >
-                    مشاهده همه
-                  </button>
-                </div>
-
-                {/* Sublist: Carrera 4 */}
-                <div className="mt-2.5 pt-2 border-t border-black/[0.04] dark:border-white/[0.06]">
-                  <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block mb-1.5 font-semibold">
-                    Carrera 4:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {SUB_CATEGORIES.map((sub) => {
-                      const isSelected =
-                        selectedModel === "911" &&
-                        selectedGeneration === "911-carrera-4" &&
-                        selectedSubCategory === sub.id;
-                      return (
-                        <button
-                          key={`911-carrera4-${sub.id}`}
-                          onClick={() =>
-                            handleSelectQuickCategory("911", "911-carrera-4", sub.id)
-                          }
-                          className={`text-[10px] px-2.5 py-1 transition-colors cursor-pointer border ${
-                            isSelected
-                              ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white font-medium"
-                              : "bg-white dark:bg-[#202026] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-500"
-                          }`}
-                        >
-                          {sub.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Sublist: Carrera S 2011-2014 */}
-                <div className="mt-2.5 pt-2 border-t border-black/[0.04] dark:border-white/[0.06]">
-                  <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider block mb-1.5 font-semibold">
-                    Carrera S 2011–2014:
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {SUB_CATEGORIES.map((sub) => {
-                      const isSelected =
-                        selectedModel === "911" &&
-                        selectedGeneration === "911-carrera-s-2011-2014" &&
-                        selectedSubCategory === sub.id;
-                      return (
-                        <button
-                          key={`911-carrera-s-${sub.id}`}
-                          onClick={() =>
-                            handleSelectQuickCategory("911", "911-carrera-s-2011-2014", sub.id)
-                          }
-                          className={`text-[10px] px-2.5 py-1 transition-colors cursor-pointer border ${
-                            isSelected
-                              ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white font-medium"
-                              : "bg-white dark:bg-[#202026] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-500"
-                          }`}
-                        >
-                          {sub.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* 6. Panamera */}
-              <div className="p-4 rounded-none bg-[#F9F9FB] dark:bg-[#18181D] border border-black/[0.04] dark:border-white/[0.06] hover:border-black/[0.15] dark:hover:border-white/[0.15] transition-all">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold tracking-[0.2em] uppercase text-neutral-900 dark:text-white font-mono">
-                    Panamera
-                  </span>
-                  <button
-                    onClick={() => handleSelectQuickCategory("panamera")}
-                    className="text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
-                  >
-                    مشاهده همه
-                  </button>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {SUB_CATEGORIES.map((sub) => {
-                    const isSelected =
-                      selectedModel === "panamera" && selectedSubCategory === sub.id;
-                    return (
-                      <button
-                        key={`panamera-${sub.id}`}
-                        onClick={() => handleSelectQuickCategory("panamera", "all", sub.id)}
-                        className={`text-[11px] px-3 py-1.5 transition-colors cursor-pointer border ${
-                          isSelected
-                            ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white font-medium"
-                            : "bg-white dark:bg-[#202026] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-500"
-                        }`}
-                      >
-                        {sub.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ------------------------------------------------------------------ */}
-        {/* INTERACTIVE DYNAMIC FILTER BARS                                    */}
-        {/* ------------------------------------------------------------------ */}
-        <div id="products-catalog-grid" className="space-y-4 mb-10">
-          {/* 1. Model Selector Row */}
-          <div>
-            <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 block mb-2 font-semibold">
-              انتخاب مدل خودرو (SELECT VEHICLE MODEL)
-            </span>
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-              <button
-                onClick={() => handleSelectModel("all")}
-                className={`text-[10px] md:text-[11px] font-medium tracking-[0.2em] uppercase px-4 py-2.5 transition-all whitespace-nowrap cursor-pointer border ${
-                  selectedModel === "all"
-                    ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-neutral-900 dark:border-white shadow-xs"
-                    : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.2]"
-                }`}
-              >
-                همه مدل‌ها • All Models
-              </button>
-              {VEHICLE_CATEGORIES.map((m) => {
-                const isActive = selectedModel === m.id;
-                return (
-                  <button
-                    key={m.id}
-                    onClick={() => handleSelectModel(m.id)}
-                    className={`text-[10px] md:text-[11px] font-medium tracking-[0.2em] uppercase px-4 py-2.5 transition-all whitespace-nowrap cursor-pointer border ${
-                      isActive
-                        ? "bg-neutral-900 dark:bg-white text-white dark:text-black border-neutral-900 dark:border-white shadow-xs"
-                        : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.2]"
+                    onClick={() => handleModelClick(m.id)}
+                    aria-expanded={isDropdownOpen}
+                    className={`flex items-center gap-2 text-[11px] md:text-xs font-mono tracking-[0.2em] uppercase px-4 py-2.5 transition-all cursor-pointer border ${
+                      isSelected
+                        ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs"
+                        : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2]"
                     }`}
                   >
-                    {m.name}
+                    <span className="font-semibold">{m.name}</span>
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                        isDropdownOpen ? "rotate-180" : ""
+                      } ${
+                        isSelected
+                          ? "text-white dark:text-neutral-950"
+                          : "text-neutral-400 dark:text-neutral-500"
+                      }`}
+                    />
                   </button>
-                );
-              })}
-            </div>
-          </div>
 
-          {/* 2. Generation Selector Row (Only when model has generations: Cayenne, Boxster, 911) */}
-          {activeModelObj?.generations && activeModelObj.generations.length > 0 && (
-            <div className="animate-in fade-in slide-in-from-top-1 duration-200">
-              <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 block mb-2 font-semibold">
-                نسل و تیپ {activeModelObj.name} (GENERATION & VARIANT)
-              </span>
-              <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                <button
-                  onClick={() => {
-                    soundManager.playClick();
-                    setSelectedGeneration("all");
-                  }}
-                  className={`text-[10px] font-mono tracking-wider uppercase px-3.5 py-2 transition-all whitespace-nowrap cursor-pointer border ${
-                    selectedGeneration === "all"
-                      ? "bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-950 border-neutral-800 dark:border-neutral-200"
-                      : "bg-white/80 dark:bg-[#18181D] text-neutral-600 dark:text-neutral-400 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-400"
-                  }`}
-                >
-                  همه نسل‌ها • All Years
-                </button>
-                {activeModelObj.generations.map((gen) => {
-                  const isGenActive = selectedGeneration === gen.id;
-                  return (
-                    <button
-                      key={gen.id}
-                      onClick={() => {
-                        soundManager.playClick();
-                        setSelectedGeneration(gen.id);
-                      }}
-                      className={`text-[10px] font-mono tracking-wider uppercase px-3.5 py-2 transition-all whitespace-nowrap cursor-pointer border ${
-                        isGenActive
-                          ? "bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-950 border-neutral-800 dark:border-neutral-200"
-                          : "bg-white/80 dark:bg-[#18181D] text-neutral-600 dark:text-neutral-400 border-black/[0.06] dark:border-white/[0.08] hover:border-neutral-400"
+                  {/* Dropdown Menu */}
+                  {isDropdownOpen && (
+                    <div
+                      className={`absolute top-full mt-2 z-50 min-w-[240px] sm:min-w-[280px] max-w-[calc(100vw-32px)] bg-white dark:bg-[#121216] border border-black/[0.1] dark:border-white/[0.12] shadow-2xl p-2 animate-in fade-in zoom-in-95 duration-150 ${
+                        isRightAligned ? "right-0" : "left-0"
                       }`}
                     >
-                      {gen.name}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+                      {/* Model Title Header */}
+                      <div className="px-3 py-1.5 border-b border-black/[0.06] dark:border-white/[0.08] mb-1 flex items-center justify-between">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+                          {m.name} Catalog
+                        </span>
+                        <span className="text-[9px] font-mono text-neutral-400">
+                          پورشه
+                        </span>
+                      </div>
 
-          {/* 3. SubCategory List Tabs (اکسسوری - فیس لیفت - لوازم یدکی و مصرفی) */}
-          <div>
-            <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 block mb-2 font-semibold">
-              دسته‌بندی قطعات و خدمات (CATEGORIES)
-            </span>
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-              <button
-                onClick={() => {
-                  soundManager.playClick();
-                  setSelectedSubCategory("all");
-                }}
-                className={`text-[11px] font-medium tracking-wide px-4 py-2 transition-all whitespace-nowrap cursor-pointer border ${
-                  selectedSubCategory === "all"
-                    ? "bg-[#D5001C] text-white border-[#D5001C] shadow-xs"
-                    : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.2]"
-                }`}
-              >
-                همه قطعات (All)
-              </button>
-              {SUB_CATEGORIES.map((sub) => {
-                const isSubActive = selectedSubCategory === sub.id;
-                return (
-                  <button
-                    key={sub.id}
-                    onClick={() => {
-                      soundManager.playClick();
-                      setSelectedSubCategory(sub.id);
-                    }}
-                    className={`text-[11px] font-medium tracking-wide px-4 py-2 transition-all whitespace-nowrap cursor-pointer border ${
-                      isSubActive
-                        ? "bg-[#D5001C] text-white border-[#D5001C] shadow-xs"
-                        : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.06] dark:border-white/[0.08] hover:border-black/[0.2]"
-                    }`}
-                  >
-                    {sub.label}
-                  </button>
-                );
-              })}
-            </div>
+                      {/* All Items for this Model */}
+                      <button
+                        onClick={() => handleSelectSubOption(m.id, "all", "all")}
+                        className={`w-full text-right px-3 py-2 text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          selectedModel === m.id &&
+                          selectedGeneration === "all" &&
+                          selectedSubCategory === "all"
+                            ? "bg-neutral-100 dark:bg-white/10 text-neutral-950 dark:text-white font-semibold"
+                            : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-white/5"
+                        }`}
+                      >
+                        <span className="font-mono">همه قطعات و اکسسوری‌های {m.name}</span>
+                        {selectedModel === m.id &&
+                          selectedGeneration === "all" &&
+                          selectedSubCategory === "all" && (
+                            <Check className="w-3.5 h-3.5 text-[#D5001C]" />
+                          )}
+                      </button>
+
+                      {/* Case 1: Model with Generations (Cayenne, Boxster, 911) */}
+                      {m.generations && m.generations.length > 0 ? (
+                        <div className="mt-1 space-y-2">
+                          {m.generations.map((gen) => (
+                            <div
+                              key={gen.id}
+                              className="pt-2 border-t border-black/[0.05] dark:border-white/[0.06]"
+                            >
+                              <div className="px-3 py-1 flex items-center justify-between">
+                                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                                  {gen.name}
+                                </span>
+                                <button
+                                  onClick={() =>
+                                    handleSelectSubOption(m.id, gen.id, "all")
+                                  }
+                                  className="text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
+                                >
+                                  همه
+                                </button>
+                              </div>
+
+                              <div className="space-y-0.5 mt-0.5">
+                                {SUB_CATEGORIES.map((sub) => {
+                                  const isOptionActive =
+                                    selectedModel === m.id &&
+                                    selectedGeneration === gen.id &&
+                                    selectedSubCategory === sub.id;
+                                  return (
+                                    <button
+                                      key={`${gen.id}-${sub.id}`}
+                                      onClick={() =>
+                                        handleSelectSubOption(
+                                          m.id,
+                                          gen.id,
+                                          sub.id
+                                        )
+                                      }
+                                      className={`w-full text-right px-3 py-1.5 text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                                        isOptionActive
+                                          ? "bg-neutral-100 dark:bg-white/10 text-[#D5001C] dark:text-[#ff4d4d] font-semibold"
+                                          : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-white/5"
+                                      }`}
+                                    >
+                                      <span>{sub.label}</span>
+                                      {isOptionActive && (
+                                        <Check className="w-3.5 h-3.5 text-[#D5001C]" />
+                                      )}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        /* Case 2: Model without Generations (Macan, Cayman, Panamera) */
+                        <div className="mt-1 pt-1 border-t border-black/[0.05] dark:border-white/[0.06] space-y-0.5">
+                          {SUB_CATEGORIES.map((sub) => {
+                            const isOptionActive =
+                              selectedModel === m.id &&
+                              selectedSubCategory === sub.id;
+                            return (
+                              <button
+                                key={`single-${m.id}-${sub.id}`}
+                                onClick={() =>
+                                  handleSelectSubOption(m.id, "all", sub.id)
+                                }
+                                className={`w-full text-right px-3 py-2 text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                                  isOptionActive
+                                    ? "bg-neutral-100 dark:bg-white/10 text-[#D5001C] dark:text-[#ff4d4d] font-semibold"
+                                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-white/5"
+                                }`}
+                              >
+                                <span>{sub.label}</span>
+                                {isOptionActive && (
+                                  <Check className="w-3.5 h-3.5 text-[#D5001C]" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
         {/* Active Filter State Summary & Reset */}
-        {(selectedModel !== "all" ||
-          selectedGeneration !== "all" ||
-          selectedSubCategory !== "all") && (
-          <div className="flex items-center justify-between py-3 px-4 mb-8 bg-neutral-100 dark:bg-[#15151a] border border-black/[0.06] dark:border-white/[0.08] text-xs font-mono text-neutral-700 dark:text-neutral-300">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-neutral-400">فیلتر فعال:</span>
-              <span className="font-semibold text-neutral-900 dark:text-white uppercase">
-                {selectedModel !== "all" ? selectedModel.toUpperCase() : "همه مدل‌ها"}
-              </span>
-              {selectedGeneration !== "all" && (
-                <>
-                  <ChevronRight className="w-3 h-3 text-neutral-400" />
-                  <span className="font-semibold text-neutral-900 dark:text-white">
-                    {selectedGeneration}
-                  </span>
-                </>
-              )}
-              {selectedSubCategory !== "all" && (
-                <>
-                  <ChevronRight className="w-3 h-3 text-neutral-400" />
-                  <span className="font-semibold text-[#D5001C]">
-                    {
-                      SUB_CATEGORIES.find((s) => s.id === selectedSubCategory)?.label
-                    }
-                  </span>
-                </>
-              )}
-              <span className="text-neutral-400 mr-2">
-                ({filteredProducts.length} قطعه یافت شد)
-              </span>
-            </div>
+        <div className="flex items-center justify-between py-3 px-4 mb-8 bg-neutral-100 dark:bg-[#15151a] border border-black/[0.06] dark:border-white/[0.08] text-xs font-mono text-neutral-700 dark:text-neutral-300">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-neutral-400">مدل و دسته‌بندی انتخاب شده:</span>
+            <span className="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider">
+              {activeModelObj?.name || selectedModel.toUpperCase()}
+            </span>
+            {selectedGeneration !== "all" && (
+              <>
+                <ChevronRight className="w-3 h-3 text-neutral-400" />
+                <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                  {activeModelObj?.generations?.find((g) => g.id === selectedGeneration)?.name || selectedGeneration}
+                </span>
+              </>
+            )}
+            {selectedSubCategory !== "all" && (
+              <>
+                <ChevronRight className="w-3 h-3 text-neutral-400" />
+                <span className="font-semibold text-[#D5001C]">
+                  {SUB_CATEGORIES.find((s) => s.id === selectedSubCategory)?.label}
+                </span>
+              </>
+            )}
+            <span className="text-neutral-400 mr-2">
+              ({filteredProducts.length} قطعه)
+            </span>
+          </div>
 
+          {(selectedGeneration !== "all" || selectedSubCategory !== "all") && (
             <button
               onClick={handleResetFilters}
               className="flex items-center gap-1.5 text-[11px] text-neutral-500 hover:text-black dark:hover:text-white cursor-pointer transition-colors"
             >
               <RotateCcw className="w-3 h-3" />
-              <span>پاک کردن فیلترها</span>
+              <span>مشاهده همه قطعات این مدل</span>
             </button>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Product Grid */}
         {filteredProducts.length > 0 ? (
@@ -671,7 +374,7 @@ export default function StoreSection() {
               onClick={handleResetFilters}
               className="px-5 py-2.5 bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 text-xs font-mono tracking-widest uppercase cursor-pointer"
             >
-              مشاهده همه قطعات و اکسسوری‌ها
+              مشاهده همه قطعات این مدل
             </button>
           </div>
         )}
