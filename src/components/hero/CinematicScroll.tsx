@@ -20,6 +20,11 @@ export default function CinematicScroll() {
     gsap.registerPlugin(ScrollTrigger);
 
     const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const isSafari =
+      typeof window !== "undefined" &&
+      (/^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+       /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+       (Boolean(navigator.vendor) && navigator.vendor.includes("Apple") && !navigator.userAgent.includes("Chrome")));
     const runwayDistance = isMobile ? 700 : 750; // Calibrated to 1/3 of previous distance
 
     const trigger = ScrollTrigger.create({
@@ -27,6 +32,8 @@ export default function CinematicScroll() {
       start: "top top",
       end: `+=${runwayDistance}`,
       pin: containerRef.current,
+      // On Safari/WebKit, pinType: "transform" uses hardware CoreAnimation translate3d instead of laggy position: fixed
+      pinType: isSafari ? "transform" : "fixed",
       anticipatePin: 1,
       // scrub: true provides 1:1 instantaneous lockstep with finger scroll (0ms delay)
       scrub: true,
@@ -176,7 +183,7 @@ export default function CinematicScroll() {
             </div>
 
             {/* Mobile Scene Jump Buttons (Touch-friendly tap targets) */}
-            <div className="flex lg:hidden items-center space-x-1 bg-white/90 backdrop-blur-md p-1 rounded-full border border-black/[0.08] shadow-sm">
+            <div className="flex lg:hidden items-center space-x-1 bg-white/95 p-1 rounded-full border border-black/[0.08] shadow-sm">
               {VEHICLES.map((v, i) => (
                 <button
                   key={v.id}

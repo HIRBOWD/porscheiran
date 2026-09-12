@@ -72,9 +72,12 @@ function VehicleCanvasComponent({
     scene.background = new THREE.Color(0xf6f6f8);
     scene.fog = new THREE.FogExp2(0xf6f6f8, 0.035);
 
-    // 2. Initialize Camera with Mobile Aspect Ratio Awareness
+    // 2. Initialize Camera with Mobile & Touch Aspect Ratio Awareness
     const aspect = width / height;
-    const isMobile = width < 768 || (typeof window !== "undefined" && window.innerWidth < 768);
+    const isMobile =
+      width < 768 ||
+      (typeof window !== "undefined" &&
+        (window.innerWidth < 768 || "ontouchstart" in window || navigator.maxTouchPoints > 0));
     const camera = new THREE.PerspectiveCamera(38, aspect, 0.1, 100);
     camera.position.set(4.8, 1.8, 6.2);
     camera.lookAt(0, 0.45, 0);
@@ -88,7 +91,7 @@ function VehicleCanvasComponent({
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true, // Native MSAA for crisp silhouettes, spoiler, and wheels
-      alpha: true,
+      alpha: false, // Opaque scene (#f6f6f8) allows Safari/WebKit to skip expensive alpha blending
       powerPreference: "high-performance",
       precision: "highp", // True 32-bit PBR metallic reflection precision
       stencil: false,
@@ -626,7 +629,14 @@ function VehicleCanvasComponent({
       <canvas
         ref={canvasRef}
         className="w-full h-full block touch-pan-y"
-        style={{ width: "100%", height: "100%" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          transform: "translate3d(0, 0, 0)",
+          WebkitTransform: "translate3d(0, 0, 0)",
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
+        }}
       />
 
       {/* Loading Indicator */}
