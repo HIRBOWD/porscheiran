@@ -25,6 +25,9 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
         p.subtitle.toLowerCase().includes(q) ||
         p.category.toLowerCase().includes(q) ||
         p.categoryLabel.toLowerCase().includes(q) ||
+        p.model.toLowerCase().includes(q) ||
+        p.modelLabel.toLowerCase().includes(q) ||
+        (p.generationLabel && p.generationLabel.toLowerCase().includes(q)) ||
         p.compatibility?.toLowerCase().includes(q) ||
         p.description.toLowerCase().includes(q)
     );
@@ -32,7 +35,17 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
 
   if (!isOpen) return null;
 
-  const quickTerms = ["911 GT3", "Chronograph", "Pepita", "Carbon", "Roof Box", "Motorsport"];
+  const quickTerms = [
+    "Macan",
+    "Cayman",
+    "Cayenne",
+    "Boxster",
+    "911",
+    "Panamera",
+    "اکسسوری",
+    "فیس لیفت",
+    "لوازم یدکی",
+  ];
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 md:pt-28 px-4 animate-in fade-in duration-200">

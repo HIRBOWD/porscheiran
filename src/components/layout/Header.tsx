@@ -62,18 +62,31 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
 
               {/* Models Dropdown */}
               {showModelsDropdown && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-white/95 dark:bg-[#121216]/95 backdrop-blur-xl border border-black/[0.08] dark:border-white/[0.1] shadow-2xl p-3 rounded-none flex flex-col space-y-1 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-[#121216]/95 backdrop-blur-xl border border-black/[0.08] dark:border-white/[0.1] shadow-2xl p-2 rounded-none flex flex-col space-y-0.5 animate-in fade-in slide-in-from-top-2 duration-200">
                   <button
                     onClick={() => {
                       onSelectModel?.(0);
                       setShowModelsDropdown(false);
-                      soundManager.playEngineRev("gt3");
                     }}
                     className="text-left px-3 py-2 text-[10px] tracking-[0.2em] uppercase hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-black dark:hover:text-white text-neutral-800 dark:text-neutral-200 flex justify-between items-center transition-colors cursor-pointer"
                   >
-                    <span>01 / 911 GT3 RS</span>
-                    <span className="text-[9px] text-neutral-400">4.0L NA</span>
+                    <span className="font-semibold">01 / 911 GT3 RS</span>
+                    <span className="text-[9px] text-[#D5001C] font-mono">3D HERO</span>
                   </button>
+                  <div className="my-1 border-t border-black/[0.04] dark:border-white/[0.06]" />
+                  {["Macan", "Cayman", "Cayenne", "Boxster", "911", "Panamera"].map((m) => (
+                    <button
+                      key={m}
+                      onClick={() => {
+                        setShowModelsDropdown(false);
+                        handleNavClick("boutique-store");
+                      }}
+                      className="text-left px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-black dark:hover:text-white text-neutral-700 dark:text-neutral-300 flex justify-between items-center transition-colors cursor-pointer font-mono"
+                    >
+                      <span>{m}</span>
+                      <span className="text-[8px] text-neutral-400 font-sans">قطعات و اکسسوری</span>
+                    </button>
+                  ))}
                 </div>
               )}
             </div>

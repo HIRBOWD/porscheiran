@@ -58,20 +58,32 @@ export default function MobileMenu({ isOpen, onClose, onSelectModel }: MobileMen
           <div className="py-10 space-y-8">
             <div>
               <span className="text-[9px] font-mono tracking-[0.25em] text-neutral-400 uppercase block mb-3">
-                VEHICLE SHOWROOM
+                VEHICLE SHOWROOM & CATALOG
               </span>
               <div className="space-y-3">
                 <button
                   onClick={() => {
                     onSelectModel?.(0);
                     onClose();
-                    soundManager.playEngineRev("gt3");
                   }}
-                  className="w-full text-left text-lg md:text-xl font-light tracking-[0.15em] text-neutral-900 dark:text-white hover:text-black dark:hover:text-neutral-300 uppercase flex items-center justify-between group cursor-pointer"
+                  className="w-full text-left text-lg font-light tracking-[0.15em] text-neutral-900 dark:text-white hover:text-black dark:hover:text-neutral-300 uppercase flex items-center justify-between group cursor-pointer"
                 >
                   <span>01 / 911 GT3 RS</span>
                   <ArrowRight className="w-4 h-4 text-neutral-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all" />
                 </button>
+              </div>
+
+              {/* Models List */}
+              <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-black/[0.04] dark:border-white/[0.04]">
+                {["Macan", "Cayman", "Cayenne", "Boxster", "911", "Panamera"].map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => handleNav("boutique-store")}
+                    className="text-left py-1.5 px-2.5 bg-neutral-200/50 dark:bg-neutral-900/50 text-[11px] font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors cursor-pointer"
+                  >
+                    {m}
+                  </button>
+                ))}
               </div>
             </div>
 
