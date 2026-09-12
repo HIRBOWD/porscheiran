@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
-import { loadVehicleModel, VehicleKey } from "./ModelLoader";
+import { loadVehicleModel, loadPorscheLogo, VehicleKey } from "./ModelLoader";
 import { useTheme } from "@/context/ThemeContext";
 
 interface VehicleCanvasProps {
@@ -41,12 +41,14 @@ function VehicleCanvasComponent({
   // Vehicle 3D groups
   const vehiclesRef = useRef<{
     gt3?: THREE.Group;
+    logo?: THREE.Group;
   }>({});
 
   // Cached materials for smooth opacity transitions
   const vehicleMaterialsRef = useRef<{
     gt3: THREE.Material[];
-  }>({ gt3: [] });
+    logo: THREE.Material[];
+  }>({ gt3: [], logo: [] });
 
   // 3D Halo Ring
   const haloGroupRef = useRef<THREE.Group | null>(null);
@@ -307,11 +309,11 @@ function VehicleCanvasComponent({
     };
 
     // Cached opacity levels to eliminate per-frame material iteration churn
-    const currentOpacities = { gt3: -1 };
+    const currentOpacities = { gt3: -1, logo: -1 };
 
     // Helper to adjust opacity of vehicle materials only when target opacity actually changes
     const updateVehicleOpacity = (
-      key: "gt3",
+      key: "gt3" | "logo",
       materials: THREE.Material[],
       opacity: number
     ) => {
@@ -335,33 +337,45 @@ function VehicleCanvasComponent({
       }
     };
 
-    // 7. Load 911 GT3 RS Vehicle (with GLB support and procedural fallback)
+    // 7. Load 911 GT3 RS Vehicle & 3D Porsche Crest Logo
     let isMounted = true;
 
     async function loadAllVehicles() {
-      const gt3Res = await loadVehicleModel("gt3");
+      const [gt3Res, logoRes] = await Promise.all([
+        loadVehicleModel("gt3"),
+        loadPorscheLogo(),
+      ]);
 
       if (!isMounted) return;
 
-      // Position model firmly grounded on floor (Y = 0) with wheels flush on contact shadow
+      // Position GT3 firmly grounded on floor (Y = 0) with wheels flush on contact shadow
       gt3Res.group.position.set(0, 0, 0);
+
+      // Position 3D Logo inside the halo ring (initially hidden, scale 0)
+      logoRes.group.position.set(0, 0.72, 0.35);
+      logoRes.group.scale.setScalar(0);
+      logoRes.group.visible = false;
 
       // Cache materials for zero-allocation opacity fading
       vehicleMaterialsRef.current = {
         gt3: collectMaterials(gt3Res.group),
+        logo: logoRes.materials.length > 0 ? logoRes.materials : collectMaterials(logoRes.group),
       };
 
       // Show GT3 (fully opaque) inside halo
       gt3Res.group.visible = true;
       updateVehicleOpacity("gt3", vehicleMaterialsRef.current.gt3, 1.0);
+      updateVehicleOpacity("logo", vehicleMaterialsRef.current.logo, 0.0);
 
       scene.add(gt3Res.group);
+      scene.add(logoRes.group);
 
-      // Pre-compile all 88 materials and shaders on GPU to eliminate runtime compilation hitches
+      // Pre-compile all materials and shaders on GPU to eliminate runtime compilation hitches
       renderer.compile(scene, camera);
 
       vehiclesRef.current = {
         gt3: gt3Res.group,
+        logo: logoRes.group,
       };
 
       setIsLoading(false);
@@ -634,6 +648,40 @@ function VehicleCanvasComponent({
       // Lockstep camera tracking: smooth and unified with car rotation
       camera.position.set(targetCamX, targetCamY, targetCamZ);
       camera.lookAt(0, targetLookAtY, 0);
+
+      // =======================================================================
+      // 3D PORSCHE CREST LOGO: CINEMATIC REVEAL
+      // As the GT3 glides back, the 3D Porsche Crest gracefully emerges into the halo
+      // =======================================================================
+      const logo = vehiclesRef.current.logo;
+      if (logo) {
+        if (p <= 0.50) {
+          logo.visible = false;
+          logo.scale.setScalar(0);
+          updateVehicleOpacity("logo", vehicleMaterialsRef.current.logo, 0);
+        } else {
+          logo.visible = true;
+          const rawLogoT = Math.min(1, Math.max(0, (p - 0.50) / 0.45));
+          const logoT = rawLogoT * rawLogoT * (3 - 2 * rawLogoT); // smooth cubic ease-in-out
+
+          // Position: Rises gracefully into the center of the halo ring
+          const logoY = 0.40 + 0.32 * logoT;
+          const logoZ = 0.35 * logoT;
+          logo.position.set(0, logoY, logoZ);
+
+          // Scale: Expands proportionally to command center stage
+          const baseScale = isMobile ? 0.90 : 1.05;
+          logo.scale.setScalar(baseScale * logoT);
+
+          // Dynamic orientation: Faces camera azimuth + responsive touch/mouse drag orbit
+          const camAzimuth = Math.atan2(camera.position.x, camera.position.z);
+          logo.rotation.y = camAzimuth + dragRotationY * 0.7;
+          logo.rotation.x = -0.06 + 0.04 * Math.cos(logoT * Math.PI);
+
+          // Opacity fade in lockstep with scale
+          updateVehicleOpacity("logo", vehicleMaterialsRef.current.logo, logoT);
+        }
+      }
 
       // Halo Scale & Position
       if (haloGroupRef.current) {

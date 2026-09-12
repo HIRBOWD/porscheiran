@@ -177,3 +177,93 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
     return { group: fallbackGroup, isGlb: false };
   }
 }
+
+/**
+ * Loads the 3D Porsche Crest Logo model from GLB.
+ * Normalizes size, centers geometry, and calibrates showroom PBR materials.
+ */
+export async function loadPorscheLogo(): Promise<{
+  group: THREE.Group;
+  materials: THREE.Material[];
+}> {
+  const loader = new GLTFLoader();
+  const path = "/models/porsche_logo.glb";
+
+  try {
+    const gltf = await new Promise<{ scene: THREE.Group }>((resolve, reject) => {
+      loader.load(
+        path,
+        (data) => resolve(data),
+        undefined,
+        (err) => reject(err)
+      );
+    });
+
+    const model = gltf.scene;
+    model.name = "GLB_porsche_logo";
+    model.updateMatrixWorld(true);
+
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+
+    // Center model at origin
+    model.position.set(-center.x, -center.y, -center.z);
+
+    // Target height ~ 1.45 units (fits elegantly inside 2.1 halo ring)
+    const currentHeight = Math.max(size.x, size.z);
+    const targetHeight = 1.45;
+    const scaleFactor = currentHeight > 0 ? targetHeight / currentHeight : 1.0;
+
+    const innerGroup = new THREE.Group();
+    innerGroup.name = "Logo_Rotated";
+    innerGroup.add(model);
+
+    // Orientation: rx = 90deg, ry = 180deg
+    // "PORSCHE" text is upright at the top (+Y)
+    // Pointed shield tip is at the bottom (-Y)
+    // Crest faces front (+Z)
+    innerGroup.rotation.set(Math.PI / 2, Math.PI, 0);
+    innerGroup.scale.setScalar(scaleFactor);
+
+    const materials: THREE.Material[] = [];
+
+    // Traverse and optimize materials
+    model.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = false;
+        mesh.frustumCulled = true;
+
+        if (mesh.material) {
+          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          mats.forEach((m) => {
+            const std = m as THREE.MeshStandardMaterial;
+            std.transparent = true;
+            std.alphaTest = 0.05;
+            std.depthWrite = true;
+            std.roughness = 0.18;
+            std.metalness = 0.72;
+            std.envMapIntensity = 1.45;
+            if (!materials.includes(m)) {
+              materials.push(m);
+            }
+          });
+        }
+      }
+    });
+
+    const wrapper = new THREE.Group();
+    wrapper.name = "Wrapper_porsche_logo";
+    wrapper.add(innerGroup);
+
+    console.info(`[Porsche 3D Engine] Successfully loaded Porsche 3D Logo`);
+    return { group: wrapper, materials };
+  } catch (err) {
+    console.warn("[Porsche 3D Engine] Failed to load Porsche logo:", err);
+    const fallbackGroup = new THREE.Group();
+    return { group: fallbackGroup, materials: [] };
+  }
+}
+
