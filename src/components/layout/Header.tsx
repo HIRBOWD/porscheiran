@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 import { useTheme } from "@/context/ThemeContext";
 import { soundManager } from "@/lib/audio";
-import { Search, ShoppingBag, Volume2, VolumeX, Sun, Moon } from "lucide-react";
+import { Search, ShoppingBag, Sun, Moon, Menu } from "lucide-react";
 
 interface HeaderProps {
   onOpenSearch: () => void;
@@ -16,7 +16,6 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
   const { itemCount, openCart } = useCart();
   const { isDark, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
   const [showModelsDropdown, setShowModelsDropdown] = useState(false);
 
   useEffect(() => {
@@ -26,11 +25,6 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const toggleAudio = () => {
-    const muted = soundManager.toggleMute();
-    setIsMuted(muted);
-  };
 
   const handleNavClick = (targetId: string) => {
     soundManager.playClick();
@@ -136,22 +130,6 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
               )}
               <span className="hidden xl:inline text-[9px] tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500">
                 {isDark ? "LIGHT" : "DARK"}
-              </span>
-            </button>
-
-            {/* Audio Toggle */}
-            <button
-              onClick={toggleAudio}
-              title={isMuted ? "Unmute Sound" : "Mute Sound"}
-              className="p-1 text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              {isMuted ? (
-                <VolumeX className="w-3.5 h-3.5" />
-              ) : (
-                <Volume2 className="w-3.5 h-3.5 text-neutral-800 dark:text-neutral-200 animate-pulse" />
-              )}
-              <span className="hidden xl:inline text-[9px] tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500">
-                {isMuted ? "OFF" : "AUDIO"}
               </span>
             </button>
 
