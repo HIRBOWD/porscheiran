@@ -7,16 +7,18 @@ import {
   PRODUCTS,
   Product,
   SubCategoryId,
+  VehicleModelCategory,
+  ModelGeneration,
 } from "@/data/products";
 import ProductCard from "./ProductCard";
 import ProductQuickView from "./ProductQuickView";
 import { soundManager } from "@/lib/audio";
 import {
-  SlidersHorizontal,
   ChevronRight,
   ChevronDown,
   Check,
   RotateCcw,
+  X,
 } from "lucide-react";
 
 export default function StoreSection() {
@@ -25,11 +27,10 @@ export default function StoreSection() {
   const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategoryId>("all");
   const [openDropdownModel, setOpenDropdownModel] = useState<string | null>(null);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
-  const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc">("featured");
 
   const modelRowRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
+  // Close desktop dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -45,11 +46,29 @@ export default function StoreSection() {
     };
   }, []);
 
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (openDropdownModel && typeof window !== "undefined" && window.innerWidth < 640) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [openDropdownModel]);
+
   // Active vehicle model object
   const activeModelObj = useMemo(() => {
     return VEHICLE_CATEGORIES.find((c) => c.id === selectedModel);
   }, [selectedModel]);
 
+  // Model object whose dropdown is open
+  const openModelObj = useMemo(() => {
+    return VEHICLE_CATEGORIES.find((c) => c.id === openDropdownModel);
+  }, [openDropdownModel]);
+
+  // Filtered products (Price sorting filter removed as requested)
   const filteredProducts = useMemo(() => {
     let list = PRODUCTS.filter((p) => p.model === selectedModel);
 
@@ -61,14 +80,8 @@ export default function StoreSection() {
       list = list.filter((p) => p.category === selectedSubCategory);
     }
 
-    if (sortBy === "price-asc") {
-      list = [...list].sort((a, b) => a.price - b.price);
-    } else if (sortBy === "price-desc") {
-      list = [...list].sort((a, b) => b.price - a.price);
-    }
-
     return list;
-  }, [selectedModel, selectedGeneration, selectedSubCategory, sortBy]);
+  }, [selectedModel, selectedGeneration, selectedSubCategory]);
 
   const handleModelClick = (modelId: string) => {
     soundManager.playClick();
@@ -78,7 +91,6 @@ export default function StoreSection() {
       setSelectedSubCategory("all");
       setOpenDropdownModel(modelId);
     } else {
-      // Toggle dropdown for active model
       setOpenDropdownModel(openDropdownModel === modelId ? null : modelId);
     }
   };
@@ -101,63 +113,175 @@ export default function StoreSection() {
     setSelectedSubCategory("all");
   };
 
+  // Helper to render dropdown items for desktop or mobile
+  const renderDropdownContent = (m: VehicleModelCategory, isMobile: boolean = false) => {
+    const isModelAllSelected =
+      selectedModel === m.id &&
+      selectedGeneration === "all" &&
+      selectedSubCategory === "all";
+
+    return (
+      <div className={isMobile ? "space-y-3" : "p-2"}>
+        {/* Header (Desktop Only) */}
+        {!isMobile && (
+          <div className="px-3 py-1.5 border-b border-black/[0.06] dark:border-white/[0.08] mb-1 flex items-center justify-between">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+              {m.name} Catalog
+            </span>
+            <span className="text-[9px] font-mono text-neutral-400">
+              پورشه
+            </span>
+          </div>
+        )}
+
+        {/* All Items Option */}
+        <button
+          onClick={() => handleSelectSubOption(m.id, "all", "all")}
+          className={`w-full text-right flex items-center justify-between transition-colors cursor-pointer ${
+            isMobile
+              ? "px-4 py-3 rounded-lg border border-black/[0.08] dark:border-white/[0.08] text-sm"
+              : "px-3 py-2 text-xs"
+          } ${
+            isModelAllSelected
+              ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 font-semibold"
+              : isMobile
+              ? "bg-neutral-50 dark:bg-white/[0.04] text-neutral-800 dark:text-neutral-200"
+              : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-white/5"
+          }`}
+        >
+          <span className="font-mono">همه قطعات و اکسسوری‌های {m.name}</span>
+          {isModelAllSelected && <Check className="w-4 h-4 text-[#D5001C]" />}
+        </button>
+
+        {/* Case 1: Model with Generations (Cayenne, Boxster, 911) */}
+        {m.generations && m.generations.length > 0 ? (
+          <div className={`space-y-3 ${isMobile ? "mt-4" : "mt-2"}`}>
+            {m.generations.map((gen: ModelGeneration) => (
+              <div
+                key={gen.id}
+                className={
+                  isMobile
+                    ? "p-3 rounded-xl border border-black/[0.06] dark:border-white/[0.08] bg-black/[0.01] dark:bg-white/[0.02]"
+                    : "pt-2 border-t border-black/[0.05] dark:border-white/[0.06]"
+                }
+              >
+                <div className="px-2 py-1 flex items-center justify-between mb-1.5">
+                  <span className="text-[11px] sm:text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                    {gen.name}
+                  </span>
+                  <button
+                    onClick={() => handleSelectSubOption(m.id, gen.id, "all")}
+                    className="text-[11px] sm:text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
+                  >
+                    مشاهده همه این تیپ
+                  </button>
+                </div>
+
+                <div className="space-y-1">
+                  {SUB_CATEGORIES.map((sub) => {
+                    const isOptionActive =
+                      selectedModel === m.id &&
+                      selectedGeneration === gen.id &&
+                      selectedSubCategory === sub.id;
+                    return (
+                      <button
+                        key={`${gen.id}-${sub.id}`}
+                        onClick={() =>
+                          handleSelectSubOption(m.id, gen.id, sub.id)
+                        }
+                        className={`w-full text-right flex items-center justify-between transition-colors cursor-pointer ${
+                          isMobile
+                            ? "px-3.5 py-2.5 rounded-md text-sm"
+                            : "px-3 py-1.5 text-xs"
+                        } ${
+                          isOptionActive
+                            ? "bg-neutral-100 dark:bg-white/10 text-[#D5001C] dark:text-[#ff4d4d] font-semibold"
+                            : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-white/5"
+                        }`}
+                      >
+                        <span>{sub.label}</span>
+                        {isOptionActive && (
+                          <Check className="w-4 h-4 text-[#D5001C]" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* Case 2: Model without Generations (Macan, Cayman, Panamera) */
+          <div
+            className={`space-y-1 ${
+              isMobile
+                ? "mt-2 pt-1"
+                : "mt-1 pt-1 border-t border-black/[0.05] dark:border-white/[0.06]"
+            }`}
+          >
+            {SUB_CATEGORIES.map((sub) => {
+              const isOptionActive =
+                selectedModel === m.id && selectedSubCategory === sub.id;
+              return (
+                <button
+                  key={`single-${m.id}-${sub.id}`}
+                  onClick={() => handleSelectSubOption(m.id, "all", sub.id)}
+                  className={`w-full text-right flex items-center justify-between transition-colors cursor-pointer ${
+                    isMobile
+                      ? "px-4 py-3 rounded-lg border border-black/[0.06] dark:border-white/[0.06] text-sm"
+                      : "px-3 py-2 text-xs"
+                  } ${
+                    isOptionActive
+                      ? "bg-neutral-100 dark:bg-white/10 text-[#D5001C] dark:text-[#ff4d4d] font-semibold"
+                      : isMobile
+                      ? "bg-neutral-50 dark:bg-white/[0.02] text-neutral-700 dark:text-neutral-300"
+                      : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-white/5"
+                  }`}
+                >
+                  <span>{sub.label}</span>
+                  {isOptionActive && (
+                    <Check className="w-4 h-4 text-[#D5001C]" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <section
       id="boutique-store"
-      className="relative w-full bg-[#F6F6F8] dark:bg-[#0B0B0D] py-24 md:py-32 px-4 sm:px-6 md:px-12 border-t border-black/[0.06] dark:border-white/[0.08]"
+      className="relative w-full bg-[#F6F6F8] dark:bg-[#0B0B0D] py-20 md:py-32 px-4 sm:px-6 md:px-12 border-t border-black/[0.06] dark:border-white/[0.08]"
     >
       <div className="max-w-[1720px] mx-auto">
-        {/* Section Editorial Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-8 border-b border-black/[0.06] dark:border-white/[0.08] gap-6">
-          <div>
-            <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-neutral-400 dark:text-neutral-500 font-mono block mb-3">
-              02 / PORSCHE TEQUIPMENT & PERFORMANCE CATALOG
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-[0.1em] text-neutral-950 dark:text-white uppercase">
-              THE ACCESSORIES & <span className="font-semibold">PARTS BOUTIQUE</span>
-            </h2>
-            <p className="mt-3 text-xs md:text-sm text-neutral-500 dark:text-neutral-400 font-light max-w-2xl leading-relaxed">
-              کاتالوگ تخصصی قطعات یدکی، پکیج‌های فیس‌لیفت و اکسسوری‌های اورجینال پورشه برای مدل‌های Macan، Cayman، Cayenne، Boxster، 911 و Panamera.
-            </p>
-          </div>
-
-          {/* Sort Selector */}
-          <div className="flex items-center space-x-2 text-[11px] font-mono tracking-wider text-neutral-500 dark:text-neutral-400 border border-black/[0.08] dark:border-white/[0.1] bg-white dark:bg-[#121216] px-3.5 py-2 self-start md:self-auto">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-500" />
-            <span>مرتب‌سازی:</span>
-            <select
-              value={sortBy}
-              onChange={(e) => {
-                soundManager.playClick();
-                setSortBy(e.target.value as "featured" | "price-asc" | "price-desc");
-              }}
-              aria-label="Sort products"
-              className="bg-transparent text-neutral-900 dark:text-neutral-100 font-medium focus:outline-none cursor-pointer uppercase text-[10px] tracking-[0.15em]"
-            >
-              <option value="featured" className="bg-white dark:bg-[#121216] text-neutral-900 dark:text-neutral-100">
-                پیش‌فرض (Featured)
-              </option>
-              <option value="price-asc" className="bg-white dark:bg-[#121216] text-neutral-900 dark:text-neutral-100">
-                قیمت: کم به زیاد
-              </option>
-              <option value="price-desc" className="bg-white dark:bg-[#121216] text-neutral-900 dark:text-neutral-100">
-                قیمت: زیاد به کم
-              </option>
-            </select>
-          </div>
+        {/* Section Editorial Header (Price filter removed) */}
+        <div className="mb-10 pb-6 border-b border-black/[0.06] dark:border-white/[0.08]">
+          <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-neutral-400 dark:text-neutral-500 font-mono block mb-3">
+            02 / PORSCHE TEQUIPMENT & PERFORMANCE CATALOG
+          </span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.1em] text-neutral-950 dark:text-white uppercase">
+            THE ACCESSORIES & <span className="font-semibold">PARTS BOUTIQUE</span>
+          </h2>
+          <p className="mt-3 text-xs md:text-sm text-neutral-500 dark:text-neutral-400 font-light max-w-2xl leading-relaxed">
+            کاتالوگ تخصصی قطعات یدکی، پکیج‌های فیس‌لیفت و اکسسوری‌های اورجینال پورشه برای مدل‌های Macan، Cayman، Cayenne، Boxster، 911 و Panamera.
+          </p>
         </div>
 
         {/* ------------------------------------------------------------------ */}
-        {/* VEHICLE MODEL SELECTOR WITH INDIVIDUAL DROPDOWNS                   */}
+        {/* VEHICLE MODEL SELECTOR WITH DROPDOWNS                              */}
         {/* ------------------------------------------------------------------ */}
         <div id="products-catalog-grid" className="mb-6">
           <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 block mb-3 font-semibold">
             انتخاب مدل خودرو و دسته‌بندی قطعات (SELECT VEHICLE MODEL & CATEGORY)
           </span>
 
+          {/* Model Tabs Bar: Scrollable on mobile, flex-wrapped on larger screens */}
           <div
             ref={modelRowRef}
-            className="flex flex-wrap items-center gap-2.5 sm:gap-3"
+            className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none sm:flex-wrap sm:overflow-visible"
           >
             {VEHICLE_CATEGORIES.map((m, index) => {
               const isSelected = selectedModel === m.id;
@@ -165,12 +289,12 @@ export default function StoreSection() {
               const isRightAligned = index >= 3;
 
               return (
-                <div key={m.id} className="relative">
+                <div key={m.id} className="relative shrink-0 sm:shrink">
                   {/* Model Tab Button with Dropdown Chevron */}
                   <button
                     onClick={() => handleModelClick(m.id)}
                     aria-expanded={isDropdownOpen}
-                    className={`flex items-center gap-2 text-[11px] md:text-xs font-mono tracking-[0.2em] uppercase px-4 py-2.5 transition-all cursor-pointer border ${
+                    className={`flex items-center gap-2 text-[11px] md:text-xs font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase px-3.5 py-2.5 sm:px-4 sm:py-2.5 transition-all cursor-pointer whitespace-nowrap border ${
                       isSelected
                         ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs"
                         : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2]"
@@ -188,125 +312,14 @@ export default function StoreSection() {
                     />
                   </button>
 
-                  {/* Dropdown Menu */}
+                  {/* Desktop Dropdown Menu (Hidden on Phone) */}
                   {isDropdownOpen && (
                     <div
-                      className={`absolute top-full mt-2 z-50 min-w-[240px] sm:min-w-[280px] max-w-[calc(100vw-32px)] bg-white dark:bg-[#121216] border border-black/[0.1] dark:border-white/[0.12] shadow-2xl p-2 animate-in fade-in zoom-in-95 duration-150 ${
+                      className={`hidden sm:block absolute top-full mt-2 z-40 min-w-[260px] sm:min-w-[280px] max-h-[70vh] overflow-y-auto bg-white dark:bg-[#121216] border border-black/[0.1] dark:border-white/[0.12] shadow-2xl animate-in fade-in zoom-in-95 duration-150 ${
                         isRightAligned ? "right-0" : "left-0"
                       }`}
                     >
-                      {/* Model Title Header */}
-                      <div className="px-3 py-1.5 border-b border-black/[0.06] dark:border-white/[0.08] mb-1 flex items-center justify-between">
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
-                          {m.name} Catalog
-                        </span>
-                        <span className="text-[9px] font-mono text-neutral-400">
-                          پورشه
-                        </span>
-                      </div>
-
-                      {/* All Items for this Model */}
-                      <button
-                        onClick={() => handleSelectSubOption(m.id, "all", "all")}
-                        className={`w-full text-right px-3 py-2 text-xs flex items-center justify-between transition-colors cursor-pointer ${
-                          selectedModel === m.id &&
-                          selectedGeneration === "all" &&
-                          selectedSubCategory === "all"
-                            ? "bg-neutral-100 dark:bg-white/10 text-neutral-950 dark:text-white font-semibold"
-                            : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-white/5"
-                        }`}
-                      >
-                        <span className="font-mono">همه قطعات و اکسسوری‌های {m.name}</span>
-                        {selectedModel === m.id &&
-                          selectedGeneration === "all" &&
-                          selectedSubCategory === "all" && (
-                            <Check className="w-3.5 h-3.5 text-[#D5001C]" />
-                          )}
-                      </button>
-
-                      {/* Case 1: Model with Generations (Cayenne, Boxster, 911) */}
-                      {m.generations && m.generations.length > 0 ? (
-                        <div className="mt-1 space-y-2">
-                          {m.generations.map((gen) => (
-                            <div
-                              key={gen.id}
-                              className="pt-2 border-t border-black/[0.05] dark:border-white/[0.06]"
-                            >
-                              <div className="px-3 py-1 flex items-center justify-between">
-                                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                                  {gen.name}
-                                </span>
-                                <button
-                                  onClick={() =>
-                                    handleSelectSubOption(m.id, gen.id, "all")
-                                  }
-                                  className="text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
-                                >
-                                  همه
-                                </button>
-                              </div>
-
-                              <div className="space-y-0.5 mt-0.5">
-                                {SUB_CATEGORIES.map((sub) => {
-                                  const isOptionActive =
-                                    selectedModel === m.id &&
-                                    selectedGeneration === gen.id &&
-                                    selectedSubCategory === sub.id;
-                                  return (
-                                    <button
-                                      key={`${gen.id}-${sub.id}`}
-                                      onClick={() =>
-                                        handleSelectSubOption(
-                                          m.id,
-                                          gen.id,
-                                          sub.id
-                                        )
-                                      }
-                                      className={`w-full text-right px-3 py-1.5 text-xs flex items-center justify-between transition-colors cursor-pointer ${
-                                        isOptionActive
-                                          ? "bg-neutral-100 dark:bg-white/10 text-[#D5001C] dark:text-[#ff4d4d] font-semibold"
-                                          : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-white/5"
-                                      }`}
-                                    >
-                                      <span>{sub.label}</span>
-                                      {isOptionActive && (
-                                        <Check className="w-3.5 h-3.5 text-[#D5001C]" />
-                                      )}
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        /* Case 2: Model without Generations (Macan, Cayman, Panamera) */
-                        <div className="mt-1 pt-1 border-t border-black/[0.05] dark:border-white/[0.06] space-y-0.5">
-                          {SUB_CATEGORIES.map((sub) => {
-                            const isOptionActive =
-                              selectedModel === m.id &&
-                              selectedSubCategory === sub.id;
-                            return (
-                              <button
-                                key={`single-${m.id}-${sub.id}`}
-                                onClick={() =>
-                                  handleSelectSubOption(m.id, "all", sub.id)
-                                }
-                                className={`w-full text-right px-3 py-2 text-xs flex items-center justify-between transition-colors cursor-pointer ${
-                                  isOptionActive
-                                    ? "bg-neutral-100 dark:bg-white/10 text-[#D5001C] dark:text-[#ff4d4d] font-semibold"
-                                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-white/5"
-                                }`}
-                              >
-                                <span>{sub.label}</span>
-                                {isOptionActive && (
-                                  <Check className="w-3.5 h-3.5 text-[#D5001C]" />
-                                )}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      )}
+                      {renderDropdownContent(m, false)}
                     </div>
                   )}
                 </div>
@@ -314,6 +327,51 @@ export default function StoreSection() {
             })}
           </div>
         </div>
+
+        {/* ------------------------------------------------------------------ */}
+        {/* MOBILE OPTIMIZED BOTTOM SHEET DRAWER (PHONE ONLY)                  */}
+        {/* ------------------------------------------------------------------ */}
+        {openModelObj && (
+          <div className="sm:hidden">
+            {/* Backdrop */}
+            <div
+              onClick={() => setOpenDropdownModel(null)}
+              className="fixed inset-0 bg-black/65 backdrop-blur-xs z-50 animate-in fade-in duration-200"
+            />
+
+            {/* Bottom Sheet Drawer */}
+            <div className="fixed inset-x-0 bottom-0 z-50 bg-white dark:bg-[#121216] border-t border-black/[0.1] dark:border-white/[0.15] rounded-t-2xl shadow-2xl max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-250">
+              {/* Handle Bar */}
+              <div className="pt-3 pb-1 flex justify-center">
+                <div className="w-12 h-1.5 bg-neutral-300 dark:bg-neutral-700 rounded-full" />
+              </div>
+
+              {/* Sheet Header */}
+              <div className="px-5 py-3 border-b border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 dark:text-neutral-500 block">
+                    PORSCHE {openModelObj.name}
+                  </span>
+                  <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">
+                    انتخاب دسته‌بندی و قطعات
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setOpenDropdownModel(null)}
+                  className="p-1.5 rounded-full text-neutral-500 hover:text-black dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                  aria-label="بستن منو"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Sheet Scrollable Options */}
+              <div className="overflow-y-auto px-4 py-4 pb-10">
+                {renderDropdownContent(openModelObj, true)}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Active Filter State Summary & Reset */}
         <div className="flex items-center justify-between py-3 px-4 mb-8 bg-neutral-100 dark:bg-[#15151a] border border-black/[0.06] dark:border-white/[0.08] text-xs font-mono text-neutral-700 dark:text-neutral-300">
