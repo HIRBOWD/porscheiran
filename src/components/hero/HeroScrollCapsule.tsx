@@ -41,7 +41,19 @@ export default function HeroScrollCapsule({
       const car = carIndicatorRef.current;
       if (!track || !car) return;
 
-      const p = Math.max(0, Math.min(1, scrollProgressRef.current ?? 0));
+      // 1. Calculate global page scroll progress (0 at top of site, 1 at bottom of site)
+      const lenis = typeof window !== "undefined" ? (window as any).__lenis : null;
+      let globalP = 0;
+
+      if (lenis && typeof lenis.progress === "number" && !isNaN(lenis.progress) && lenis.limit > 0) {
+        globalP = lenis.progress;
+      } else if (typeof window !== "undefined") {
+        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+        const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        globalP = scrollY / maxScroll;
+      }
+
+      const p = Math.max(0, Math.min(1, globalP));
 
       // Calculate vertical travel bounds inside the pill
       const trackHeight = track.clientHeight;
@@ -53,13 +65,17 @@ export default function HeroScrollCapsule({
       const travelY = verticalPadding + p * maxTravel;
       car.style.transform = `translate3d(-50%, ${travelY}px, 0)`;
 
-      // Determine active section milestone
+      // Determine active section milestone:
+      // Hero sections (01 INTRO, 02 DESIGN, 03 PERFORMANCE) based on hero progress,
+      // and ACCESSORIES (04) when scrolled into the boutique store and beyond
       let currentSection = 0;
-      if (p >= 0.82) {
+      const heroP = scrollProgressRef?.current ?? 0;
+
+      if (heroP >= 0.85 || p >= 0.35) {
         currentSection = 3; // ACCESSORIES
-      } else if (p >= 0.52) {
+      } else if (heroP >= 0.52) {
         currentSection = 2; // PERFORMANCE
-      } else if (p >= 0.22) {
+      } else if (heroP >= 0.20) {
         currentSection = 1; // DESIGN
       } else {
         currentSection = 0; // INTRO

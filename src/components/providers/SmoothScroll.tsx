@@ -28,6 +28,11 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     // Synchronize Lenis with GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
+    // Expose Lenis instance globally for synchronized components (e.g. global scroll capsule)
+    if (typeof window !== "undefined") {
+      (window as any).__lenis = lenis;
+    }
+
     const updateLenis = (time: number) => {
       lenis.raf(time * 1000);
     };
@@ -38,6 +43,9 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     return () => {
       gsap.ticker.remove(updateLenis);
       lenis.destroy();
+      if (typeof window !== "undefined") {
+        delete (window as any).__lenis;
+      }
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);

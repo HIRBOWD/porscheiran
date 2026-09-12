@@ -25,27 +25,42 @@ export default function HomePage() {
   const handleNavigateSection = (targetProgress: number) => {
     const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     const runwayDistance = isMobile ? 700 : 750;
+    const lenis = typeof window !== "undefined" ? (window as any).__lenis : null;
 
     if (targetProgress >= 0.95) {
       const storeEl = document.getElementById("boutique-store");
       if (storeEl) {
-        storeEl.scrollIntoView({ behavior: "smooth" });
+        if (lenis) {
+          lenis.scrollTo(storeEl);
+        } else {
+          storeEl.scrollIntoView({ behavior: "smooth" });
+        }
         return;
       }
     }
 
-    window.scrollTo({
-      top: targetProgress * runwayDistance,
-      behavior: "smooth",
-    });
+    const targetY = targetProgress * runwayDistance;
+    if (lenis) {
+      lenis.scrollTo(targetY);
+    } else {
+      window.scrollTo({
+        top: targetY,
+        behavior: "smooth",
+      });
+    }
   };
 
   const handleSelectModel = (_index: number = 0) => {
     // Smooth scroll to top of the pinned 3D showroom
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    const lenis = typeof window !== "undefined" ? (window as any).__lenis : null;
+    if (lenis) {
+      lenis.scrollTo(0);
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
