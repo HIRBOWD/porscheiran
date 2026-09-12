@@ -1,41 +1,21 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import { soundManager } from "@/lib/audio";
 
 interface HeroScrollCapsuleProps {
-  scrollProgressRef: React.RefObject<number>;
+  scrollProgressRef?: React.RefObject<number>;
   onNavigateSection?: (progress: number) => void;
 }
 
-interface SectionMilestone {
-  index: string;
-  title: string;
-  progress: number;
-  yPercent: number; // 0 to 1 along capsule height
-}
+const TRACK_TICKS = [0.25, 0.5, 0.75];
 
-const SECTIONS: SectionMilestone[] = [
-  { index: "01", title: "INTRO", progress: 0.0, yPercent: 0.06 },
-  { index: "02", title: "DESIGN", progress: 0.35, yPercent: 0.35 },
-  { index: "03", title: "PERFORMANCE", progress: 0.68, yPercent: 0.65 },
-  { index: "04", title: "ACCESSORIES", progress: 0.98, yPercent: 0.94 },
-];
-
-export default function HeroScrollCapsule({
-  scrollProgressRef,
-  onNavigateSection,
-}: HeroScrollCapsuleProps) {
+export default function HeroScrollCapsule({}: HeroScrollCapsuleProps = {}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const carIndicatorRef = useRef<HTMLDivElement>(null);
-  const activeSectionRef = useRef<number>(0);
-  const [activeSection, setActiveSection] = useState(0);
 
   useEffect(() => {
-    let lastActive = 0;
-
     const updateCapsulePosition = () => {
       const track = trackRef.current;
       const car = carIndicatorRef.current;
@@ -64,28 +44,6 @@ export default function HeroScrollCapsule({
       // Direct GPU-accelerated transform: 120 FPS, 0 React re-renders on scroll
       const travelY = verticalPadding + p * maxTravel;
       car.style.transform = `translate3d(-50%, ${travelY}px, 0)`;
-
-      // Determine active section milestone:
-      // Hero sections (01 INTRO, 02 DESIGN, 03 PERFORMANCE) based on hero progress,
-      // and ACCESSORIES (04) when scrolled into the boutique store and beyond
-      let currentSection = 0;
-      const heroP = scrollProgressRef?.current ?? 0;
-
-      if (heroP >= 0.85 || p >= 0.35) {
-        currentSection = 3; // ACCESSORIES
-      } else if (heroP >= 0.52) {
-        currentSection = 2; // PERFORMANCE
-      } else if (heroP >= 0.20) {
-        currentSection = 1; // DESIGN
-      } else {
-        currentSection = 0; // INTRO
-      }
-
-      if (currentSection !== lastActive) {
-        lastActive = currentSection;
-        activeSectionRef.current = currentSection;
-        setActiveSection(currentSection);
-      }
     };
 
     // Attach to the shared GSAP master ticker for 1:1 instantaneous lockstep with 3D GT3
@@ -94,61 +52,10 @@ export default function HeroScrollCapsule({
     return () => {
       gsap.ticker.remove(updateCapsulePosition);
     };
-  }, [scrollProgressRef]);
-
-  const handleSectionClick = (targetProgress: number) => {
-    soundManager.playClick();
-    onNavigateSection?.(targetProgress);
-  };
+  }, []);
 
   return (
-    <div className="fixed right-3 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 z-40 pointer-events-auto flex items-center select-none">
-      {/* SECTION MARKERS (Desktop / Tablet) */}
-      <div className="hidden md:flex flex-col justify-between h-[320px] py-1 mr-3 text-right">
-        {SECTIONS.map((sec, idx) => {
-          const isActive = activeSection === idx;
-          return (
-            <button
-              key={sec.index}
-              onClick={() => handleSectionClick(sec.progress)}
-              className="group flex items-center justify-end gap-2.5 cursor-pointer transition-all duration-300 py-1"
-              aria-label={`Navigate to ${sec.index} ${sec.title}`}
-            >
-              {/* Marker Label */}
-              <div className="flex items-center gap-1.5 font-mono text-[9px] tracking-[0.25em] uppercase">
-                <span
-                  className={`transition-colors duration-300 ${
-                    isActive
-                      ? "text-neutral-900 dark:text-white font-bold"
-                      : "text-neutral-400/80 dark:text-neutral-500/80 group-hover:text-neutral-700 dark:group-hover:text-neutral-300"
-                  }`}
-                >
-                  {sec.index}
-                </span>
-                <span
-                  className={`transition-colors duration-300 ${
-                    isActive
-                      ? "text-neutral-900 dark:text-white font-semibold"
-                      : "text-neutral-400/60 dark:text-neutral-500/60 group-hover:text-neutral-600 dark:group-hover:text-neutral-400"
-                  }`}
-                >
-                  — {sec.title}
-                </span>
-              </div>
-
-              {/* 1px Thin Connecting Hairline */}
-              <div
-                className={`h-[1px] transition-all duration-300 ${
-                  isActive
-                    ? "w-5 bg-neutral-900 dark:bg-white shadow-[0_0_6px_rgba(255,255,255,0.4)]"
-                    : "w-2.5 bg-neutral-300/80 dark:bg-white/20 group-hover:w-4 group-hover:bg-neutral-500 dark:group-hover:bg-white/50"
-                }`}
-              />
-            </button>
-          );
-        })}
-      </div>
-
+    <div className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 pointer-events-none select-none">
       {/* CAPSULE TRACK CONTAINER */}
       <div
         ref={trackRef}
@@ -162,11 +69,11 @@ export default function HeroScrollCapsule({
         <div className="absolute top-3 bottom-3 left-1/2 -translate-x-1/2 w-[1px] bg-neutral-400/30 dark:bg-white/[0.12]" />
 
         {/* Milestone Tick Marks on Track */}
-        {SECTIONS.map((sec) => (
+        {TRACK_TICKS.map((pos) => (
           <div
-            key={`tick-${sec.index}`}
+            key={`tick-${pos}`}
             className="absolute left-1/2 -translate-x-1/2 w-2 h-[1px] bg-neutral-400/40 dark:bg-white/[0.20]"
-            style={{ top: `${sec.yPercent * 100}%` }}
+            style={{ top: `${pos * 100}%` }}
           />
         ))}
 
