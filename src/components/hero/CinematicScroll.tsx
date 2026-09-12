@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import VehicleCanvas from "@/components/canvas/VehicleCanvas";
+import HeroScrollCapsule from "./HeroScrollCapsule";
 import { VEHICLES } from "@/data/vehicles";
 import { soundManager } from "@/lib/audio";
 import { ChevronDown } from "lucide-react";
@@ -14,7 +15,6 @@ export default function CinematicScroll() {
 
   // Scene scroll progress stored in ref to eliminate React re-renders on scroll
   const scrollProgressRef = useRef(0);
-  const [activeSceneIndex, setActiveSceneIndex] = useState(0);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -40,16 +40,14 @@ export default function CinematicScroll() {
     };
   }, []);
 
-  const scrollToScene = (index: number = 0) => {
-    soundManager.playClick();
+  const handleNavigateSection = (targetProgress: number) => {
     if (!triggerRef.current) return;
     const triggerTop = triggerRef.current.offsetTop;
-
-    // Trigger synthetic audio rev for the vehicle
-    soundManager.playEngineRev("gt3");
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const runwayDistance = isMobile ? 700 : 750;
 
     window.scrollTo({
-      top: triggerTop,
+      top: triggerTop + targetProgress * runwayDistance,
       behavior: "smooth",
     });
   };
@@ -126,45 +124,11 @@ export default function CinematicScroll() {
                 </div>
               </div>
             </div>
-
-            {/* RIGHT: Scene Markers (01 MACAN, 02 BOXSTER, 03 911) */}
-            <div className="hidden lg:flex flex-col items-end space-y-4 pointer-events-auto">
-              <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-neutral-400 dark:text-neutral-500 mb-1">
-                3D SCENARIO INDEX
-              </span>
-
-              {VEHICLES.map((v, idx) => {
-                const isActive = activeSceneIndex === idx;
-                return (
-                  <button
-                    key={v.id}
-                    onClick={() => scrollToScene(idx)}
-                    className={`flex items-center gap-3 text-right text-[10px] font-mono tracking-[0.22em] uppercase transition-all duration-300 cursor-pointer group ${
-                      isActive
-                        ? "text-neutral-950 dark:text-white font-bold"
-                        : "text-neutral-400 dark:text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-200"
-                    }`}
-                  >
-                    <span className="text-[9px] text-neutral-400 dark:text-neutral-500 group-hover:text-black dark:group-hover:text-white">
-                      {v.index}
-                    </span>
-                    <span>{v.modelCode}</span>
-                    <span
-                      className={`h-[1.5px] transition-all duration-300 ${
-                        isActive
-                          ? "w-8 bg-neutral-950 dark:bg-white"
-                          : "w-3 bg-neutral-300 dark:bg-neutral-700 group-hover:w-5 group-hover:bg-neutral-600 dark:group-hover:bg-neutral-400"
-                      }`}
-                    />
-                  </button>
-                );
-              })}
-            </div>
           </div>
 
           {/* Bottom Row: Left Dynamic Counter & Right "SCROLL TO EXPLORE" */}
           <div className="flex items-end justify-between w-full pointer-events-auto gap-2">
-            {/* Bottom Left: Quick Model Switcher */}
+            {/* Bottom Left: Quick Model Indicator */}
             <div className="flex items-center gap-2 sm:gap-4">
               <span className="text-2xl sm:text-4xl md:text-5xl font-light tracking-tight text-neutral-900 dark:text-white font-mono">
                 {currentVehicle.index}
@@ -173,23 +137,6 @@ export default function CinematicScroll() {
                 <span className="text-neutral-800 dark:text-neutral-200 font-semibold">{currentVehicle.name}</span>
                 <span className="hidden sm:inline">REAL-TIME 3D WEBGL</span>
               </div>
-            </div>
-
-            {/* Mobile Scene Jump Buttons (Touch-friendly tap targets) */}
-            <div className="flex lg:hidden items-center space-x-1 bg-white/90 dark:bg-[#18181D]/90 backdrop-blur-md p-1 rounded-full border border-black/[0.08] dark:border-white/[0.1] shadow-sm">
-              {VEHICLES.map((v, i) => (
-                <button
-                  key={v.id}
-                  onClick={() => scrollToScene(i)}
-                  className={`text-[8px] sm:text-[9px] tracking-[0.16em] uppercase px-2.5 py-1.5 rounded-full transition-all cursor-pointer min-h-[32px] flex items-center justify-center ${
-                    activeSceneIndex === i
-                      ? "bg-neutral-900 dark:bg-white text-white dark:text-black font-medium shadow-xs"
-                      : "text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white active:bg-neutral-200 dark:active:bg-neutral-800"
-                  }`}
-                >
-                  {v.modelCode}
-                </button>
-              ))}
             </div>
 
             {/* Bottom Right: SCROLL TO EXPLORE with animated downward indicator */}
@@ -210,6 +157,12 @@ export default function CinematicScroll() {
             </button>
           </div>
         </div>
+
+        {/* Vertical Capsule Scroll Indicator with synchronized miniature GT3 */}
+        <HeroScrollCapsule
+          scrollProgressRef={scrollProgressRef}
+          onNavigateSection={handleNavigateSection}
+        />
 
         {/* 1px Architectural Physical Separation Layer */}
         <div className="arch-separator z-30" />
