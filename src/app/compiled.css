@@ -731,8 +731,8 @@
   .gap-8 {
     gap: calc(var(--spacing) * 8);
   }
-  .gap-10 {
-    gap: calc(var(--spacing) * 10);
+  .gap-12 {
+    gap: calc(var(--spacing) * 12);
   }
   :where(.space-y-1 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
@@ -758,11 +758,6 @@
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 3) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-y-reverse)));
-  }
-  :where(.space-y-3\.5 > :not(:last-child)) {
-    --tw-space-y-reverse: 0;
-    margin-block-start: calc(calc(var(--spacing) * 3.5) * var(--tw-space-y-reverse));
-    margin-block-end: calc(calc(var(--spacing) * 3.5) * calc(1 - var(--tw-space-y-reverse)));
   }
   :where(.space-y-4 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
@@ -1695,8 +1690,8 @@
   .placeholder\:text-neutral-400::placeholder {
     color: var(--color-neutral-400);
   }
-  .placeholder\:text-neutral-500::placeholder {
-    color: var(--color-neutral-500);
+  .placeholder\:text-neutral-600::placeholder {
+    color: var(--color-neutral-600);
   }
   .after\:absolute::after {
     content: var(--tw-content);
@@ -1933,9 +1928,6 @@
     .sm\:px-6 {
       padding-inline: calc(var(--spacing) * 6);
     }
-    .sm\:px-8 {
-      padding-inline: calc(var(--spacing) * 8);
-    }
     .sm\:px-10 {
       padding-inline: calc(var(--spacing) * 10);
     }
@@ -2063,6 +2055,9 @@
     .md\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+    .md\:grid-cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
     .md\:flex-row {
       flex-direction: row;
     }
@@ -2155,15 +2150,6 @@
     }
   }
   @media (width >= 64rem) {
-    .lg\:col-span-2 {
-      grid-column: span 2 / span 2;
-    }
-    .lg\:col-span-3 {
-      grid-column: span 3 / span 3;
-    }
-    .lg\:col-span-5 {
-      grid-column: span 5 / span 5;
-    }
     .lg\:flex {
       display: flex;
     }
@@ -2173,17 +2159,11 @@
     .lg\:grid-cols-3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .lg\:grid-cols-12 {
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-    }
     .lg\:flex-row {
       flex-direction: row;
     }
     .lg\:items-end {
       align-items: flex-end;
-    }
-    .lg\:gap-10 {
-      gap: calc(var(--spacing) * 10);
     }
     :where(.lg\:space-x-8 > :not(:last-child)) {
       --tw-space-x-reverse: 0;
