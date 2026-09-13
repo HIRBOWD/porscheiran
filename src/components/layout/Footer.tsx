@@ -86,9 +86,22 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Middle Tier: اطلاعات مجموعه */}
-        <div className="py-12 md:py-16 border-b border-neutral-800 dark:border-white/[0.08] text-xs flex justify-center">
-          <div className="w-full max-w-xl">
+        {/* Middle Tier: اطلاعات مجموعه و بیانیه رسمی */}
+        <div className="py-12 md:py-16 border-b border-neutral-800 dark:border-white/[0.08] text-xs space-y-10">
+          {/* Official Representation & Import Statement */}
+          <div className="max-w-4xl mx-auto px-2 sm:px-4">
+            <div className="bg-white/[0.02] dark:bg-white/[0.02] border border-neutral-800 dark:border-white/[0.06] rounded-xl p-6 sm:p-8 text-center" dir="rtl">
+              <p
+                className="text-xs sm:text-[13px] text-neutral-300 dark:text-neutral-300 font-light leading-relaxed font-sans"
+                style={{ letterSpacing: "normal" }}
+              >
+                این مرکز به نمایندگی های پورشه امارات متحده عربی و پورشه آلمان لینک شده است و به صورت تخصصی واردات تمامی قطعات و لوازم یدکی / فیس لیفت و … به صورت آکبند و استوک به کشور انجام می دهیم. همچنین ما میتوانیم ثبت سفارش قطعه ی مورد نظر شما مشتری محترم را با قرارداد کتبی و با ضمانت اصالت کالا برای شما در نمایندگی کشور های فوق انجام دهیم و بهتون در ایران / تهران تحویل دهیم.
+              </p>
+            </div>
+          </div>
+
+          {/* اطلاعات مجموعه */}
+          <div className="w-full max-w-xl mx-auto">
             <h5
               className="text-xs font-semibold text-white mb-6 font-sans text-center"
               style={{ letterSpacing: "normal" }}
