@@ -15,11 +15,16 @@ export default function Manifesto() {
 
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <span className="text-[10px] font-semibold tracking-[0.35em] uppercase text-neutral-400 dark:text-neutral-500 font-mono block mb-6">
-          THE DESIGN PHILOSOPHY
+          DRIVEN BY DREAMS
         </span>
 
-        <blockquote className="text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.08em] text-neutral-900 dark:text-white uppercase leading-snug">
-          &ldquo;IN THE BEGINNING, I LOOKED AROUND AND COULD NOT FIND QUITE THE CAR I&apos;D BEEN DREAMING OF. SO I DECIDED TO BUILD IT MYSELF.&rdquo;
+        <blockquote
+          lang="fa"
+          dir="rtl"
+          className="text-2xl sm:text-3xl md:text-4xl font-light text-neutral-900 dark:text-white leading-relaxed font-sans max-w-3xl mx-auto"
+          style={{ letterSpacing: "normal" }}
+        >
+          «وقتی چیزی که به دنبالش هستید وجود ندارد، باید خودتان آن را بسازید. این نگاه، آغاز مسیری بود که نام پورشه را شکل داد»
         </blockquote>
 
         <div className="mt-8 flex flex-col items-center">
@@ -28,45 +33,84 @@ export default function Manifesto() {
             FERRY PORSCHE
           </cite>
           <span className="text-[10px] tracking-[0.2em] uppercase font-mono text-neutral-400 dark:text-neutral-500 mt-1">
-            FOUNDER, DR. ING. H.C. F. PORSCHE AG
+            FOUNDER PORSCHE AG
           </span>
         </div>
 
         {/* 3 Core Pillars */}
-        <div className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 text-left pt-12 border-t border-black/[0.05] dark:border-white/[0.06]">
+        <div
+          dir="rtl"
+          className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 text-right pt-12 border-t border-black/[0.05] dark:border-white/[0.06]"
+        >
           <div className="p-4">
-            <span className="text-[10px] font-mono tracking-widest text-neutral-400 dark:text-neutral-500 block mb-2">
-              01 / PURITY
+            <span
+              lang="fa"
+              className="text-[11px] font-semibold text-neutral-400 dark:text-neutral-500 block mb-2 font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              01 / شفافیت در خدمات
             </span>
-            <h4 className="text-xs font-semibold tracking-wider uppercase text-neutral-900 dark:text-white mb-2">
-              REDUCTION TO THE ESSENTIAL
+            <h4
+              lang="fa"
+              className="text-xs font-semibold text-neutral-900 dark:text-white mb-2 font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              ارائه بهترین سرویس ها
             </h4>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed">
-              Every curve, stitch, and tolerance is engineered with purpose. No unnecessary decoration—only pure functional elegance.
+            <p
+              lang="fa"
+              className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              ما میتوانیم ثبت سفارش قطعه ی مورد نظر شما مشتری محترم را با قرارداد کتبی و با ضمانت اصالت کالا برای شما در نمایندگی کشور های فوق انجام دهیم و در ایران / تهران تحویل دهیم
             </p>
           </div>
 
           <div className="p-4">
-            <span className="text-[10px] font-mono tracking-widest text-neutral-400 dark:text-neutral-500 block mb-2">
-              02 / WEISSACH GENES
+            <span
+              lang="fa"
+              className="text-[11px] font-semibold text-neutral-400 dark:text-neutral-500 block mb-2 font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              02 / تجربه و دقت
             </span>
-            <h4 className="text-xs font-semibold tracking-wider uppercase text-neutral-900 dark:text-white mb-2">
-              TESTED ON TRACK
+            <h4
+              lang="fa"
+              className="text-xs font-semibold text-neutral-900 dark:text-white mb-2 font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              بیش از ۸ سال سابقه تخصصی
             </h4>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed">
-              Motorsport technologies directly inspire our accessories—from forged aluminum rims to titanium exhaust soundbars.
+            <p
+              lang="fa"
+              className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              در پورشه ایران با به کار گیری بهترین مکانیک ها و متخصصین پورشه به همراه تجربه بالا ما میتوانید روی خدمات و تعمیرات برای خودرو پورشه خود روی ما حساب کنید
             </p>
           </div>
 
           <div className="p-4">
-            <span className="text-[10px] font-mono tracking-widest text-neutral-400 dark:text-neutral-500 block mb-2">
-              03 / HERITAGE
+            <span
+              lang="fa"
+              className="text-[11px] font-semibold text-neutral-400 dark:text-neutral-500 block mb-2 font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              03 / باشگاه پورشه ایران
             </span>
-            <h4 className="text-xs font-semibold tracking-wider uppercase text-neutral-900 dark:text-white mb-2">
-              TIMELESS LEGACY
+            <h4
+              lang="fa"
+              className="text-xs font-semibold text-neutral-900 dark:text-white mb-2 font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              دورهمی های اختصاصی
             </h4>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed">
-              Handcrafted in Europe using genuine historical materials, preserved to accompany your vehicle for generations.
+            <p
+              lang="fa"
+              className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              دوستانی که دارنده هر مدلی از پورشه در تهران هستند میتوانند با ثبت نام در باشگاه ما میتوانند در دورهمی های خودرویی کلاب ما با رعایت قوانین و ضوابط راهنمایی و رانندگی و استاندارد های جهانی پورشه کلاب شرکت کنند
             </p>
           </div>
         </div>

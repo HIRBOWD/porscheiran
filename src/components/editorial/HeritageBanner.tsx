@@ -20,10 +20,14 @@ export default function HeritageBanner() {
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 pb-6 border-b border-black/[0.06] dark:border-white/[0.08] gap-4">
           <div>
             <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-neutral-400 dark:text-neutral-500 font-mono block mb-2">
-              03 / CURATED COLLECTIONS
+              03 / THE CLUB
             </span>
-            <h2 className="text-3xl md:text-4xl font-light tracking-[0.1em] text-neutral-950 dark:text-white uppercase">
-              THE HERITAGE & <span className="font-semibold">MOTORSPORT LINES</span>
+            <h2
+              lang="fa"
+              className="text-3xl md:text-4xl font-normal text-neutral-950 dark:text-white font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
+              باشگاه پورشه ایران
             </h2>
           </div>
           <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light max-w-md leading-relaxed font-mono">

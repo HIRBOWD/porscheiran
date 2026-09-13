@@ -108,7 +108,7 @@ export default function MobileMenu({ isOpen, onClose, onSelectModel }: MobileMen
                   onClick={() => handleNav("craftsmanship-manifesto")}
                   className="block hover:text-black dark:hover:text-white hover:translate-x-1 transition-transform cursor-pointer text-left w-full"
                 >
-                  DESIGN PHILOSOPHY
+                  DRIVEN BY DREAMS
                 </button>
               </div>
             </div>

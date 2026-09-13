@@ -297,17 +297,21 @@ export default function StoreSection() {
         {/* Section Editorial Header */}
         <div className="mb-10 pb-6 border-b border-black/[0.06] dark:border-white/[0.08]">
           <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-neutral-400 dark:text-neutral-500 font-mono block mb-3">
-            02 / PORSCHE TEQUIPMENT & PERFORMANCE CATALOG
+            02 / PORSCHE TEQUIPMENT
           </span>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.1em] text-neutral-950 dark:text-white uppercase">
-            THE ACCESSORIES & <span className="font-semibold">PARTS BOUTIQUE</span>
+          <h2
+            lang="fa"
+            className="text-2xl sm:text-4xl md:text-5xl font-normal text-neutral-950 dark:text-white font-sans"
+            style={{ letterSpacing: "normal" }}
+          >
+            اکسسوری‌ها و قطعات
           </h2>
           <p
             lang="fa"
             className="mt-3 text-xs md:text-sm text-neutral-500 dark:text-neutral-400 font-light max-w-2xl leading-relaxed font-sans"
             style={{ letterSpacing: "normal" }}
           >
-            کاتالوگ تخصصی قطعات یدکی، پکیج‌های فیس‌لیفت و اکسسوری‌های اورجینال پورشه برای مدل‌های Macan، Cayman، Cayenne، Boxster، 911 و Panamera.
+            قطعات یدکی و مصرفی ، پکیجهای فیسلیفت
           </p>
         </div>
 
