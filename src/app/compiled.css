@@ -36,6 +36,7 @@
     --container-2xl: 42rem;
     --container-3xl: 48rem;
     --container-4xl: 56rem;
+    --container-6xl: 72rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
@@ -617,6 +618,9 @@
   .max-w-4xl {
     max-width: var(--container-4xl);
   }
+  .max-w-6xl {
+    max-width: var(--container-6xl);
+  }
   .max-w-\[150px\] {
     max-width: 150px;
   }
@@ -734,6 +738,9 @@
   .gap-8 {
     gap: calc(var(--spacing) * 8);
   }
+  .gap-10 {
+    gap: calc(var(--spacing) * 10);
+  }
   .gap-12 {
     gap: calc(var(--spacing) * 12);
   }
@@ -776,11 +783,6 @@
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 8) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 8) * calc(1 - var(--tw-space-y-reverse)));
-  }
-  :where(.space-y-10 > :not(:last-child)) {
-    --tw-space-y-reverse: 0;
-    margin-block-start: calc(calc(var(--spacing) * 10) * var(--tw-space-y-reverse));
-    margin-block-end: calc(calc(var(--spacing) * 10) * calc(1 - var(--tw-space-y-reverse)));
   }
   :where(.space-x-2 > :not(:last-child)) {
     --tw-space-x-reverse: 0;
@@ -1939,11 +1941,8 @@
       margin-inline-start: calc(calc(var(--spacing) * 6) * var(--tw-space-x-reverse));
       margin-inline-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-x-reverse)));
     }
-    .sm\:p-8 {
-      padding: calc(var(--spacing) * 8);
-    }
-    .sm\:px-4 {
-      padding-inline: calc(var(--spacing) * 4);
+    .sm\:p-7 {
+      padding: calc(var(--spacing) * 7);
     }
     .sm\:px-6 {
       padding-inline: calc(var(--spacing) * 6);
@@ -2187,6 +2186,9 @@
     }
     .lg\:items-end {
       align-items: flex-end;
+    }
+    .lg\:gap-16 {
+      gap: calc(var(--spacing) * 16);
     }
     :where(.lg\:space-x-8 > :not(:last-child)) {
       --tw-space-x-reverse: 0;
