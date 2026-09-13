@@ -98,8 +98,12 @@ export default function Footer() {
               >
                 <div className="flex items-center gap-2 mb-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C]" />
-                  <span className="text-[10px] font-mono tracking-wider uppercase font-semibold text-neutral-400">
-                    PORSCHE GERMANY & UAE DIRECT LINK
+                  <span
+                    lang="fa"
+                    className="text-[11px] font-semibold text-neutral-400 font-sans"
+                    style={{ letterSpacing: "normal" }}
+                  >
+                    نحوه خدمات دهی
                   </span>
                 </div>
                 <p
@@ -232,7 +236,7 @@ export default function Footer() {
         </div>
       </div>
 
-        {/* Bottom Tier: Legal & Copyright */}
+        {/* Bottom Tier: Copyright & Design by Hirbod */}
         <div
           className="pt-12 flex flex-col md:flex-row items-center justify-between gap-6 text-[11px] text-neutral-500 font-sans"
           style={{ letterSpacing: "normal" }}
@@ -243,13 +247,6 @@ export default function Footer() {
 
           <div className="text-[11px] text-neutral-400 font-sans tracking-wide">
             Design by <span className="text-white font-medium">Hirbod</span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-6">
-            <a href="#" className="hover:text-neutral-300 transition-colors">حریم خصوصی</a>
-            <a href="#" className="hover:text-neutral-300 transition-colors">شرایط فروش و خدمات</a>
-            <a href="#" className="hover:text-neutral-300 transition-colors">تنظیمات کوکی</a>
-            <a href="#" className="hover:text-neutral-300 transition-colors">قوانین و مقررات</a>
           </div>
         </div>
       </div>

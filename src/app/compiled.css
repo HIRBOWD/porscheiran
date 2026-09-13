@@ -1825,9 +1825,6 @@
     .hover\:text-black:hover {
       color: var(--color-black);
     }
-    .hover\:text-neutral-300:hover {
-      color: var(--color-neutral-300);
-    }
     .hover\:text-red-500:hover {
       color: var(--color-red-500);
     }
