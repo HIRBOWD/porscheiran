@@ -81,54 +81,25 @@ export default function CinematicScroll({
         <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-28 md:pt-36 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-10 md:px-16 pointer-events-none">
           {/* Top Row: Left Hero Copy & Right Scene Jump Markers */}
           <div className="flex items-start justify-between w-full">
-            {/* LEFT: Typography & Specs */}
+            {/* LEFT: Typography */}
             <div className="max-w-xl">
               {/* Scene Counter */}
-              <div className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase text-neutral-400 dark:text-neutral-500 mb-2 sm:mb-3 flex items-center gap-2">
+              <div className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase text-neutral-400 dark:text-neutral-500 mb-3 sm:mb-4 flex items-center gap-2">
                 <span className="text-neutral-900 dark:text-white font-semibold">{currentVehicle.index}</span>
                 <span>/</span>
                 <span>01</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] ml-1" />
               </div>
 
-              {/* Dynamic Vehicle Model Name */}
-              <div className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.25em] uppercase text-neutral-800 dark:text-neutral-200 mb-0.5 sm:mb-1">
-                {currentVehicle.name}
-              </div>
-
               {/* Hero Main Heading */}
-              <h1 className="text-2xl sm:text-4xl md:text-6xl font-light tracking-[0.12em] sm:tracking-[0.14em] text-neutral-900 dark:text-white uppercase leading-[1.08]">
-                DRIVEN
-                <br />
-                <span className="font-semibold tracking-[0.14em] sm:tracking-[0.16em]">BY MORE</span>
-                <br />
-                <span className="text-base sm:text-2xl md:text-3xl font-light tracking-[0.18em] sm:tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
-                  THAN ROADS
-                </span>
+              <h1
+                lang="fa"
+                dir="rtl"
+                className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-neutral-950 dark:text-white font-sans leading-[1.25] inline-block"
+                style={{ letterSpacing: "normal" }}
+              >
+                به پورشه ایران خوش آمدید
               </h1>
-
-              {/* Supporting Text (Shown on sm+ to prevent crowding 3D car on small mobile phones) */}
-              <p className="hidden sm:block mt-3 sm:mt-5 text-[9px] sm:text-[10px] md:text-[11px] font-medium tracking-[0.28em] text-neutral-500 dark:text-neutral-400 uppercase leading-relaxed max-w-xs">
-                {currentVehicle.tagline}
-              </p>
-
-              {/* Dynamic Vehicle Specifications */}
-              <div className="mt-3 sm:mt-6 md:mt-8 flex items-center space-x-3 sm:space-x-6 text-[8px] sm:text-[10px] tracking-[0.16em] sm:tracking-[0.18em] uppercase text-neutral-400 dark:text-neutral-500 font-mono transition-opacity duration-500">
-                <div>
-                  <span className="text-neutral-900 dark:text-white font-medium">{currentVehicle.specs.power}</span>
-                  <span className="block text-[6.5px] sm:text-[8px] text-neutral-400 dark:text-neutral-500">OUTPUT</span>
-                </div>
-                <div className="w-[1px] h-3.5 sm:h-5 bg-neutral-200 dark:bg-neutral-800" />
-                <div>
-                  <span className="text-neutral-900 dark:text-white font-medium">{currentVehicle.specs.acceleration}</span>
-                  <span className="block text-[6.5px] sm:text-[8px] text-neutral-400 dark:text-neutral-500">0–60 MPH</span>
-                </div>
-                <div className="w-[1px] h-3.5 sm:h-5 bg-neutral-200 dark:bg-neutral-800" />
-                <div>
-                  <span className="text-neutral-900 dark:text-white font-medium">{currentVehicle.specs.topSpeed}</span>
-                  <span className="block text-[6.5px] sm:text-[8px] text-neutral-400 dark:text-neutral-500">TOP SPEED</span>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -139,10 +110,6 @@ export default function CinematicScroll({
               <span className="text-2xl sm:text-4xl md:text-5xl font-light tracking-tight text-neutral-900 dark:text-white font-mono">
                 {currentVehicle.index}
               </span>
-              <div className="flex flex-col text-[7px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.25em] text-neutral-400 dark:text-neutral-500 uppercase font-mono">
-                <span className="text-neutral-800 dark:text-neutral-200 font-semibold">{currentVehicle.name}</span>
-                <span className="hidden sm:inline">REAL-TIME 3D WEBGL</span>
-              </div>
             </div>
 
             {/* Bottom Right: SCROLL TO EXPLORE with animated downward indicator */}
