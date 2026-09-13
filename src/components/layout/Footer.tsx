@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { soundManager } from "@/lib/audio";
-import { ArrowRight, Check, MapPin, Phone, Mail } from "lucide-react";
+import { ArrowLeft, Check, MapPin, Phone, Mail } from "lucide-react";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -33,12 +33,12 @@ export default function Footer() {
               className="text-xs text-neutral-500 dark:text-neutral-400 block font-sans"
               style={{ letterSpacing: "normal" }}
             >
-              بوتیک تخصصی قطعات، فیس‌لیفت و اکسسوری‌های اورجینال پورشه
+              مرکز تخصصی قطعات، فیس‌لیفت و اکسسوری‌های اورجینال پورشه
             </span>
           </div>
 
           {/* Newsletter Form */}
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-md text-right" dir="rtl">
             <span
               className="text-[10px] font-semibold text-neutral-400 block mb-2 font-sans"
               style={{ letterSpacing: "normal" }}
@@ -54,7 +54,7 @@ export default function Footer() {
 
             {subscribed ? (
               <div
-                className="flex items-center gap-2 text-xs text-white py-3 font-sans"
+                className="flex items-center gap-2 text-xs text-white py-3 font-sans justify-start"
                 style={{ letterSpacing: "normal" }}
               >
                 <Check className="w-4 h-4 text-[#D5001C]" />
@@ -71,15 +71,16 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="ایمیل خود را وارد نمایید..."
                   required
-                  className="w-full bg-transparent py-3 text-xs text-white placeholder:text-neutral-600 focus:outline-none font-sans"
+                  className="w-full bg-transparent py-3 text-xs text-white placeholder:text-neutral-600 focus:outline-none font-sans text-right"
                   style={{ letterSpacing: "normal" }}
+                  dir="rtl"
                 />
                 <button
                   type="submit"
                   aria-label="عضویت در خبرنامه"
                   className="px-3 text-neutral-400 hover:text-white transition-colors cursor-pointer"
                 >
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowLeft className="w-4 h-4" />
                 </button>
               </form>
             )}
@@ -238,6 +239,10 @@ export default function Footer() {
         >
           <div>
             © {new Date().getFullYear()} پورشه ایران (Porsche Iran). تمامی حقوق محفوظ است.
+          </div>
+
+          <div className="text-[11px] text-neutral-400 font-sans tracking-wide">
+            Design by <span className="text-white font-medium">Hirbod</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-6">

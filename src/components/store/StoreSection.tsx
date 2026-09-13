@@ -574,7 +574,7 @@ export default function StoreSection() {
                 className="text-xs font-semibold text-neutral-900 dark:text-white font-sans"
                 style={{ letterSpacing: "normal" }}
               >
-                مدلی انتخاب نشده است (هیچکدام)
+                مدلی انتخاب نشده است
               </h3>
             </div>
             <p
