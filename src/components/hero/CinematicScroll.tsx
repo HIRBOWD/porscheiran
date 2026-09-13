@@ -73,32 +73,36 @@ export default function CinematicScroll({
         <VehicleCanvas scrollProgressRef={scrollProgressRef} />
 
         {/* Soft Studio Overhead Light Diffusion Overlay */}
-        <div className="absolute top-0 left-0 right-0 h-44 bg-gradient-to-b from-[#F6F6F8]/80 dark:from-[#0B0B0D]/80 to-transparent pointer-events-none z-10" />
+        <div className="absolute top-0 left-0 right-0 h-52 sm:h-60 md:h-64 bg-gradient-to-b from-[#F6F6F8]/90 via-[#F6F6F8]/50 to-transparent dark:from-[#0B0B0D]/90 dark:via-[#0B0B0D]/50 dark:to-transparent pointer-events-none z-10" />
 
         {/* ------------------------------------------------------------------ */}
         {/* MAIN TYPOGRAPHY & UI OVERLAY: Positioned in front of 3D Canvas     */}
         {/* ------------------------------------------------------------------ */}
-        <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-28 md:pt-36 pb-6 sm:pb-8 md:pb-12 px-4 sm:px-10 md:px-16 pointer-events-none">
-          {/* Top Row: Left Hero Copy & Right Scene Jump Markers */}
-          <div className="flex items-start justify-between w-full">
-            {/* LEFT: Typography */}
-            <div className="max-w-xl">
-              {/* Scene Counter */}
-              <div className="text-[9px] sm:text-[10px] font-mono tracking-[0.3em] uppercase text-neutral-400 dark:text-neutral-500 mb-3 sm:mb-4 flex items-center gap-2">
-                <span className="text-neutral-900 dark:text-white font-semibold">{currentVehicle.index}</span>
-                <span>/</span>
-                <span>01</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] ml-1" />
+        <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-24 md:pt-32 lg:pt-36 pb-6 sm:pb-8 md:pb-12 px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 pointer-events-none">
+          {/* Top Row: Responsive Art-Directed Persian Welcome Heading */}
+          <div className="w-full flex items-start justify-start">
+            <div
+              dir="rtl"
+              className="w-fit max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl text-right overflow-visible select-text"
+            >
+              {/* Scene Counter & Porsche Red Accent */}
+              <div className="flex items-center gap-2 mb-2.5 sm:mb-3 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] shrink-0" />
+                <span className="text-neutral-900 dark:text-white font-semibold font-mono">
+                  {currentVehicle.index}
+                </span>
+                <span className="font-mono">/</span>
+                <span className="font-mono">01</span>
               </div>
 
-              {/* Hero Main Heading */}
+              {/* Hero Main Heading: به پورش ایران خوش آمدید */}
               <h1
                 lang="fa"
                 dir="rtl"
-                className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-neutral-950 dark:text-white font-sans leading-[1.25] inline-block"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-light text-neutral-950 dark:text-white font-sans leading-[1.3] text-right [word-break:keep-all] break-normal"
                 style={{ letterSpacing: "normal" }}
               >
-                به پورشه ایران خوش آمدید
+                به پورش ایران خوش آمدید
               </h1>
             </div>
           </div>
