@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 
 export default function StoreSection() {
-  const [selectedModel, setSelectedModel] = useState<string>("macan");
+  const [selectedModel, setSelectedModel] = useState<string>("none");
   const [selectedGeneration, setSelectedGeneration] = useState<string>("all");
   const [selectedSubCategory, setSelectedSubCategory] = useState<SubCategoryId>("all");
   const [openDropdownModel, setOpenDropdownModel] = useState<string | null>(null);
@@ -60,6 +60,7 @@ export default function StoreSection() {
 
   // Active vehicle model object
   const activeModelObj = useMemo(() => {
+    if (selectedModel === "none") return null;
     return VEHICLE_CATEGORIES.find((c) => c.id === selectedModel);
   }, [selectedModel]);
 
@@ -68,8 +69,12 @@ export default function StoreSection() {
     return VEHICLE_CATEGORIES.find((c) => c.id === openDropdownModel);
   }, [openDropdownModel]);
 
-  // Filtered products (Price sorting filter removed as requested)
+  // Filtered products: remains empty when "none" (هیچکدام) is selected
   const filteredProducts = useMemo(() => {
+    if (selectedModel === "none") {
+      return [];
+    }
+
     let list = PRODUCTS.filter((p) => p.model === selectedModel);
 
     if (selectedGeneration !== "all") {
@@ -82,6 +87,14 @@ export default function StoreSection() {
 
     return list;
   }, [selectedModel, selectedGeneration, selectedSubCategory]);
+
+  const handleSelectNone = () => {
+    soundManager.playClick();
+    setSelectedModel("none");
+    setSelectedGeneration("all");
+    setSelectedSubCategory("all");
+    setOpenDropdownModel(null);
+  };
 
   const handleModelClick = (modelId: string) => {
     soundManager.playClick();
@@ -257,7 +270,7 @@ export default function StoreSection() {
       className="relative w-full bg-[#F6F6F8] dark:bg-[#0B0B0D] py-20 md:py-32 px-4 sm:px-6 md:px-12 border-t border-black/[0.06] dark:border-white/[0.08]"
     >
       <div className="max-w-[1720px] mx-auto">
-        {/* Section Editorial Header (Price filter removed) */}
+        {/* Section Editorial Header */}
         <div className="mb-10 pb-6 border-b border-black/[0.06] dark:border-white/[0.08]">
           <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-neutral-400 dark:text-neutral-500 font-mono block mb-3">
             02 / PORSCHE TEQUIPMENT & PERFORMANCE CATALOG
@@ -283,6 +296,21 @@ export default function StoreSection() {
             ref={modelRowRef}
             className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none sm:flex-wrap sm:overflow-visible"
           >
+            {/* "None" (هیچکدام) Option - Selected by default */}
+            <div className="relative shrink-0 sm:shrink">
+              <button
+                onClick={handleSelectNone}
+                className={`text-[11px] md:text-xs font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase px-3.5 py-2.5 sm:px-4 sm:py-2.5 transition-all cursor-pointer whitespace-nowrap border ${
+                  selectedModel === "none"
+                    ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs font-semibold"
+                    : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2]"
+                }`}
+              >
+                هیچکدام
+              </button>
+            </div>
+
+            {/* Vehicle Model Tabs */}
             {VEHICLE_CATEGORIES.map((m, index) => {
               const isSelected = selectedModel === m.id;
               const isDropdownOpen = openDropdownModel === m.id;
@@ -373,47 +401,59 @@ export default function StoreSection() {
           </div>
         )}
 
-        {/* Active Filter State Summary & Reset */}
-        <div className="flex items-center justify-between py-3 px-4 mb-8 bg-neutral-100 dark:bg-[#15151a] border border-black/[0.06] dark:border-white/[0.08] text-xs font-mono text-neutral-700 dark:text-neutral-300">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-neutral-400">مدل و دسته‌بندی انتخاب شده:</span>
-            <span className="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider">
-              {activeModelObj?.name || selectedModel.toUpperCase()}
-            </span>
-            {selectedGeneration !== "all" && (
-              <>
-                <ChevronRight className="w-3 h-3 text-neutral-400" />
-                <span className="font-medium text-neutral-800 dark:text-neutral-200">
-                  {activeModelObj?.generations?.find((g) => g.id === selectedGeneration)?.name || selectedGeneration}
-                </span>
-              </>
+        {/* Active Filter State Summary & Reset (Shown only when a model is selected) */}
+        {selectedModel !== "none" && (
+          <div className="flex items-center justify-between py-3 px-4 mb-8 bg-neutral-100 dark:bg-[#15151a] border border-black/[0.06] dark:border-white/[0.08] text-xs font-mono text-neutral-700 dark:text-neutral-300">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-neutral-400">مدل و دسته‌بندی انتخاب شده:</span>
+              <span className="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider">
+                {activeModelObj?.name || selectedModel.toUpperCase()}
+              </span>
+              {selectedGeneration !== "all" && (
+                <>
+                  <ChevronRight className="w-3 h-3 text-neutral-400" />
+                  <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                    {activeModelObj?.generations?.find((g) => g.id === selectedGeneration)?.name || selectedGeneration}
+                  </span>
+                </>
+              )}
+              {selectedSubCategory !== "all" && (
+                <>
+                  <ChevronRight className="w-3 h-3 text-neutral-400" />
+                  <span className="font-semibold text-[#D5001C]">
+                    {SUB_CATEGORIES.find((s) => s.id === selectedSubCategory)?.label}
+                  </span>
+                </>
+              )}
+              <span className="text-neutral-400 mr-2">
+                ({filteredProducts.length} قطعه)
+              </span>
+            </div>
+
+            {(selectedGeneration !== "all" || selectedSubCategory !== "all") && (
+              <button
+                onClick={handleResetFilters}
+                className="flex items-center gap-1.5 text-[11px] text-neutral-500 hover:text-black dark:hover:text-white cursor-pointer transition-colors"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>مشاهده همه قطعات این مدل</span>
+              </button>
             )}
-            {selectedSubCategory !== "all" && (
-              <>
-                <ChevronRight className="w-3 h-3 text-neutral-400" />
-                <span className="font-semibold text-[#D5001C]">
-                  {SUB_CATEGORIES.find((s) => s.id === selectedSubCategory)?.label}
-                </span>
-              </>
-            )}
-            <span className="text-neutral-400 mr-2">
-              ({filteredProducts.length} قطعه)
-            </span>
           </div>
+        )}
 
-          {(selectedGeneration !== "all" || selectedSubCategory !== "all") && (
-            <button
-              onClick={handleResetFilters}
-              className="flex items-center gap-1.5 text-[11px] text-neutral-500 hover:text-black dark:hover:text-white cursor-pointer transition-colors"
-            >
-              <RotateCcw className="w-3 h-3" />
-              <span>مشاهده همه قطعات این مدل</span>
-            </button>
-          )}
-        </div>
-
-        {/* Product Grid */}
-        {filteredProducts.length > 0 ? (
+        {/* Product Grid / Empty State */}
+        {selectedModel === "none" ? (
+          <div className="py-24 text-center border border-dashed border-black/[0.08] dark:border-white/[0.08] p-8 max-w-xl mx-auto">
+            <span className="w-2 h-2 rounded-full bg-[#D5001C] inline-block mb-3" />
+            <h3 className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-white uppercase tracking-wider mb-2 font-mono">
+              مدلی انتخاب نشده است (هیچکدام)
+            </h3>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed">
+              جهت مشاهده و سفارش قطعات، پکیج‌های فیس‌لیفت و اکسسوری‌ها، لطفاً یکی از مدل‌های پورشه را از بخش بالا انتخاب نمایید.
+            </p>
+          </div>
+        ) : filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
             {filteredProducts.map((product) => (
               <ProductCard
