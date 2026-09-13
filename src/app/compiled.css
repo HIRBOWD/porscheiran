@@ -1401,6 +1401,10 @@
     --tw-tracking: 0.18em;
     letter-spacing: 0.18em;
   }
+  .tracking-\[0\.24em\] {
+    --tw-tracking: 0.24em;
+    letter-spacing: 0.24em;
+  }
   .tracking-\[0\.25em\] {
     --tw-tracking: 0.25em;
     letter-spacing: 0.25em;
@@ -1408,10 +1412,6 @@
   .tracking-\[0\.28em\] {
     --tw-tracking: 0.28em;
     letter-spacing: 0.28em;
-  }
-  .tracking-\[0\.34em\] {
-    --tw-tracking: 0.34em;
-    letter-spacing: 0.34em;
   }
   .tracking-\[0\.35em\] {
     --tw-tracking: 0.35em;
@@ -1984,9 +1984,9 @@
       --tw-tracking: 0.25em;
       letter-spacing: 0.25em;
     }
-    .sm\:tracking-\[0\.38em\] {
-      --tw-tracking: 0.38em;
-      letter-spacing: 0.38em;
+    .sm\:tracking-\[0\.32em\] {
+      --tw-tracking: 0.32em;
+      letter-spacing: 0.32em;
     }
     .sm\:opacity-0 {
       opacity: 0%;

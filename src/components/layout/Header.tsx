@@ -35,11 +35,10 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? "bg-[#F6F6F8]/85 dark:bg-[#0B0B0D]/85 backdrop-blur-md border-b border-black/[0.06] dark:border-white/[0.08] py-3.5 shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
-            : "bg-transparent py-6 md:py-7 border-b border-black/[0.03] dark:border-white/[0.04]"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+          ? "bg-[#F6F6F8]/85 dark:bg-[#0B0B0D]/85 backdrop-blur-md border-b border-black/[0.06] dark:border-white/[0.08] py-3.5 shadow-[0_4px_24px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+          : "bg-transparent py-6 md:py-7 border-b border-black/[0.03] dark:border-white/[0.04]"
+          }`}
       >
         <div className="max-w-[1720px] mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between">
           {/* Left Navigation */}
@@ -106,7 +105,7 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
             </button>
           </nav>
 
-          {/* Top Center: Iconic PORSCHE Wordmark */}
+          {/* Top Center: Iconic PORSCHE IRAN Wordmark */}
           <div className="flex-1 lg:flex-initial text-left lg:text-center">
             <a
               href="#"
@@ -115,10 +114,10 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
                 soundManager.playClick();
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="inline-block text-lg sm:text-xl md:text-2xl font-bold tracking-[0.34em] sm:tracking-[0.38em] text-neutral-950 dark:text-white hover:opacity-85 transition-opacity"
+              className="inline-block text-base sm:text-xl md:text-2xl font-bold tracking-[0.24em] sm:tracking-[0.32em] text-neutral-950 dark:text-white hover:opacity-85 transition-opacity"
               style={{ fontFamily: "'Helvetica Neue', Arial, sans-serif" }}
             >
-              PORSCHE
+              PORSCHE IRAN
             </a>
           </div>
 
@@ -144,7 +143,7 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
               </span>
             </button>
 
-            {/* Search */}
+            {/* جستجو */}
             <button
               onClick={() => {
                 soundManager.playClick();
