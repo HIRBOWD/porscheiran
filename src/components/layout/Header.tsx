@@ -14,7 +14,6 @@ interface HeaderProps {
 export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: HeaderProps) {
   const { isDark, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showModelsDropdown, setShowModelsDropdown] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,72 +40,44 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
           }`}
       >
         <div className="max-w-[1720px] mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between">
-          {/* Left Navigation */}
-          <nav className="hidden lg:flex items-center space-x-10 text-[11px] font-medium tracking-[0.25em] text-neutral-800 dark:text-neutral-200">
-            <div
-              className="relative py-2 group"
-              onMouseEnter={() => setShowModelsDropdown(true)}
-              onMouseLeave={() => setShowModelsDropdown(false)}
+          {/* Left: Porsche Iran Crest Logo & Desktop Nav Links */}
+          <div className="flex items-center space-x-5 lg:space-x-8">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                soundManager.playClick();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="flex items-center group transition-transform hover:scale-105 cursor-pointer"
+              aria-label="Porsche Iran Home"
             >
+              <img
+                src="/images/porsche-iran-crest.png"
+                alt="Porsche Iran Crest"
+                className="w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 object-contain drop-shadow-md"
+              />
+            </a>
+
+            <nav className="hidden lg:flex items-center space-x-8 text-[11px] font-medium tracking-[0.25em] text-neutral-800 dark:text-neutral-200">
               <button
-                onClick={() => {
-                  soundManager.playClick();
-                  setShowModelsDropdown(!showModelsDropdown);
-                }}
-                className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 uppercase cursor-pointer"
+                onClick={() => handleNavClick("boutique-store")}
+                className="hover:text-black dark:hover:text-white transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[1px] after:bg-black dark:after:bg-white after:transition-all after:duration-300 uppercase cursor-pointer"
               >
-                MODELS
-                <span className="w-1 h-1 rounded-full bg-neutral-400 group-hover:bg-[#D5001C] transition-colors" />
+                ACCESSORIES
               </button>
 
-              {/* Models Dropdown */}
-              {showModelsDropdown && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-[#121216]/95 backdrop-blur-xl border border-black/[0.08] dark:border-white/[0.1] shadow-2xl p-2 rounded-none flex flex-col space-y-0.5 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <button
-                    onClick={() => {
-                      onSelectModel?.(0);
-                      setShowModelsDropdown(false);
-                    }}
-                    className="text-left px-3 py-2 text-[10px] tracking-[0.2em] uppercase hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-black dark:hover:text-white text-neutral-800 dark:text-neutral-200 flex justify-between items-center transition-colors cursor-pointer"
-                  >
-                    <span className="font-semibold">01 / 911 GT3 RS</span>
-                    <span className="text-[9px] text-[#D5001C] font-mono">3D HERO</span>
-                  </button>
-                  <div className="my-1 border-t border-black/[0.04] dark:border-white/[0.06]" />
-                  {["Macan", "Cayman", "Cayenne", "Boxster", "911", "Panamera"].map((m) => (
-                    <button
-                      key={m}
-                      onClick={() => {
-                        setShowModelsDropdown(false);
-                        handleNavClick("boutique-store");
-                      }}
-                      className="text-left px-3 py-1.5 text-[10px] tracking-[0.2em] uppercase hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-black dark:hover:text-white text-neutral-700 dark:text-neutral-300 flex justify-between items-center transition-colors cursor-pointer font-mono"
-                    >
-                      <span>{m}</span>
-                      <span className="text-[8px] text-neutral-400 font-sans">قطعات و اکسسوری</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <button
-              onClick={() => handleNavClick("boutique-store")}
-              className="hover:text-black dark:hover:text-white transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[1px] after:bg-black dark:after:bg-white after:transition-all after:duration-300 uppercase cursor-pointer"
-            >
-              ACCESSORIES
-            </button>
-
-            <button
-              onClick={() => handleNavClick("heritage-collections")}
-              className="hover:text-black dark:hover:text-white transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[1px] after:bg-black dark:after:bg-white after:transition-all after:duration-300 uppercase cursor-pointer"
-            >
-              COLLECTIONS
-            </button>
-          </nav>
+              <button
+                onClick={() => handleNavClick("heritage-collections")}
+                className="hover:text-black dark:hover:text-white transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[1px] after:bg-black dark:after:bg-white after:transition-all after:duration-300 uppercase cursor-pointer"
+              >
+                CLUB
+              </button>
+            </nav>
+          </div>
 
           {/* Top Center: Iconic PORSCHE IRAN Wordmark */}
-          <div className="flex-1 lg:flex-initial text-left lg:text-center">
+          <div className="flex-1 text-center">
             <a
               href="#"
               onClick={(e) => {
