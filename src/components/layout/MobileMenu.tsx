@@ -128,12 +128,12 @@ export default function MobileMenu({ isOpen, onClose, onSelectModel }: MobileMen
                 {isDark ? (
                   <>
                     <Sun className="w-3.5 h-3.5 text-amber-400" />
-                    <span>LIGHT MODE</span>
+                    <span className="font-sans">روشن</span>
                   </>
                 ) : (
                   <>
                     <Moon className="w-3.5 h-3.5 text-neutral-700" />
-                    <span>DARK MODE</span>
+                    <span className="font-sans">تیره</span>
                   </>
                 )}
               </button>

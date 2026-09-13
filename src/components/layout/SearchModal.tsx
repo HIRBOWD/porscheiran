@@ -67,7 +67,7 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="SEARCH PORSCHE TEQUIPMENT & ACCESSORIES..."
+            placeholder="جستجو در قطعات، تیپ‌ها و اکسسوری‌های پورشه..."
             autoFocus
             className="w-full text-sm md:text-base font-light tracking-[0.1em] uppercase text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none bg-transparent"
           />

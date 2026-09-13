@@ -100,8 +100,8 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
                 soundManager.playClick();
                 toggleTheme();
               }}
-              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-              aria-label={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              title={isDark ? "تغییر به حالت روشن" : "تغییر به حالت تیره"}
+              aria-label={isDark ? "روشن" : "تیره"}
               className="p-1 text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               {isDark ? (
@@ -109,8 +109,8 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
               ) : (
                 <Moon className="w-3.5 h-3.5 text-neutral-700 dark:text-neutral-300 hover:-rotate-12 transition-transform" />
               )}
-              <span className="hidden xl:inline text-[9px] tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500">
-                {isDark ? "LIGHT" : "DARK"}
+              <span className="hidden xl:inline text-[10px] tracking-[0.05em] uppercase text-neutral-400 dark:text-neutral-500 font-sans">
+                {isDark ? "روشن" : "تیره"}
               </span>
             </button>
 
@@ -120,10 +120,10 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
                 soundManager.playClick();
                 onOpenSearch();
               }}
-              className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-2 uppercase cursor-pointer group"
+              className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer group"
             >
               <Search className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors" />
-              <span className="hidden sm:inline">SEARCH</span>
+              <span className="hidden sm:inline text-[11px] tracking-[0.05em] font-sans">جستجو</span>
             </button>
 
             {/* Menu */}
