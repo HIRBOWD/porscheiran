@@ -320,6 +320,9 @@
   .left-6 {
     left: calc(var(--spacing) * 6);
   }
+  .isolate {
+    isolation: isolate;
+  }
   .-z-10 {
     z-index: calc(10 * -1);
   }
@@ -2532,10 +2535,19 @@
   }
   :lang(fa),
   [lang="fa"],
+  [data-persian],
+  [data-persian] *,
   .font-persian,
   .fa-text {
     letter-spacing: normal !important;
     font-feature-settings: "liga" 1, "calt" 1;
+  }
+  .font-mono[data-persian],
+  .font-mono [data-persian],
+  .font-mono[lang="fa"],
+  .font-mono [lang="fa"] {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    letter-spacing: normal !important;
   }
   ::-webkit-scrollbar {
     width: 5px;

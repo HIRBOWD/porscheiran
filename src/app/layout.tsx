@@ -3,6 +3,7 @@ import "./compiled.css";
 import { CartProvider } from "@/context/CartContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import SmoothScroll from "@/components/providers/SmoothScroll";
+import PersianTypographyProvider from "@/components/providers/PersianTypographyProvider";
 
 export const metadata: Metadata = {
   title: "Porsche — Tequipment & Accessories Boutique",
@@ -35,6 +36,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans bg-[#F6F6F8] dark:bg-[#0B0B0D] text-neutral-900 dark:text-neutral-100 selection:bg-neutral-900 dark:selection:bg-white selection:text-white dark:selection:text-neutral-950 transition-colors duration-300">
+        <PersianTypographyProvider />
         <SmoothScroll>
           <ThemeProvider>
             <CartProvider>{children}</CartProvider>

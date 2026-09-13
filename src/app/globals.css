@@ -37,10 +37,21 @@
   /* Persian Typography Natural Letter Spacing & Ligature Support */
   :lang(fa),
   [lang="fa"],
+  [data-persian],
+  [data-persian] *,
   .font-persian,
   .fa-text {
     letter-spacing: normal !important;
     font-feature-settings: "liga" 1, "calt" 1;
+  }
+
+  /* Override monospace letter-spacing and font when Persian text is within font-mono */
+  .font-mono[data-persian],
+  .font-mono [data-persian],
+  .font-mono[lang="fa"],
+  .font-mono [lang="fa"] {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    letter-spacing: normal !important;
   }
 
   /* Custom minimal luxury scrollbar */
