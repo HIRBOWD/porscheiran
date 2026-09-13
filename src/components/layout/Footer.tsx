@@ -86,69 +86,16 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Middle Tier: Navigation Links */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-16 border-b border-neutral-800 dark:border-white/[0.08] text-xs">
-          {/* Column 1: مدل‌های خودرو */}
-          <div>
+        {/* Middle Tier: اطلاعات مجموعه */}
+        <div className="py-12 md:py-16 border-b border-neutral-800 dark:border-white/[0.08] text-xs flex justify-center">
+          <div className="w-full max-w-xl">
             <h5
-              className="text-xs font-semibold text-white mb-4 font-sans text-center"
-              style={{ letterSpacing: "normal" }}
-            >
-              مدل‌های خودرو
-            </h5>
-            <ul className="space-y-2.5 font-light font-sans text-right" dir="rtl">
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">ماکان (Macan)</a></li>
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">کیمن (Cayman)</a></li>
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">کاین (Cayenne)</a></li>
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">باکستر (Boxster)</a></li>
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">۹۱۱ (Carrera)</a></li>
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">پانامرا (Panamera)</a></li>
-            </ul>
-          </div>
-
-          {/* Column 2: دسته‌بندی‌ها */}
-          <div>
-            <h5
-              className="text-xs font-semibold text-white mb-4 font-sans text-center"
-              style={{ letterSpacing: "normal" }}
-            >
-              دسته‌بندی‌ها
-            </h5>
-            <ul className="space-y-2.5 font-light font-sans text-right" dir="rtl">
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">اکسسوری‌های اورجینال</a></li>
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">پکیج‌های فیس‌لیفت</a></li>
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">لوازم یدکی و مصرفی</a></li>
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">ساعت‌ها و کرنوگراف پورشه</a></li>
-              <li><a href="#boutique-store" className="hover:text-white transition-colors block">روف باکس و باربند</a></li>
-            </ul>
-          </div>
-
-          {/* Column 3: خدمات مشتریان */}
-          <div>
-            <h5
-              className="text-xs font-semibold text-white mb-4 font-sans text-center"
-              style={{ letterSpacing: "normal" }}
-            >
-              خدمات مشتریان
-            </h5>
-            <ul className="space-y-2.5 font-light font-sans text-right" dir="rtl">
-              <li><a href="#" className="hover:text-white transition-colors block">کانسیرژ و مشاوره تخصصی پورشه</a></li>
-              <li><a href="#" className="hover:text-white transition-colors block">مراکز نصب و تجهیز قطعات Tequipment</a></li>
-              <li><a href="#" className="hover:text-white transition-colors block">خدمات ویژه و تحویل اختصاصی</a></li>
-              <li><a href="#" className="hover:text-white transition-colors block">ضمانت اصالت ۱۰۰٪ قطعات</a></li>
-              <li><a href="#" className="hover:text-white transition-colors block">سفارش قطعات نایاب از آلمان</a></li>
-            </ul>
-          </div>
-
-          {/* Column 4: اطلاعات مجموعه */}
-          <div>
-            <h5
-              className="text-xs font-semibold text-white mb-4 font-sans text-center"
+              className="text-xs font-semibold text-white mb-6 font-sans text-center"
               style={{ letterSpacing: "normal" }}
             >
               اطلاعات مجموعه
             </h5>
-            <ul className="space-y-3 font-light text-neutral-300 font-sans text-right" dir="rtl">
+            <ul className="space-y-3.5 font-light text-neutral-300 font-sans text-right" dir="rtl">
               {/* Address */}
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-3.5 h-3.5 shrink-0 text-neutral-500 mt-1" />
