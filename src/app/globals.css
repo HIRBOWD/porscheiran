@@ -34,6 +34,15 @@
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
+  /* Persian Typography Natural Letter Spacing & Ligature Support */
+  :lang(fa),
+  [lang="fa"],
+  .font-persian,
+  .fa-text {
+    letter-spacing: normal !important;
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+
   /* Custom minimal luxury scrollbar */
   ::-webkit-scrollbar {
     width: 5px;

@@ -141,7 +141,11 @@ export default function StoreSection() {
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
               {m.name} Catalog
             </span>
-            <span className="text-[9px] font-mono text-neutral-400">
+            <span
+              lang="fa"
+              className="text-[9px] font-sans text-neutral-400"
+              style={{ letterSpacing: "normal" }}
+            >
               پورشه
             </span>
           </div>
@@ -162,7 +166,13 @@ export default function StoreSection() {
               : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-white/5"
           }`}
         >
-          <span className="font-mono">همه قطعات و اکسسوری‌های {m.name}</span>
+          <span
+            lang="fa"
+            className="font-sans"
+            style={{ letterSpacing: "normal" }}
+          >
+            همه قطعات و اکسسوری‌های {m.name}
+          </span>
           {isModelAllSelected && <Check className="w-4 h-4 text-[#D5001C]" />}
         </button>
 
@@ -184,7 +194,9 @@ export default function StoreSection() {
                   </span>
                   <button
                     onClick={() => handleSelectSubOption(m.id, gen.id, "all")}
-                    className="text-[11px] sm:text-[10px] font-mono text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
+                    lang="fa"
+                    className="text-[11px] sm:text-[10px] font-sans text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
+                    style={{ letterSpacing: "normal" }}
                   >
                     مشاهده همه این تیپ
                   </button>
@@ -212,7 +224,13 @@ export default function StoreSection() {
                             : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-white/5"
                         }`}
                       >
-                        <span>{sub.label}</span>
+                        <span
+                          lang="fa"
+                          className="font-sans"
+                          style={{ letterSpacing: "normal" }}
+                        >
+                          {sub.label}
+                        </span>
                         {isOptionActive && (
                           <Check className="w-4 h-4 text-[#D5001C]" />
                         )}
@@ -251,7 +269,13 @@ export default function StoreSection() {
                       : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-white/5"
                   }`}
                 >
-                  <span>{sub.label}</span>
+                  <span
+                    lang="fa"
+                    className="font-sans"
+                    style={{ letterSpacing: "normal" }}
+                  >
+                    {sub.label}
+                  </span>
                   {isOptionActive && (
                     <Check className="w-4 h-4 text-[#D5001C]" />
                   )}
@@ -278,7 +302,11 @@ export default function StoreSection() {
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.1em] text-neutral-950 dark:text-white uppercase">
             THE ACCESSORIES & <span className="font-semibold">PARTS BOUTIQUE</span>
           </h2>
-          <p className="mt-3 text-xs md:text-sm text-neutral-500 dark:text-neutral-400 font-light max-w-2xl leading-relaxed">
+          <p
+            lang="fa"
+            className="mt-3 text-xs md:text-sm text-neutral-500 dark:text-neutral-400 font-light max-w-2xl leading-relaxed font-sans"
+            style={{ letterSpacing: "normal" }}
+          >
             کاتالوگ تخصصی قطعات یدکی، پکیج‌های فیس‌لیفت و اکسسوری‌های اورجینال پورشه برای مدل‌های Macan، Cayman، Cayenne، Boxster، 911 و Panamera.
           </p>
         </div>
@@ -288,9 +316,18 @@ export default function StoreSection() {
         {/* ------------------------------------------------------------------ */}
         <div id="products-catalog-grid" className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-neutral-400 dark:text-neutral-500 font-semibold">
-              انتخاب مدل خودرو و دسته‌بندی قطعات (SELECT VEHICLE MODEL & CATEGORY)
-            </span>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span
+                lang="fa"
+                className="text-[10px] sm:text-[11px] font-sans text-neutral-400 dark:text-neutral-500 font-semibold"
+                style={{ letterSpacing: "normal" }}
+              >
+                انتخاب مدل خودرو و دسته‌بندی قطعات
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-neutral-400 dark:text-neutral-500 font-semibold">
+                (SELECT VEHICLE MODEL & CATEGORY)
+              </span>
+            </div>
           </div>
 
           {/* ================================================================ */}
@@ -300,13 +337,19 @@ export default function StoreSection() {
             {/* Mobile "None" (هیچکدام) Full-Width Button */}
             <button
               onClick={handleSelectNone}
-              className={`w-full flex items-center justify-between text-xs font-mono tracking-[0.15em] uppercase px-4 py-3 transition-all cursor-pointer border ${
+              className={`w-full flex items-center justify-between text-xs px-4 py-3 transition-all cursor-pointer border ${
                 selectedModel === "none"
                   ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs font-semibold"
                   : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08] active:bg-neutral-100 dark:active:bg-white/5"
               }`}
             >
-              <span>هیچکدام (بدون انتخاب مدل)</span>
+              <span
+                lang="fa"
+                className="font-sans"
+                style={{ letterSpacing: "normal" }}
+              >
+                هیچکدام (بدون انتخاب مدل)
+              </span>
               {selectedModel === "none" && <Check className="w-4 h-4 text-[#D5001C]" />}
             </button>
 
@@ -349,13 +392,19 @@ export default function StoreSection() {
             <div className="relative">
               <button
                 onClick={handleSelectNone}
-                className={`text-xs font-mono tracking-[0.2em] uppercase px-4 py-2.5 transition-all cursor-pointer whitespace-nowrap border ${
+                className={`text-xs px-4 py-2.5 transition-all cursor-pointer whitespace-nowrap border ${
                   selectedModel === "none"
                     ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs font-semibold"
                     : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2]"
                 }`}
               >
-                هیچکدام
+                <span
+                  lang="fa"
+                  className="font-sans"
+                  style={{ letterSpacing: "normal" }}
+                >
+                  هیچکدام
+                </span>
               </button>
             </div>
 
@@ -429,7 +478,11 @@ export default function StoreSection() {
                   <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 dark:text-neutral-500 block">
                     PORSCHE {openModelObj.name}
                   </span>
-                  <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">
+                  <h3
+                    lang="fa"
+                    className="text-sm font-semibold font-sans text-neutral-900 dark:text-white"
+                    style={{ letterSpacing: "normal" }}
+                  >
                     انتخاب دسته‌بندی و قطعات
                   </h3>
                 </div>
@@ -452,16 +505,22 @@ export default function StoreSection() {
 
         {/* Active Filter State Summary & Reset (Shown only when a model is selected) */}
         {selectedModel !== "none" && (
-          <div className="flex items-center justify-between py-3 px-4 mb-8 bg-neutral-100 dark:bg-[#15151a] border border-black/[0.06] dark:border-white/[0.08] text-xs font-mono text-neutral-700 dark:text-neutral-300">
+          <div className="flex items-center justify-between py-3 px-4 mb-8 bg-neutral-100 dark:bg-[#15151a] border border-black/[0.06] dark:border-white/[0.08] text-xs text-neutral-700 dark:text-neutral-300">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-neutral-400">مدل و دسته‌بندی انتخاب شده:</span>
-              <span className="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider">
+              <span
+                lang="fa"
+                className="text-neutral-400 font-sans"
+                style={{ letterSpacing: "normal" }}
+              >
+                مدل و دسته‌بندی انتخاب شده:
+              </span>
+              <span className="font-semibold text-neutral-900 dark:text-white uppercase tracking-wider font-mono">
                 {activeModelObj?.name || selectedModel.toUpperCase()}
               </span>
               {selectedGeneration !== "all" && (
                 <>
                   <ChevronRight className="w-3 h-3 text-neutral-400" />
-                  <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                  <span className="font-medium text-neutral-800 dark:text-neutral-200 font-mono">
                     {activeModelObj?.generations?.find((g) => g.id === selectedGeneration)?.name || selectedGeneration}
                   </span>
                 </>
@@ -469,12 +528,20 @@ export default function StoreSection() {
               {selectedSubCategory !== "all" && (
                 <>
                   <ChevronRight className="w-3 h-3 text-neutral-400" />
-                  <span className="font-semibold text-[#D5001C]">
+                  <span
+                    lang="fa"
+                    className="font-semibold text-[#D5001C] font-sans"
+                    style={{ letterSpacing: "normal" }}
+                  >
                     {SUB_CATEGORIES.find((s) => s.id === selectedSubCategory)?.label}
                   </span>
                 </>
               )}
-              <span className="text-neutral-400 mr-2">
+              <span
+                lang="fa"
+                className="text-neutral-400 mr-2 font-sans"
+                style={{ letterSpacing: "normal" }}
+              >
                 ({filteredProducts.length} قطعه)
               </span>
             </div>
@@ -485,7 +552,13 @@ export default function StoreSection() {
                 className="flex items-center gap-1.5 text-[11px] text-neutral-500 hover:text-black dark:hover:text-white cursor-pointer transition-colors"
               >
                 <RotateCcw className="w-3 h-3" />
-                <span>مشاهده همه قطعات این مدل</span>
+                <span
+                  lang="fa"
+                  className="font-sans"
+                  style={{ letterSpacing: "normal" }}
+                >
+                  مشاهده همه قطعات این مدل
+                </span>
               </button>
             )}
           </div>
@@ -496,11 +569,19 @@ export default function StoreSection() {
           <div className="py-6 px-4 sm:px-6 text-center border border-dashed border-black/[0.08] dark:border-white/[0.08] max-w-lg mx-auto bg-black/[0.01] dark:bg-white/[0.01]">
             <div className="flex items-center justify-center gap-2 mb-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C]" />
-              <h3 className="text-xs font-semibold text-neutral-900 dark:text-white uppercase tracking-wider font-mono">
+              <h3
+                lang="fa"
+                className="text-xs font-semibold text-neutral-900 dark:text-white font-sans"
+                style={{ letterSpacing: "normal" }}
+              >
                 مدلی انتخاب نشده است (هیچکدام)
               </h3>
             </div>
-            <p className="text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 font-light leading-normal">
+            <p
+              lang="fa"
+              className="text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 font-light font-sans leading-normal"
+              style={{ letterSpacing: "normal" }}
+            >
               جهت مشاهده و سفارش قطعات، پکیج‌های فیس‌لیفت و اکسسوری‌ها، لطفاً یکی از مدل‌های پورشه را از بخش بالا انتخاب نمایید.
             </p>
           </div>
@@ -516,14 +597,24 @@ export default function StoreSection() {
           </div>
         ) : (
           <div className="py-20 text-center border border-dashed border-neutral-300 dark:border-neutral-800 p-8">
-            <p className="text-sm font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest mb-4">
+            <p
+              lang="fa"
+              className="text-sm font-sans text-neutral-500 dark:text-neutral-400 mb-4"
+              style={{ letterSpacing: "normal" }}
+            >
               قطعه‌ای با فیلتر انتخاب شده یافت نشد
             </p>
             <button
               onClick={handleResetFilters}
-              className="px-5 py-2.5 bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 text-xs font-mono tracking-widest uppercase cursor-pointer"
+              className="px-5 py-2.5 bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 text-xs cursor-pointer"
             >
-              مشاهده همه قطعات این مدل
+              <span
+                lang="fa"
+                className="font-sans"
+                style={{ letterSpacing: "normal" }}
+              >
+                مشاهده همه قطعات این مدل
+              </span>
             </button>
           </div>
         )}

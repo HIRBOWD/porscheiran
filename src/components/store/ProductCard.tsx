@@ -64,10 +64,16 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
       {/* Product Details */}
       <div className="p-6 flex flex-col flex-1 justify-between bg-white dark:bg-[#121216]">
         <div>
-          <div className="flex items-center justify-between text-[10px] tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 font-mono mb-2">
-            <span>{product.categoryLabel}</span>
+          <div className="flex items-center justify-between mb-2">
+            <span
+              lang="fa"
+              className="text-[11px] font-sans text-neutral-400 dark:text-neutral-500"
+              style={{ letterSpacing: "normal" }}
+            >
+              {product.categoryLabel}
+            </span>
             {product.compatibility && (
-              <span className="truncate max-w-[150px] text-neutral-500 dark:text-neutral-400">
+              <span className="truncate max-w-[150px] text-[10px] tracking-[0.15em] uppercase text-neutral-500 dark:text-neutral-400 font-mono">
                 {product.compatibility}
               </span>
             )}

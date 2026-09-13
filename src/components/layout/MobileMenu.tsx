@@ -128,12 +128,12 @@ export default function MobileMenu({ isOpen, onClose, onSelectModel }: MobileMen
                 {isDark ? (
                   <>
                     <Sun className="w-3.5 h-3.5 text-amber-400" />
-                    <span className="font-sans">روشن</span>
+                    <span lang="fa" className="font-sans text-xs" style={{ letterSpacing: "normal" }}>روشن</span>
                   </>
                 ) : (
                   <>
                     <Moon className="w-3.5 h-3.5 text-neutral-700" />
-                    <span className="font-sans">تیره</span>
+                    <span lang="fa" className="font-sans text-xs" style={{ letterSpacing: "normal" }}>تیره</span>
                   </>
                 )}
               </button>

@@ -64,9 +64,17 @@ export default function ProductQuickView({ product, onClose }: ProductQuickViewP
         {/* Product Information Panel */}
         <div className="p-6 md:p-10 flex flex-col justify-between overflow-y-auto">
           <div>
-            <div className="flex items-center justify-between text-[10px] tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500 font-mono mb-2">
-              <span>{product.categoryLabel}</span>
-              <span>AUTHENTIC TEQUIPMENT</span>
+            <div className="flex items-center justify-between mb-2">
+              <span
+                lang="fa"
+                className="text-[11px] font-sans text-neutral-400 dark:text-neutral-500"
+                style={{ letterSpacing: "normal" }}
+              >
+                {product.categoryLabel}
+              </span>
+              <span className="text-[10px] tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500 font-mono">
+                AUTHENTIC TEQUIPMENT
+              </span>
             </div>
 
             <h2 className="text-xl md:text-2xl font-semibold tracking-[0.08em] text-neutral-900 dark:text-white uppercase">

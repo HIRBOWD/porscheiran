@@ -69,7 +69,9 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
             onChange={(e) => setQuery(e.target.value)}
             placeholder="جستجو در قطعات، تیپ‌ها و اکسسوری‌های پورشه..."
             autoFocus
-            className="w-full text-sm md:text-base font-light tracking-[0.1em] uppercase text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none bg-transparent"
+            lang="fa"
+            style={{ letterSpacing: "normal" }}
+            className="w-full text-sm md:text-base font-light text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none bg-transparent"
           />
           <button
             onClick={() => {
@@ -83,20 +85,29 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
         </div>
 
         {/* Quick Suggestion Pills */}
-        <div className="px-6 md:px-8 py-3 bg-[#F8F8FA] dark:bg-[#18181D] border-b border-black/[0.04] dark:border-white/[0.06] flex items-center gap-2 overflow-x-auto text-[10px] tracking-[0.15em] uppercase text-neutral-500 dark:text-neutral-400 font-mono">
-          <span className="text-neutral-400 dark:text-neutral-500">TRENDING:</span>
-          {quickTerms.map((term) => (
-            <button
-              key={term}
-              onClick={() => {
-                soundManager.playClick();
-                setQuery(term);
-              }}
-              className="px-2.5 py-1 bg-white dark:bg-[#202026] border border-black/[0.06] dark:border-white/[0.08] text-neutral-700 dark:text-neutral-300 hover:bg-neutral-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors cursor-pointer whitespace-nowrap"
-            >
-              {term}
-            </button>
-          ))}
+        <div className="px-6 md:px-8 py-3 bg-[#F8F8FA] dark:bg-[#18181D] border-b border-black/[0.04] dark:border-white/[0.06] flex items-center gap-2 overflow-x-auto text-[10px] text-neutral-500 dark:text-neutral-400 font-mono">
+          <span className="text-neutral-400 dark:text-neutral-500 tracking-[0.15em] uppercase">TRENDING:</span>
+          {quickTerms.map((term) => {
+            const isPersian = /[\u0600-\u06FF]/.test(term);
+            return (
+              <button
+                key={term}
+                onClick={() => {
+                  soundManager.playClick();
+                  setQuery(term);
+                }}
+                lang={isPersian ? "fa" : undefined}
+                style={isPersian ? { letterSpacing: "normal" } : undefined}
+                className={`px-2.5 py-1 bg-white dark:bg-[#202026] border border-black/[0.06] dark:border-white/[0.08] text-neutral-700 dark:text-neutral-300 hover:bg-neutral-900 dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors cursor-pointer whitespace-nowrap ${
+                  isPersian
+                    ? "font-sans tracking-normal"
+                    : "font-mono uppercase tracking-[0.15em]"
+                }`}
+              >
+                {term}
+              </button>
+            );
+          })}
         </div>
 
         {/* Results List */}
@@ -140,7 +151,11 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
 
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[9px] font-mono tracking-widest text-neutral-400 dark:text-neutral-500 uppercase">
+                        <span
+                          lang="fa"
+                          className="text-[10px] font-sans text-neutral-400 dark:text-neutral-500"
+                          style={{ letterSpacing: "normal" }}
+                        >
                           {product.categoryLabel}
                         </span>
                         {product.compatibility && (

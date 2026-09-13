@@ -109,7 +109,11 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
               ) : (
                 <Moon className="w-3.5 h-3.5 text-neutral-700 dark:text-neutral-300 hover:-rotate-12 transition-transform" />
               )}
-              <span className="hidden xl:inline text-[10px] tracking-[0.05em] uppercase text-neutral-400 dark:text-neutral-500 font-sans">
+              <span
+                lang="fa"
+                className="hidden xl:inline text-[11px] text-neutral-400 dark:text-neutral-500 font-sans"
+                style={{ letterSpacing: "normal" }}
+              >
                 {isDark ? "روشن" : "تیره"}
               </span>
             </button>
@@ -123,7 +127,13 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
               className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer group"
             >
               <Search className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors" />
-              <span className="hidden sm:inline text-[11px] tracking-[0.05em] font-sans">جستجو</span>
+              <span
+                lang="fa"
+                className="hidden sm:inline text-[12px] font-sans font-normal"
+                style={{ letterSpacing: "normal" }}
+              >
+                جستجو
+              </span>
             </button>
 
             {/* Menu */}

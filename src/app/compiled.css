@@ -62,6 +62,7 @@
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --tracking-tight: -0.025em;
+    --tracking-normal: 0em;
     --tracking-wider: 0.05em;
     --tracking-widest: 0.1em;
     --leading-snug: 1.375;
@@ -1315,6 +1316,9 @@
   .text-\[11px\] {
     font-size: 11px;
   }
+  .text-\[12px\] {
+    font-size: 12px;
+  }
   .text-\[14vw\] {
     font-size: 14vw;
   }
@@ -1346,6 +1350,10 @@
     --tw-font-weight: var(--font-weight-medium);
     font-weight: var(--font-weight-medium);
   }
+  .font-normal {
+    --tw-font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-normal);
+  }
   .font-semibold {
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
@@ -1365,10 +1373,6 @@
   .tracking-\[0\.4em\] {
     --tw-tracking: 0.4em;
     letter-spacing: 0.4em;
-  }
-  .tracking-\[0\.05em\] {
-    --tw-tracking: 0.05em;
-    letter-spacing: 0.05em;
   }
   .tracking-\[0\.08em\] {
     --tw-tracking: 0.08em;
@@ -1409,6 +1413,10 @@
   .tracking-\[0\.35em\] {
     --tw-tracking: 0.35em;
     letter-spacing: 0.35em;
+  }
+  .tracking-normal {
+    --tw-tracking: var(--tracking-normal);
+    letter-spacing: var(--tracking-normal);
   }
   .tracking-tight {
     --tw-tracking: var(--tracking-tight);
@@ -2516,6 +2524,13 @@
     background-color: var(--bg-studio);
     color: var(--text-primary);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  :lang(fa),
+  [lang="fa"],
+  .font-persian,
+  .fa-text {
+    letter-spacing: normal !important;
+    font-feature-settings: "liga" 1, "calt" 1;
   }
   ::-webkit-scrollbar {
     width: 5px;
