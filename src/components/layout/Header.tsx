@@ -148,7 +148,13 @@ export default function Header({ onOpenSearch, onOpenMenu, onSelectModel }: Head
                 <span className="h-[1px] w-full bg-neutral-900 dark:bg-neutral-100 group-hover:bg-[#D5001C] transition-colors" />
                 <span className="h-[1px] w-3/4 self-end bg-neutral-900 dark:bg-neutral-100 group-hover:w-full group-hover:bg-[#D5001C] transition-all" />
               </div>
-              <span className="hidden md:inline">MENU</span>
+              <span
+                lang="fa"
+                className="hidden md:inline font-sans"
+                style={{ letterSpacing: "normal" }}
+              >
+                منو
+              </span>
             </button>
           </div>
         </div>
