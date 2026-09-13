@@ -682,9 +682,6 @@
   .resize {
     resize: both;
   }
-  .scrollbar-none {
-    scrollbar-width: none;
-  }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -723,6 +720,9 @@
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
+  }
+  .gap-2\.5 {
+    gap: calc(var(--spacing) * 2.5);
   }
   .gap-3 {
     gap: calc(var(--spacing) * 3);
@@ -1244,9 +1244,6 @@
   }
   .pb-1 {
     padding-bottom: var(--spacing);
-  }
-  .pb-2 {
-    padding-bottom: calc(var(--spacing) * 2);
   }
   .pb-6 {
     padding-bottom: calc(var(--spacing) * 6);
@@ -1830,6 +1827,9 @@
   .active\:cursor-grabbing:active {
     cursor: grabbing;
   }
+  .active\:bg-neutral-100:active {
+    background-color: var(--color-neutral-100);
+  }
   .disabled\:opacity-50:disabled {
     opacity: 50%;
   }
@@ -1857,6 +1857,9 @@
     }
     .sm\:block {
       display: block;
+    }
+    .sm\:flex {
+      display: flex;
     }
     .sm\:hidden {
       display: none;
@@ -1888,14 +1891,8 @@
     .sm\:min-w-\[280px\] {
       min-width: 280px;
     }
-    .sm\:shrink {
-      flex-shrink: 1;
-    }
     .sm\:grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    .sm\:flex-wrap {
-      flex-wrap: wrap;
     }
     .sm\:gap-4 {
       gap: calc(var(--spacing) * 4);
@@ -1910,20 +1907,11 @@
       margin-inline-start: calc(calc(var(--spacing) * 6) * var(--tw-space-x-reverse));
       margin-inline-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-x-reverse)));
     }
-    .sm\:overflow-visible {
-      overflow: visible;
-    }
-    .sm\:px-4 {
-      padding-inline: calc(var(--spacing) * 4);
-    }
     .sm\:px-6 {
       padding-inline: calc(var(--spacing) * 6);
     }
     .sm\:px-10 {
       padding-inline: calc(var(--spacing) * 10);
-    }
-    .sm\:py-2\.5 {
-      padding-block: calc(var(--spacing) * 2.5);
     }
     .sm\:pt-28 {
       padding-top: calc(var(--spacing) * 28);
@@ -2136,10 +2124,6 @@
     .md\:text-sm {
       font-size: var(--text-sm);
       line-height: var(--tw-leading, var(--text-sm--line-height));
-    }
-    .md\:text-xs {
-      font-size: var(--text-xs);
-      line-height: var(--tw-leading, var(--text-xs--line-height));
     }
     .md\:text-\[11px\] {
       font-size: 11px;
@@ -2487,6 +2471,12 @@
     }
     .dark\:hover\:text-white:where(.dark, .dark *):hover {
       color: var(--color-white);
+    }
+  }
+  .dark\:active\:bg-white\/5:where(.dark, .dark *):active {
+    background-color: color-mix(in srgb, #fff 5%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 5%, transparent);
     }
   }
 }

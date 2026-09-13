@@ -284,23 +284,72 @@ export default function StoreSection() {
         </div>
 
         {/* ------------------------------------------------------------------ */}
-        {/* VEHICLE MODEL SELECTOR WITH DROPDOWNS                              */}
+        {/* VEHICLE MODEL SELECTOR                                             */}
         {/* ------------------------------------------------------------------ */}
         <div id="products-catalog-grid" className="mb-6">
-          <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-neutral-400 dark:text-neutral-500 block mb-3 font-semibold">
-            انتخاب مدل خودرو و دسته‌بندی قطعات (SELECT VEHICLE MODEL & CATEGORY)
-          </span>
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-neutral-400 dark:text-neutral-500 font-semibold">
+              انتخاب مدل خودرو و دسته‌بندی قطعات (SELECT VEHICLE MODEL & CATEGORY)
+            </span>
+          </div>
 
-          {/* Model Tabs Bar: Scrollable on mobile, flex-wrapped on larger screens */}
+          {/* ================================================================ */}
+          {/* MOBILE OPTIMIZED LAYOUT (< sm): Clean 2-Column Grid + None Bar   */}
+          {/* ================================================================ */}
+          <div className="block sm:hidden space-y-2">
+            {/* Mobile "None" (هیچکدام) Full-Width Button */}
+            <button
+              onClick={handleSelectNone}
+              className={`w-full flex items-center justify-between text-xs font-mono tracking-[0.15em] uppercase px-4 py-3 transition-all cursor-pointer border ${
+                selectedModel === "none"
+                  ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs font-semibold"
+                  : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08] active:bg-neutral-100 dark:active:bg-white/5"
+              }`}
+            >
+              <span>هیچکدام (بدون انتخاب مدل)</span>
+              {selectedModel === "none" && <Check className="w-4 h-4 text-[#D5001C]" />}
+            </button>
+
+            {/* Mobile 2-Column Model Grid: All 6 models visible at a glance */}
+            <div className="grid grid-cols-2 gap-2">
+              {VEHICLE_CATEGORIES.map((m) => {
+                const isSelected = selectedModel === m.id;
+                return (
+                  <button
+                    key={`mobile-${m.id}`}
+                    onClick={() => handleModelClick(m.id)}
+                    className={`flex items-center justify-between text-xs font-mono tracking-[0.15em] uppercase px-3.5 py-3 transition-all cursor-pointer border ${
+                      isSelected
+                        ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs font-semibold"
+                        : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08] active:bg-neutral-100 dark:active:bg-white/5"
+                    }`}
+                  >
+                    <span className="truncate">{m.name}</span>
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${
+                        isSelected
+                          ? "text-white dark:text-neutral-950"
+                          : "text-neutral-400 dark:text-neutral-500"
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ================================================================ */}
+          {/* DESKTOP LAYOUT (>= sm): Elegant Horizontal Flex Tab Bar          */}
+          {/* ================================================================ */}
           <div
             ref={modelRowRef}
-            className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none sm:flex-wrap sm:overflow-visible"
+            className="hidden sm:flex flex-wrap items-center gap-2.5"
           >
-            {/* "None" (هیچکدام) Option - Selected by default */}
-            <div className="relative shrink-0 sm:shrink">
+            {/* Desktop "None" (هیچکدام) Option */}
+            <div className="relative">
               <button
                 onClick={handleSelectNone}
-                className={`text-[11px] md:text-xs font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase px-3.5 py-2.5 sm:px-4 sm:py-2.5 transition-all cursor-pointer whitespace-nowrap border ${
+                className={`text-xs font-mono tracking-[0.2em] uppercase px-4 py-2.5 transition-all cursor-pointer whitespace-nowrap border ${
                   selectedModel === "none"
                     ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs font-semibold"
                     : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2]"
@@ -310,19 +359,19 @@ export default function StoreSection() {
               </button>
             </div>
 
-            {/* Vehicle Model Tabs */}
+            {/* Desktop Vehicle Model Tabs with Popovers */}
             {VEHICLE_CATEGORIES.map((m, index) => {
               const isSelected = selectedModel === m.id;
               const isDropdownOpen = openDropdownModel === m.id;
               const isRightAligned = index >= 3;
 
               return (
-                <div key={m.id} className="relative shrink-0 sm:shrink">
+                <div key={m.id} className="relative">
                   {/* Model Tab Button with Dropdown Chevron */}
                   <button
                     onClick={() => handleModelClick(m.id)}
                     aria-expanded={isDropdownOpen}
-                    className={`flex items-center gap-2 text-[11px] md:text-xs font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase px-3.5 py-2.5 sm:px-4 sm:py-2.5 transition-all cursor-pointer whitespace-nowrap border ${
+                    className={`flex items-center gap-2 text-xs font-mono tracking-[0.2em] uppercase px-4 py-2.5 transition-all cursor-pointer whitespace-nowrap border ${
                       isSelected
                         ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs"
                         : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08] hover:border-black/[0.2] dark:hover:border-white/[0.2]"
@@ -340,10 +389,10 @@ export default function StoreSection() {
                     />
                   </button>
 
-                  {/* Desktop Dropdown Menu (Hidden on Phone) */}
+                  {/* Desktop Dropdown Popover */}
                   {isDropdownOpen && (
                     <div
-                      className={`hidden sm:block absolute top-full mt-2 z-40 min-w-[260px] sm:min-w-[280px] max-h-[70vh] overflow-y-auto bg-white dark:bg-[#121216] border border-black/[0.1] dark:border-white/[0.12] shadow-2xl animate-in fade-in zoom-in-95 duration-150 ${
+                      className={`absolute top-full mt-2 z-40 min-w-[260px] sm:min-w-[280px] max-h-[70vh] overflow-y-auto bg-white dark:bg-[#121216] border border-black/[0.1] dark:border-white/[0.12] shadow-2xl animate-in fade-in zoom-in-95 duration-150 ${
                         isRightAligned ? "right-0" : "left-0"
                       }`}
                     >
@@ -357,7 +406,7 @@ export default function StoreSection() {
         </div>
 
         {/* ------------------------------------------------------------------ */}
-        {/* MOBILE OPTIMIZED BOTTOM SHEET DRAWER (PHONE ONLY)                  */}
+        {/* MOBILE OPTIMIZED BOTTOM SHEET DRAWER (PHONE ONLY) - PRESERVED      */}
         {/* ------------------------------------------------------------------ */}
         {openModelObj && (
           <div className="sm:hidden">
