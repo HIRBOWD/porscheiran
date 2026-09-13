@@ -493,12 +493,14 @@ export default function StoreSection() {
 
         {/* Product Grid / Empty State */}
         {selectedModel === "none" ? (
-          <div className="py-24 text-center border border-dashed border-black/[0.08] dark:border-white/[0.08] p-8 max-w-xl mx-auto">
-            <span className="w-2 h-2 rounded-full bg-[#D5001C] inline-block mb-3" />
-            <h3 className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-white uppercase tracking-wider mb-2 font-mono">
-              مدلی انتخاب نشده است (هیچکدام)
-            </h3>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 font-light leading-relaxed">
+          <div className="py-6 px-4 sm:px-6 text-center border border-dashed border-black/[0.08] dark:border-white/[0.08] max-w-lg mx-auto bg-black/[0.01] dark:bg-white/[0.01]">
+            <div className="flex items-center justify-center gap-2 mb-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C]" />
+              <h3 className="text-xs font-semibold text-neutral-900 dark:text-white uppercase tracking-wider font-mono">
+                مدلی انتخاب نشده است (هیچکدام)
+              </h3>
+            </div>
+            <p className="text-[11px] sm:text-xs text-neutral-500 dark:text-neutral-400 font-light leading-normal">
               جهت مشاهده و سفارش قطعات، پکیج‌های فیس‌لیفت و اکسسوری‌ها، لطفاً یکی از مدل‌های پورشه را از بخش بالا انتخاب نمایید.
             </p>
           </div>
