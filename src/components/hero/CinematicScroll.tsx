@@ -79,47 +79,43 @@ export default function CinematicScroll({
         {/* MAIN TYPOGRAPHY & UI OVERLAY: Positioned in front of 3D Canvas     */}
         {/* ------------------------------------------------------------------ */}
         <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-24 md:pt-28 pb-6 sm:pb-8 md:pb-12 px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 pointer-events-none">
-          {/* Compact Welcome Heading (Architecturally Flanking the 3D Halo Ring) */}
-          <div className="w-full flex items-start justify-start md:my-auto">
-            <div
-              dir="ltr"
-              className="w-fit max-w-[280px] sm:max-w-xs md:max-w-sm lg:max-w-md text-left overflow-visible select-text"
-            >
-              {/* Scene Counter & Porsche Red Accent */}
-              <div className="flex items-center gap-2 mb-2 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] shrink-0" />
-                <span className="text-neutral-900 dark:text-white font-semibold font-mono">
-                  {currentVehicle.index}
-                </span>
-                <span className="font-mono">/</span>
-                <span className="font-mono">01</span>
-              </div>
-
-              {/* Compact Hero Main Heading: THE / PORSCHE / IRAN 3-line stack */}
-              <h1 className="select-text uppercase leading-none font-syncopate inline-flex flex-col">
-                <span className="text-[10px] sm:text-xs font-mono tracking-[0.25em] sm:tracking-[0.3em] text-neutral-400 dark:text-neutral-500 font-normal mb-2 sm:mb-2.5">
-                  WELCOME TO
-                </span>
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.08] whitespace-nowrap">
-                  THE
-                </span>
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.08] whitespace-nowrap mt-0.5 sm:mt-1">
-                  PORSCHE
-                </span>
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] leading-[1.08] whitespace-nowrap mt-0.5 sm:mt-1">
-                  <span className="iran-flag-text">IRAN</span>
-                </span>
-              </h1>
+          {/* Top Row: Scene Counter */}
+          <div className="w-full flex items-start justify-between">
+            <div className="flex items-center gap-2 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500 select-text">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] shrink-0" />
+              <span className="text-neutral-900 dark:text-white font-semibold font-mono">
+                {currentVehicle.index}
+              </span>
+              <span className="font-mono">/</span>
+              <span className="font-mono">01</span>
             </div>
           </div>
 
-          {/* Bottom Row: Left Dynamic Counter & Right "SCROLL TO EXPLORE" */}
-          <div className="flex items-end justify-between w-full pointer-events-auto gap-2">
+          {/* Bottom Row: Left Dynamic Counter, Center Heading (UNDER THE RING), and Right "SCROLL TO EXPLORE" */}
+          <div className="flex items-end justify-between w-full pointer-events-auto gap-4">
             {/* Bottom Left: Quick Model Indicator */}
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 shrink-0">
               <span className="text-2xl sm:text-4xl md:text-5xl font-light tracking-tight text-neutral-900 dark:text-white font-mono">
                 {currentVehicle.index}
               </span>
+            </div>
+
+            {/* Bottom Center: Positioned Directly UNDER THE 3D RING */}
+            <div className="flex-1 flex flex-col items-center justify-center text-center pb-0 sm:pb-1 select-text">
+              <h1 className="select-text uppercase leading-none font-syncopate inline-flex flex-col items-center">
+                <span className="text-[8px] sm:text-[9px] md:text-[11px] font-mono tracking-[0.25em] sm:tracking-[0.3em] text-neutral-400 dark:text-neutral-500 font-normal mb-1 sm:mb-1.5">
+                  WELCOME TO
+                </span>
+                <span className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-[34px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.05] whitespace-nowrap">
+                  THE
+                </span>
+                <span className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-[34px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.05] whitespace-nowrap mt-0.5 sm:mt-1">
+                  PORSCHE
+                </span>
+                <span className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-[34px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] leading-[1.05] whitespace-nowrap mt-0.5 sm:mt-1">
+                  <span className="iran-flag-text">IRAN</span>
+                </span>
+              </h1>
             </div>
 
             {/* Bottom Right: SCROLL TO EXPLORE with animated downward indicator */}
