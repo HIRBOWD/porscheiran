@@ -50,14 +50,17 @@ modelsConfig.forEach(m => {
     // Read all files in folder
     let rawFiles = fs.readdirSync(dir);
 
-    // Normalize any files with leading/trailing spaces
+    // Normalize any files with leading/trailing spaces or double extensions
     rawFiles.forEach(f => {
-      if (f.trim() !== f) {
+      let cleaned = f.trim();
+      cleaned = cleaned.replace(/\.(jpg|jpeg|png|webp|avif)\s+\.(jpg|jpeg|png|webp|avif)$/i, '.$1');
+      cleaned = cleaned.replace(/\.(jpg|jpeg|png|webp|avif)\.(jpg|jpeg|png|webp|avif)$/i, '.$1');
+      if (cleaned !== f) {
         const oldPath = path.join(dir, f);
-        const newPath = path.join(dir, f.trim());
+        const newPath = path.join(dir, cleaned);
         try {
           fs.renameSync(oldPath, newPath);
-          console.log(`[CLEANUP] Renamed "${f}" -> "${f.trim()}"`);
+          console.log(`[CLEANUP] Renamed "${f}" -> "${cleaned}"`);
         } catch (err) {
           console.error("Rename error:", err);
         }
@@ -78,13 +81,15 @@ modelsConfig.forEach(m => {
       const relativePath = `/images/products/${m.slug}/${sc}/${file}`;
 
       let target = null;
+      let normalizedBase = baseName;
+      if (normalizedBase.startsWith("anamera-")) normalizedBase = "p" + normalizedBase;
 
       // 1. Exact product ID match
-      target = prods.find(p => p.id.toLowerCase() === baseName);
+      target = prods.find(p => p.id.toLowerCase() === normalizedBase);
 
       // 2. Exact integer (e.g. 1.jpg, 01.jpg)
-      if (!target && /^\d+$/.test(baseName)) {
-        const num = parseInt(baseName, 10);
+      if (!target && /^\d+$/.test(normalizedBase)) {
+        const num = parseInt(normalizedBase, 10);
         if (num >= 1 && num <= prods.length) {
           target = prods[num - 1];
         }
@@ -92,7 +97,7 @@ modelsConfig.forEach(m => {
 
       // 3. Category prefix with number (e.g. accessories-1, accessories-01, accessories_1, acc-1, facelift-2, parts-3)
       if (!target) {
-        const numMatch = baseName.match(/(?:facelift|accessories|accessory|parts|part)[-_ ]*(\d+)/i);
+        const numMatch = normalizedBase.match(/(?:facelift|accessories|accessory|parts|part)[-_ ]*(\d+)/i);
         if (numMatch) {
           const num = parseInt(numMatch[1], 10);
           if (num >= 1 && num <= prods.length) {
@@ -103,7 +108,7 @@ modelsConfig.forEach(m => {
 
       // 4. Any standalone trailing number (e.g. item-1, p-1, c4-acc-1)
       if (!target) {
-        const trailingMatch = baseName.match(/[-_ ](\d+)$/);
+        const trailingMatch = normalizedBase.match(/[-_ ](\d+)$/);
         if (trailingMatch) {
           const num = parseInt(trailingMatch[1], 10);
           if (num >= 1 && num <= prods.length) {
@@ -112,12 +117,41 @@ modelsConfig.forEach(m => {
         }
       }
 
-      // 5. Persian name match or English subtitle match
+      // 5. Phonetic / Fingilish aliases
+      if (!target) {
+        const fingilishMap = [
+          { keys: ["komak", "strut"], test: (p) => p.name.includes("کمک") },
+          { keys: ["motorfan"], test: (p) => p.name.includes("موتور فن") },
+          { keys: ["oringvasher", "oring", "vasher"], test: (p) => p.name.includes("اورینگ") },
+          { keys: ["polgard", "gardan"], test: (p) => p.name.includes("پل گاردان") },
+          { keys: ["pumphed", "pump"], test: (p) => p.name.includes("پمپ هیدرولیک") },
+          { keys: ["radiat"], test: (p) => p.name.includes("رادیاتور آب") },
+          { keys: ["sahme", "sham"], test: (p) => p.name.includes("شمع") },
+          { keys: ["shelng", "shilang"], test: (p) => p.name.includes("شلنگ") },
+          { keys: ["tasme", "harzgard"], test: (p) => p.name.includes("تسمه") || p.name.includes("هرزگرد") },
+          { keys: ["unit", "ecu"], test: (p) => p.name.includes("یونیت") },
+          { keys: ["zirbandi"], test: (p) => p.name.includes("زیربندی") },
+          { keys: ["cooler", "khenak"], test: (p) => p.name.includes("خنک کن") },
+          { keys: ["daste"], test: (p) => p.name.includes("دسته موتور") },
+          { keys: ["safi", "kartel"], test: (p) => p.name.includes("صافی") || p.name.includes("کارتل") },
+          { keys: ["kompresor", "compressor"], test: (p) => p.name.includes("کمپرسور کولر") },
+          { keys: ["servis"], test: (p) => p.name.includes("سرویس دوره ای") },
+        ];
+
+        for (const entry of fingilishMap) {
+          if (entry.keys.some(k => normalizedBase.includes(k))) {
+            target = prods.find(entry.test);
+            if (target) break;
+          }
+        }
+      }
+
+      // 6. Persian name match or English subtitle match
       if (!target) {
         target = prods.find(p => {
           const pName = p.name.toLowerCase();
           const pSub = p.subtitle.toLowerCase();
-          return pName.includes(baseName) || baseName.includes(pName) || pSub.includes(baseName);
+          return pName.includes(normalizedBase) || normalizedBase.includes(pName) || pSub.includes(normalizedBase);
         });
       }
 
