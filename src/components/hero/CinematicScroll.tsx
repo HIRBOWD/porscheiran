@@ -17,6 +17,7 @@ export default function CinematicScroll({
 }: CinematicScrollProps = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const heroTextRef = useRef<HTMLDivElement>(null);
 
   // Scene scroll progress stored in ref to eliminate React re-renders on scroll
   const internalProgressRef = useRef(0);
@@ -41,8 +42,55 @@ export default function CinematicScroll({
       },
     });
 
+    // 1. Cinematic Staggered Intro Reveal Timeline
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+      tl.from(".hero-counter", {
+        opacity: 0,
+        x: -24,
+        duration: 0.9,
+        delay: 0.1,
+      })
+      .from(".hero-welcome", {
+        opacity: 0,
+        y: 16,
+        duration: 0.8,
+      }, "-=0.6")
+      .from(".hero-line-the", {
+        opacity: 0,
+        y: 28,
+        duration: 0.9,
+      }, "-=0.6")
+      .from(".hero-line-porsche", {
+        opacity: 0,
+        y: 32,
+        duration: 1.0,
+      }, "-=0.7")
+      .from(".hero-line-iran", {
+        opacity: 0,
+        y: 36,
+        scale: 0.94,
+        duration: 1.0,
+      }, "-=0.7");
+
+      // 2. Scroll-Driven Fade & Glide Out as user explores the 3D car
+      gsap.to(heroTextRef.current, {
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: "+=380",
+          scrub: true,
+        },
+        y: -42,
+        opacity: 0,
+        ease: "none",
+      });
+    }, heroTextRef);
+
     return () => {
       trigger.kill();
+      ctx.revert();
     };
   }, []);
 
@@ -81,10 +129,10 @@ export default function CinematicScroll({
         <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-24 md:pt-28 pb-6 sm:pb-8 md:pb-12 px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 pointer-events-none">
           {/* Top Row: Left Heading (TOP OF 3D MODEL IN THIS SAME POSITION) */}
           <div className="w-full flex items-start justify-start">
-            <div className="flex flex-col items-start select-text">
+            <div ref={heroTextRef} className="flex flex-col items-start select-text">
               {/* Scene Counter & Porsche Red Accent */}
-              <div className="flex items-center gap-2 mb-2 sm:mb-2.5 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] shrink-0" />
+              <div className="hero-counter flex items-center gap-2 mb-2 sm:mb-2.5 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] shrink-0 animate-pulse" />
                 <span className="text-neutral-900 dark:text-white font-semibold font-mono">
                   {currentVehicle.index}
                 </span>
@@ -94,17 +142,17 @@ export default function CinematicScroll({
 
               {/* 3-Line Heading: THE / PORSCHE / IRAN */}
               <h1 className="select-text uppercase leading-none font-syncopate inline-flex flex-col items-start">
-                <span className="text-[8px] sm:text-[9px] md:text-[11px] font-mono tracking-[0.25em] sm:tracking-[0.3em] text-neutral-400 dark:text-neutral-500 font-normal mb-1.5 sm:mb-2">
+                <span className="hero-welcome text-[8px] sm:text-[9px] md:text-[11px] font-mono tracking-[0.25em] sm:tracking-[0.3em] text-neutral-400 dark:text-neutral-500 font-normal mb-1.5 sm:mb-2">
                   WELCOME TO
                 </span>
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[42px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.08] whitespace-nowrap">
+                <span className="hero-line-the text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[42px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.08] whitespace-nowrap transition-transform duration-300 hover:translate-x-1">
                   THE
                 </span>
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[42px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.08] whitespace-nowrap mt-0.5 sm:mt-1">
+                <span className="hero-line-porsche text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[42px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.08] whitespace-nowrap mt-0.5 sm:mt-1 transition-transform duration-300 hover:translate-x-1">
                   PORSCHE
                 </span>
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[42px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] leading-[1.08] whitespace-nowrap mt-0.5 sm:mt-1">
-                  <span className="iran-flag-text">IRAN</span>
+                <span className="hero-line-iran text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[42px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] leading-[1.08] whitespace-nowrap mt-0.5 sm:mt-1 transition-transform duration-300 hover:translate-x-1">
+                  <span className="iran-flag-text cursor-default">IRAN</span>
                 </span>
               </h1>
             </div>

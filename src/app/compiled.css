@@ -661,8 +661,14 @@
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
+  .animate-pulse {
+    animation: var(--animate-pulse);
+  }
   .animate-spin {
     animation: var(--animate-spin);
+  }
+  .cursor-default {
+    cursor: default;
   }
   .cursor-grab {
     cursor: grab;
@@ -2573,9 +2579,35 @@
     color: transparent;
     display: inline-block;
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+    animation: flagGlowLight 4s ease-in-out infinite;
+    transition: filter 0.4s ease, transform 0.4s ease;
+  }
+  .iran-flag-text:hover {
+    transform: scale(1.03);
+    filter: drop-shadow(0 2px 8px rgba(35, 159, 64, 0.4)) drop-shadow(0 2px 8px rgba(213, 0, 28, 0.4));
   }
   .dark .iran-flag-text {
     filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.15));
+    animation: flagGlowDark 4s ease-in-out infinite;
+  }
+  .dark .iran-flag-text:hover {
+    filter: drop-shadow(0 0 14px rgba(35, 159, 64, 0.6)) drop-shadow(0 0 16px rgba(213, 0, 28, 0.6)) drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+  }
+  @keyframes flagGlowLight {
+    0%, 100% {
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+    }
+    50% {
+      filter: drop-shadow(0 2px 6px rgba(35, 159, 64, 0.28)) drop-shadow(0 2px 6px rgba(213, 0, 28, 0.28));
+    }
+  }
+  @keyframes flagGlowDark {
+    0%, 100% {
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.15));
+    }
+    50% {
+      filter: drop-shadow(0 0 12px rgba(35, 159, 64, 0.45)) drop-shadow(0 0 14px rgba(213, 0, 28, 0.45));
+    }
   }
   ::-webkit-scrollbar {
     width: 5px;
