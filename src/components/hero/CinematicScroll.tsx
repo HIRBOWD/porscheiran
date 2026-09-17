@@ -79,12 +79,8 @@ export default function CinematicScroll({
         {/* MAIN TYPOGRAPHY & UI OVERLAY: Positioned in front of 3D Canvas     */}
         {/* ------------------------------------------------------------------ */}
         <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-24 md:pt-28 pb-6 sm:pb-8 md:pb-12 px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 pointer-events-none">
-          {/* Top Row: Spacer / Clean Viewport */}
-          <div className="w-full flex items-start justify-between" />
-
-          {/* Bottom Row: Left Heading (SIDE OF 3D MODEL & UNDER IT) and Right "SCROLL TO EXPLORE" */}
-          <div className="flex items-end justify-between w-full pointer-events-auto gap-4">
-            {/* Bottom Left: SIDE OF THE 3D MODEL AND UNDER IT */}
+          {/* Top Row: Left Heading (TOP OF 3D MODEL IN THIS SAME POSITION) */}
+          <div className="w-full flex items-start justify-start">
             <div className="flex flex-col items-start select-text">
               {/* Scene Counter & Porsche Red Accent */}
               <div className="flex items-center gap-2 mb-2 sm:mb-2.5 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500">
@@ -111,6 +107,16 @@ export default function CinematicScroll({
                   <span className="iran-flag-text">IRAN</span>
                 </span>
               </h1>
+            </div>
+          </div>
+
+          {/* Bottom Row: Left Dynamic Counter and Right "SCROLL TO EXPLORE" */}
+          <div className="flex items-end justify-between w-full pointer-events-auto gap-4">
+            {/* Bottom Left: Quick Model Indicator */}
+            <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+              <span className="text-2xl sm:text-4xl md:text-5xl font-light tracking-tight text-neutral-900 dark:text-white font-mono">
+                {currentVehicle.index}
+              </span>
             </div>
 
             {/* Bottom Right: SCROLL TO EXPLORE with animated downward indicator */}
