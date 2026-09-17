@@ -600,26 +600,38 @@ export default function StoreSection() {
             ))}
           </div>
         ) : (
-          <div className="py-20 text-center border border-dashed border-neutral-300 dark:border-neutral-800 p-8">
-            <p
+          <div className="py-16 text-center border border-dashed border-neutral-300 dark:border-neutral-800 p-8 max-w-lg mx-auto bg-black/[0.01] dark:bg-white/[0.01]">
+            <div className="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center mx-auto mb-3 text-neutral-400">
+              <span className="w-2 h-2 rounded-full bg-[#D5001C]" />
+            </div>
+            <h4
               lang="fa"
-              className="text-sm font-sans text-neutral-500 dark:text-neutral-400 mb-4"
+              className="text-sm font-semibold text-neutral-900 dark:text-white font-sans mb-1.5"
               style={{ letterSpacing: "normal" }}
             >
-              قطعه‌ای با فیلتر انتخاب شده یافت نشد
-            </p>
-            <button
-              onClick={handleResetFilters}
-              className="px-5 py-2.5 bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 text-xs cursor-pointer"
+              در حال حاضر محصولی در این دسته‌بندی موجود نیست
+            </h4>
+            <p
+              lang="fa"
+              className="text-xs font-light font-sans text-neutral-500 dark:text-neutral-400 leading-relaxed mb-5"
+              style={{ letterSpacing: "normal" }}
             >
-              <span
-                lang="fa"
-                className="font-sans"
-                style={{ letterSpacing: "normal" }}
+              کاتالوگ قطعات و تجهیزات در حال بارگذاری اقلام جدید می‌باشد و به زودی موجودی جدید اضافه خواهد شد.
+            </p>
+            {(selectedGeneration !== "all" || selectedSubCategory !== "all") && (
+              <button
+                onClick={handleResetFilters}
+                className="px-5 py-2.5 bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 text-xs cursor-pointer transition-opacity hover:opacity-90"
               >
-                مشاهده همه قطعات این مدل
-              </span>
-            </button>
+                <span
+                  lang="fa"
+                  className="font-sans"
+                  style={{ letterSpacing: "normal" }}
+                >
+                  مشاهده همه قطعات این مدل
+                </span>
+              </button>
+            )}
           </div>
         )}
 
