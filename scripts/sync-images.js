@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 const productsFilePath = path.join(__dirname, '../src/data/products.ts');
-const publicDir = path.join(__dirname, '../public');
 const productsDir = path.join(__dirname, '../public/images/products');
 const imageExts = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.svg']);
 
@@ -16,7 +15,6 @@ if (idx === -1) {
 }
 
 const header = fileContent.substring(0, idx + marker.length);
-// Extract JSON array
 const rawJson = fileContent.substring(idx + marker.length).trim().replace(/;$/, '');
 let products = JSON.parse(rawJson);
 
@@ -49,7 +47,24 @@ modelsConfig.forEach(m => {
       return matchModel && matchGen && matchCat;
     });
 
-    // Read files in folder
+    // Read all files in folder
+    let rawFiles = fs.readdirSync(dir);
+
+    // Normalize any files with leading/trailing spaces
+    rawFiles.forEach(f => {
+      if (f.trim() !== f) {
+        const oldPath = path.join(dir, f);
+        const newPath = path.join(dir, f.trim());
+        try {
+          fs.renameSync(oldPath, newPath);
+          console.log(`[CLEANUP] Renamed "${f}" -> "${f.trim()}"`);
+        } catch (err) {
+          console.error("Rename error:", err);
+        }
+      }
+    });
+
+    // Re-read files after trim
     const files = fs.readdirSync(dir).filter(f => {
       const ext = path.extname(f).toLowerCase();
       return imageExts.has(ext);
@@ -62,10 +77,12 @@ modelsConfig.forEach(m => {
       const baseName = parsed.name.toLowerCase().trim();
       const relativePath = `/images/products/${m.slug}/${sc}/${file}`;
 
-      // 1. Try matching exact product ID
-      let target = prods.find(p => p.id.toLowerCase() === baseName);
+      let target = null;
 
-      // 2. Try matching by index number (e.g., 1.jpg -> prods[0])
+      // 1. Exact product ID match
+      target = prods.find(p => p.id.toLowerCase() === baseName);
+
+      // 2. Exact integer (e.g. 1.jpg, 01.jpg)
       if (!target && /^\d+$/.test(baseName)) {
         const num = parseInt(baseName, 10);
         if (num >= 1 && num <= prods.length) {
@@ -73,7 +90,29 @@ modelsConfig.forEach(m => {
         }
       }
 
-      // 3. Try matching Persian name or English subtitle words
+      // 3. Category prefix with number (e.g. accessories-1, accessories-01, accessories_1, acc-1, facelift-2, parts-3)
+      if (!target) {
+        const numMatch = baseName.match(/(?:facelift|accessories|accessory|parts|part)[-_ ]*(\d+)/i);
+        if (numMatch) {
+          const num = parseInt(numMatch[1], 10);
+          if (num >= 1 && num <= prods.length) {
+            target = prods[num - 1];
+          }
+        }
+      }
+
+      // 4. Any standalone trailing number (e.g. item-1, p-1, c4-acc-1)
+      if (!target) {
+        const trailingMatch = baseName.match(/[-_ ](\d+)$/);
+        if (trailingMatch) {
+          const num = parseInt(trailingMatch[1], 10);
+          if (num >= 1 && num <= prods.length) {
+            target = prods[num - 1];
+          }
+        }
+      }
+
+      // 5. Persian name match or English subtitle match
       if (!target) {
         target = prods.find(p => {
           const pName = p.name.toLowerCase();
@@ -86,17 +125,30 @@ modelsConfig.forEach(m => {
         if (target.image !== relativePath) {
           target.image = relativePath;
           updatedCount++;
-          console.log(`[LINKED] Product "${target.name}" -> ${relativePath}`);
+          console.log(`[LINKED] [${m.slug} > ${sc}] "${target.name}" -> ${relativePath}`);
         }
       }
     });
   });
 });
 
+// 6. Safety check: ensure all product image files exist on disk, fallback to crest if deleted
+const publicDir = path.join(__dirname, '../public');
+products.forEach(p => {
+  const fullPath = path.join(publicDir, p.image);
+  if (!fs.existsSync(fullPath)) {
+    if (p.image !== "/images/porsche-iran-crest.png") {
+      console.log(`[FALLBACK] Missing "${p.name}" (${p.image}) -> reverted to Porsche Crest`);
+      p.image = "/images/porsche-iran-crest.png";
+      updatedCount++;
+    }
+  }
+});
+
 if (updatedCount > 0) {
   const newContent = header + JSON.stringify(products, null, 2) + ";\n";
   fs.writeFileSync(productsFilePath, newContent, 'utf-8');
-  console.log(`Updated ${updatedCount} product image references in products.ts!`);
+  console.log(`\nSUCCESS: Updated ${updatedCount} product image references in products.ts!`);
 } else {
-  console.log("Image sync check completed. No new images to link.");
+  console.log("\nImage sync check completed. All present images are already linked.");
 }
