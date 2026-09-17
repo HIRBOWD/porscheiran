@@ -95,15 +95,18 @@ export default function CinematicScroll({
                 <span className="font-mono">01</span>
               </div>
 
-              {/* Compact Hero Main Heading: THE PORSCHE / IRAN stepped layout */}
+              {/* Compact Hero Main Heading: THE / PORSCHE / IRAN 3-line stack */}
               <h1 className="select-text uppercase leading-none font-syncopate inline-flex flex-col">
                 <span className="text-[10px] sm:text-xs font-mono tracking-[0.25em] sm:tracking-[0.3em] text-neutral-400 dark:text-neutral-500 font-normal mb-2 sm:mb-2.5">
                   WELCOME TO
                 </span>
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-[34px] xl:text-[38px] font-bold tracking-[0.05em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.12] whitespace-nowrap">
-                  THE PORSCHE
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.08] whitespace-nowrap">
+                  THE
                 </span>
-                <span className="text-xl sm:text-2xl md:text-3xl lg:text-[34px] xl:text-[38px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] leading-[1.12] mt-1 sm:mt-1.5 pl-8 sm:pl-12 md:pl-16 lg:pl-20 whitespace-nowrap">
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.08] whitespace-nowrap mt-0.5 sm:mt-1">
+                  PORSCHE
+                </span>
+                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-extrabold tracking-[0.08em] sm:tracking-[0.12em] leading-[1.08] whitespace-nowrap mt-0.5 sm:mt-1">
                   <span className="iran-flag-text">IRAN</span>
                 </span>
               </h1>
