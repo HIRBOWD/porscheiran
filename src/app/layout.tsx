@@ -1,9 +1,62 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./compiled.css";
 import { CartProvider } from "@/context/CartContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import PersianTypographyProvider from "@/components/providers/PersianTypographyProvider";
+
+const vazirmatn = localFont({
+  src: [
+    {
+      path: "../../public/fonts/vazirmatn/vazirmatn-arabic-100-normal.woff2",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/vazirmatn/vazirmatn-arabic-200-normal.woff2",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/vazirmatn/vazirmatn-arabic-300-normal.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/vazirmatn/vazirmatn-arabic-400-normal.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/vazirmatn/vazirmatn-arabic-500-normal.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/vazirmatn/vazirmatn-arabic-600-normal.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/vazirmatn/vazirmatn-arabic-700-normal.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/vazirmatn/vazirmatn-arabic-800-normal.woff2",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/vazirmatn/vazirmatn-arabic-900-normal.woff2",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-vazirmatn",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Porsche — Tequipment & Accessories Boutique",
@@ -17,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+    <html lang="en" className={`h-full antialiased ${vazirmatn.variable}`} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
