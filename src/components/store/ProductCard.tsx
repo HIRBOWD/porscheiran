@@ -50,13 +50,17 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
         </button>
 
         {/* Product Image */}
-        <div className="relative w-full h-full transform transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+        <div className="relative w-full h-full transform transition-transform duration-700 ease-out group-hover:scale-[1.04] flex items-center justify-center">
           <Image
             src={product.image}
             alt={product.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-contain"
+            className={`object-contain transition-transform duration-500 ${
+              product.image.includes("crest")
+                ? "p-6 sm:p-8 drop-shadow-md opacity-90 group-hover:opacity-100 group-hover:scale-105"
+                : ""
+            }`}
           />
         </div>
       </div>
@@ -79,11 +83,22 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
             )}
           </div>
 
-          <h3 className="text-sm font-semibold tracking-[0.08em] text-neutral-900 dark:text-white uppercase">
+          <h3
+            lang="fa"
+            className="text-sm font-semibold tracking-normal text-neutral-900 dark:text-white font-sans line-clamp-1"
+            style={{ letterSpacing: "normal" }}
+          >
             {product.name}
           </h3>
+          <p className="text-[11px] text-neutral-400 dark:text-neutral-500 font-mono uppercase tracking-wider truncate mt-0.5">
+            {product.subtitle}
+          </p>
 
-          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed font-light">
+          <p
+            lang="fa"
+            className="mt-2 text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed font-light font-sans"
+            style={{ letterSpacing: "normal" }}
+          >
             {product.description}
           </p>
         </div>

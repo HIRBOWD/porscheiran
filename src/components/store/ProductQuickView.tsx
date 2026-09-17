@@ -42,13 +42,17 @@ export default function ProductQuickView({ product, onClose }: ProductQuickViewP
 
         {/* Product Image Panel */}
         <div className="relative aspect-[4/3] md:aspect-auto w-full bg-[#F4F4F6] dark:bg-[#18181D] p-6 md:p-12 flex items-center justify-center">
-          <div className="relative w-full h-full min-h-[200px] sm:min-h-[260px] md:min-h-[300px]">
+          <div className="relative w-full h-full min-h-[200px] sm:min-h-[260px] md:min-h-[300px] flex items-center justify-center">
             <Image
               src={product.image}
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-contain"
+              className={`object-contain ${
+                product.image.includes("crest")
+                  ? "p-8 md:p-12 drop-shadow-xl"
+                  : ""
+              }`}
             />
           </div>
 
@@ -77,7 +81,11 @@ export default function ProductQuickView({ product, onClose }: ProductQuickViewP
               </span>
             </div>
 
-            <h2 className="text-xl md:text-2xl font-semibold tracking-[0.08em] text-neutral-900 dark:text-white uppercase">
+            <h2
+              lang="fa"
+              className="text-xl md:text-2xl font-bold tracking-normal text-neutral-900 dark:text-white font-sans"
+              style={{ letterSpacing: "normal" }}
+            >
               {product.name}
             </h2>
 
