@@ -78,15 +78,15 @@ export default function CinematicScroll({
         {/* ------------------------------------------------------------------ */}
         {/* MAIN TYPOGRAPHY & UI OVERLAY: Positioned in front of 3D Canvas     */}
         {/* ------------------------------------------------------------------ */}
-        <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-24 md:pt-32 lg:pt-36 pb-6 sm:pb-8 md:pb-12 px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 pointer-events-none">
-          {/* Top Row: Responsive Art-Directed Welcome Heading */}
-          <div className="w-full flex items-start justify-start">
+        <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-24 md:pt-28 pb-6 sm:pb-8 md:pb-12 px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 pointer-events-none">
+          {/* Compact Welcome Heading (Architecturally Flanking the 3D Halo Ring) */}
+          <div className="w-full flex items-start justify-start md:my-auto">
             <div
               dir="ltr"
-              className="w-fit max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl text-left overflow-visible select-text"
+              className="w-fit max-w-[280px] sm:max-w-xs md:max-w-sm lg:max-w-md text-left overflow-visible select-text"
             >
               {/* Scene Counter & Porsche Red Accent */}
-              <div className="flex items-center gap-2 mb-2 sm:mb-2.5 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500">
+              <div className="flex items-center gap-2 mb-2 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] shrink-0" />
                 <span className="text-neutral-900 dark:text-white font-semibold font-mono">
                   {currentVehicle.index}
@@ -95,11 +95,15 @@ export default function CinematicScroll({
                 <span className="font-mono">01</span>
               </div>
 
-              {/* Hero Main Heading: WELCOME TO THE PORSCHE IRAN */}
-              <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-[46px] font-bold tracking-[0.06em] sm:tracking-[0.1em] text-neutral-950 dark:text-white uppercase leading-[1.15] font-syncopate select-text">
-                <span className="text-neutral-400 dark:text-neutral-500 font-normal">WELCOME TO</span>
-                <br />
-                <span>THE PORSCHE IRAN</span>
+              {/* Compact Hero Main Heading: Flanking the 3D Ring with Flag Colors */}
+              <h1 className="select-text uppercase leading-tight font-syncopate">
+                <span className="block text-[10px] sm:text-xs md:text-xs font-mono tracking-[0.25em] sm:tracking-[0.3em] text-neutral-400 dark:text-neutral-500 font-normal mb-1.5">
+                  WELCOME TO
+                </span>
+                <span className="block text-lg sm:text-xl md:text-2xl lg:text-[28px] xl:text-[32px] font-bold tracking-[0.05em] sm:tracking-[0.08em] text-neutral-950 dark:text-white leading-[1.2]">
+                  THE PORSCHE{" "}
+                  <span className="iran-flag-text font-extrabold tracking-[0.08em]">IRAN</span>
+                </span>
               </h1>
             </div>
           </div>
