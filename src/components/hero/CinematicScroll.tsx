@@ -79,14 +79,14 @@ export default function CinematicScroll({
         {/* MAIN TYPOGRAPHY & UI OVERLAY: Positioned in front of 3D Canvas     */}
         {/* ------------------------------------------------------------------ */}
         <div className="relative z-20 w-full h-full flex flex-col justify-between pt-20 sm:pt-24 md:pt-32 lg:pt-36 pb-6 sm:pb-8 md:pb-12 px-6 sm:px-10 md:px-14 lg:px-16 xl:px-20 pointer-events-none">
-          {/* Top Row: Responsive Art-Directed Persian Welcome Heading */}
+          {/* Top Row: Responsive Art-Directed Welcome Heading */}
           <div className="w-full flex items-start justify-start">
             <div
-              dir="rtl"
-              className="w-fit max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl text-right overflow-visible select-text"
+              dir="ltr"
+              className="w-fit max-w-full sm:max-w-lg md:max-w-xl lg:max-w-2xl text-left overflow-visible select-text"
             >
               {/* Scene Counter & Porsche Red Accent */}
-              <div className="flex items-center gap-2 mb-2.5 sm:mb-3 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500">
+              <div className="flex items-center gap-2 mb-2 sm:mb-2.5 text-[9px] sm:text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-400 dark:text-neutral-500">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#D5001C] shrink-0" />
                 <span className="text-neutral-900 dark:text-white font-semibold font-mono">
                   {currentVehicle.index}
@@ -95,14 +95,11 @@ export default function CinematicScroll({
                 <span className="font-mono">01</span>
               </div>
 
-              {/* Hero Main Heading: به پورش ایران خوش آمدید */}
-              <h1
-                lang="fa"
-                dir="rtl"
-                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-light text-neutral-950 dark:text-white font-sans leading-[1.3] text-right [word-break:keep-all] break-normal"
-                style={{ letterSpacing: "normal" }}
-              >
-                به پورش ایران خوش آمدید
+              {/* Hero Main Heading: WELCOME TO THE PORSCHE IRAN */}
+              <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-[46px] font-bold tracking-[0.06em] sm:tracking-[0.1em] text-neutral-950 dark:text-white uppercase leading-[1.15] font-syncopate select-text">
+                <span className="text-neutral-400 dark:text-neutral-500 font-normal">WELCOME TO</span>
+                <br />
+                <span>THE PORSCHE IRAN</span>
               </h1>
             </div>
           </div>
