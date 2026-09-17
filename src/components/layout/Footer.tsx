@@ -18,6 +18,7 @@ export default function Footer() {
 
   return (
     <footer
+      id="showroom-footer"
       lang="fa"
       className="relative w-full bg-[#111113] dark:bg-[#070709] text-neutral-400 py-20 md:py-28 px-8 md:px-16 border-t border-neutral-800 dark:border-white/[0.08] font-sans text-left"
       style={{ letterSpacing: "normal" }}
