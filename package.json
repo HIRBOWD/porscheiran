@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/build-css.js && next dev",
+    "dev": "node scripts/sync-images.js && node scripts/build-css.js && next dev",
+    "sync-images": "node scripts/sync-images.js",
     "build:css": "node scripts/build-css.js",
-    "prebuild": "node scripts/build-css.js",
+    "prebuild": "node scripts/sync-images.js && node scripts/build-css.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
