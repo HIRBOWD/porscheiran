@@ -30,7 +30,6 @@
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-xs: 20rem;
-    --container-sm: 24rem;
     --container-md: 28rem;
     --container-lg: 32rem;
     --container-xl: 36rem;
@@ -1250,9 +1249,6 @@
   .pt-20 {
     padding-top: calc(var(--spacing) * 20);
   }
-  .pb-0 {
-    padding-bottom: 0px;
-  }
   .pb-1 {
     padding-bottom: var(--spacing);
   }
@@ -1335,9 +1331,9 @@
   .text-\[14vw\] {
     font-size: 14vw;
   }
-  .leading-\[1\.05\] {
-    --tw-leading: 1.05;
-    line-height: 1.05;
+  .leading-\[1\.08\] {
+    --tw-leading: 1.08;
+    line-height: 1.08;
   }
   .leading-none {
     --tw-leading: 1;
@@ -1851,8 +1847,11 @@
     .sm\:mt-1 {
       margin-top: var(--spacing);
     }
-    .sm\:mb-1\.5 {
-      margin-bottom: calc(var(--spacing) * 1.5);
+    .sm\:mb-2 {
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+    .sm\:mb-2\.5 {
+      margin-bottom: calc(var(--spacing) * 2.5);
     }
     .sm\:flex {
       display: flex;
@@ -1896,9 +1895,6 @@
     .sm\:grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .sm\:gap-4 {
-      gap: calc(var(--spacing) * 4);
-    }
     :where(.sm\:space-x-3 > :not(:last-child)) {
       --tw-space-x-reverse: 0;
       margin-inline-start: calc(calc(var(--spacing) * 3) * var(--tw-space-x-reverse));
@@ -1924,14 +1920,15 @@
     .sm\:pt-24 {
       padding-top: calc(var(--spacing) * 24);
     }
-    .sm\:pb-1 {
-      padding-bottom: var(--spacing);
-    }
     .sm\:pb-8 {
       padding-bottom: calc(var(--spacing) * 8);
     }
     .sm\:pl-10 {
       padding-left: calc(var(--spacing) * 10);
+    }
+    .sm\:text-2xl {
+      font-size: var(--text-2xl);
+      line-height: var(--tw-leading, var(--text-2xl--line-height));
     }
     .sm\:text-3xl {
       font-size: var(--text-3xl);
@@ -2153,9 +2150,9 @@
     .lg\:px-16 {
       padding-inline: calc(var(--spacing) * 16);
     }
-    .lg\:text-3xl {
-      font-size: var(--text-3xl);
-      line-height: var(--tw-leading, var(--text-3xl--line-height));
+    .lg\:text-4xl {
+      font-size: var(--text-4xl);
+      line-height: var(--tw-leading, var(--text-4xl--line-height));
     }
   }
   @media (width >= 80rem) {
@@ -2168,8 +2165,8 @@
     .xl\:px-20 {
       padding-inline: calc(var(--spacing) * 20);
     }
-    .xl\:text-\[34px\] {
-      font-size: 34px;
+    .xl\:text-\[42px\] {
+      font-size: 42px;
     }
   }
   .dark\:border-neutral-700:where(.dark, .dark *) {
