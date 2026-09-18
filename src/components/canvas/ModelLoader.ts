@@ -48,11 +48,23 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
   const loader = new GLTFLoader();
 
   try {
-    // Load actual GLTF / GLB model via GLTFLoader
+    const isMobile =
+      typeof window !== "undefined" &&
+      (window.innerWidth < 768 || navigator.maxTouchPoints > 1);
+    const timeoutMs = isMobile ? 1800 : 3500;
+
+    // Load actual GLTF / GLB model via GLTFLoader with timeout
     const gltf = await new Promise<{ scene: THREE.Group }>((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(new Error(`[Porsche 3D Engine] Loading ${key} timed out (${timeoutMs}ms)`));
+      }, timeoutMs);
+
       loader.load(
         config.path,
-        (data) => resolve(data),
+        (data) => {
+          clearTimeout(timer);
+          resolve(data);
+        },
         (event) => {
           if (event.lengthComputable && event.total > 0) {
             const pct = Math.round((event.loaded / event.total) * 100);
@@ -61,7 +73,10 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
             }
           }
         },
-        (err) => reject(err)
+        (err) => {
+          clearTimeout(timer);
+          reject(err);
+        }
       );
     });
 

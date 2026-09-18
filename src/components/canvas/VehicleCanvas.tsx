@@ -338,34 +338,52 @@ function VehicleCanvasComponent({
     // 7. Load 911 GT3 RS Vehicle (with GLB support and procedural fallback)
     let isMounted = true;
 
+    // Safety timeout: Guaranteed loading dismissal in at most 2200ms
+    const safetyDismissTimer = setTimeout(() => {
+      if (isMounted) {
+        setIsLoading(false);
+      }
+    }, 2200);
+
     async function loadAllVehicles() {
-      const gt3Res = await loadVehicleModel("gt3");
+      try {
+        const gt3Res = await loadVehicleModel("gt3");
 
-      if (!isMounted) return;
+        if (!isMounted) return;
 
-      // Position model firmly grounded on floor (Y = 0) with wheels flush on contact shadow
-      gt3Res.group.position.set(0, 0, 0);
+        // Position model firmly grounded on floor (Y = 0) with wheels flush on contact shadow
+        gt3Res.group.position.set(0, 0, 0);
 
-      // Cache materials for zero-allocation opacity fading
-      vehicleMaterialsRef.current = {
-        gt3: collectMaterials(gt3Res.group),
-      };
+        // Cache materials for zero-allocation opacity fading
+        vehicleMaterialsRef.current = {
+          gt3: collectMaterials(gt3Res.group),
+        };
 
-      // Show GT3 (fully opaque) inside halo
-      gt3Res.group.visible = true;
-      updateVehicleOpacity("gt3", vehicleMaterialsRef.current.gt3, 1.0);
+        // Show GT3 (fully opaque) inside halo
+        gt3Res.group.visible = true;
+        updateVehicleOpacity("gt3", vehicleMaterialsRef.current.gt3, 1.0);
 
-      scene.add(gt3Res.group);
+        scene.add(gt3Res.group);
 
-      // Pre-compile all 88 materials and shaders on GPU to eliminate runtime compilation hitches
-      renderer.compile(scene, camera);
+        try {
+          // Pre-compile materials and shaders on GPU
+          renderer.compile(scene, camera);
+        } catch (compileErr) {
+          console.warn("[Porsche 3D Engine] Shader compile skipped:", compileErr);
+        }
 
-      vehiclesRef.current = {
-        gt3: gt3Res.group,
-      };
-
-      setIsLoading(false);
-      onSceneReady?.();
+        vehiclesRef.current = {
+          gt3: gt3Res.group,
+        };
+      } catch (err) {
+        console.error("[Porsche 3D Engine] Failed to load vehicle:", err);
+      } finally {
+        if (isMounted) {
+          clearTimeout(safetyDismissTimer);
+          setIsLoading(false);
+          onSceneReady?.();
+        }
+      }
     }
 
     loadAllVehicles();
@@ -675,6 +693,7 @@ function VehicleCanvasComponent({
         }
       });
 
+      clearTimeout(safetyDismissTimer);
       pmremGenerator.dispose();
       envMap.dispose();
       renderer.dispose();
@@ -692,12 +711,12 @@ function VehicleCanvasComponent({
         style={{ width: "100%", height: "100%" }}
       />
 
-      {/* Loading Indicator */}
+      {/* Loading Indicator (pointer-events-none so touches always pass through) */}
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-[#F6F6F8] z-30 transition-opacity duration-700">
+        <div className="absolute inset-0 flex items-center justify-center bg-[#F6F6F8] dark:bg-[#0B0B0D] z-30 transition-opacity duration-700 pointer-events-none">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-8 h-8 rounded-full border border-neutral-300 border-t-neutral-900 animate-spin" />
-            <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-500">
+            <div className="w-8 h-8 rounded-full border border-neutral-300 border-t-neutral-900 dark:border-neutral-700 dark:border-t-white animate-spin" />
+            <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-500 dark:text-neutral-400">
               INITIALIZING PORSCHE 3D WEBGL STUDIO...
             </span>
           </div>
