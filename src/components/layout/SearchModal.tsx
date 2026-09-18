@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { PRODUCTS, Product } from "@/data/products";
 import { soundManager } from "@/lib/audio";
@@ -14,6 +14,34 @@ interface SearchModalProps {
 
 export default function SearchModal({ isOpen, onClose, onSelectProduct }: SearchModalProps) {
   const [query, setQuery] = useState("");
+
+  // Lock background Lenis scroll and handle Escape key while search modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const lenis = typeof window !== "undefined" ? (window as any).__lenis : null;
+    if (lenis) {
+      lenis.stop();
+    }
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      if (lenis) {
+        lenis.start();
+      }
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   const searchResults = useMemo(() => {
     if (!query.trim()) return [];
@@ -47,7 +75,10 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 md:pt-28 px-4 animate-in fade-in duration-200">
+    <div
+      data-lenis-prevent
+      className="fixed inset-0 z-50 flex items-start justify-center pt-20 md:pt-28 px-4 animate-in fade-in duration-200"
+    >
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-neutral-900/40 backdrop-blur-md"
@@ -58,7 +89,11 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-3xl bg-white dark:bg-[#121216] border border-black/[0.08] dark:border-white/[0.1] shadow-2xl overflow-hidden z-10">
+      <div
+        data-lenis-prevent
+        onWheel={(e) => e.stopPropagation()}
+        className="relative w-full max-w-3xl bg-white dark:bg-[#121216] border border-black/[0.08] dark:border-white/[0.1] shadow-2xl overflow-hidden z-10 overscroll-contain"
+      >
         {/* Search Input Bar */}
         <div className="p-6 md:p-8 border-b border-black/[0.06] dark:border-white/[0.08] flex items-center gap-4">
           <Search className="w-5 h-5 text-neutral-400 dark:text-neutral-500 shrink-0" />
@@ -110,85 +145,87 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
         </div>
 
         {/* Results List */}
-        <div className="max-h-[60vh] overflow-y-auto p-6 md:p-8">
-          {query.trim() === "" ? (
-            <div className="py-12 text-center text-neutral-400 dark:text-neutral-500 font-mono text-xs uppercase tracking-widest">
-              Type to search accessories, timepieces, lifestyle or vehicle equipment
-            </div>
-          ) : searchResults.length === 0 ? (
-            <div className="py-12 text-center">
-              <p className="text-xs font-mono uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
-                NO ACCESSORIES FOUND FOR &quot;{query}&quot;
-              </p>
-              <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400 font-light">
-                Try searching for &quot;Watch&quot;, &quot;Bag&quot;, &quot;Soundbar&quot;, or &quot;Roof Box&quot;.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {searchResults.map((product) => (
-                <div
-                  key={product.id}
-                  className="flex items-center justify-between p-3 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 border border-transparent hover:border-black/[0.05] dark:hover:border-white/[0.08] transition-all group"
-                >
+        {query.trim() !== "" && (
+          <div
+            data-lenis-prevent
+            onWheel={(e) => e.stopPropagation()}
+            className="max-h-[60vh] overflow-y-auto p-6 md:p-8 overscroll-contain"
+          >
+            {searchResults.length === 0 ? (
+              <div className="py-12 text-center">
+                <p className="text-xs font-mono uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
+                  NO ACCESSORIES FOUND FOR &quot;{query}&quot;
+                </p>
+                <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400 font-light">
+                  Try searching for &quot;Watch&quot;, &quot;Bag&quot;, &quot;Soundbar&quot;, or &quot;Roof Box&quot;.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {searchResults.map((product) => (
                   <div
-                    onClick={() => {
-                      onSelectProduct?.(product);
-                      onClose();
-                    }}
-                    className="flex items-center gap-4 cursor-pointer flex-1"
+                    key={product.id}
+                    className="flex items-center justify-between p-3 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 border border-transparent hover:border-black/[0.05] dark:hover:border-white/[0.08] transition-all group"
                   >
-                    <div className="relative w-14 h-14 bg-[#F4F4F6] dark:bg-[#18181D] shrink-0 p-1 flex items-center justify-center">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        sizes="56px"
-                        className="object-contain"
-                      />
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span
-                          lang="fa"
-                          className="text-[10px] font-sans text-neutral-400 dark:text-neutral-500"
-                          style={{ letterSpacing: "normal" }}
-                        >
-                          {product.categoryLabel}
-                        </span>
-                        {product.compatibility && (
-                          <span className="text-[8px] font-mono text-neutral-400 dark:text-neutral-500">
-                            • {product.compatibility}
-                          </span>
-                        )}
-                      </div>
-                      <h4 className="text-xs font-semibold tracking-wider text-neutral-900 dark:text-white uppercase group-hover:text-black dark:group-hover:text-neutral-200">
-                        {product.name}
-                      </h4>
-                      <p className="text-[10px] text-neutral-500 dark:text-neutral-400 font-light truncate max-w-md">
-                        {product.subtitle}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
+                    <div
                       onClick={() => {
-                        soundManager.playClick();
                         onSelectProduct?.(product);
                         onClose();
                       }}
-                      className="px-3 py-1.5 bg-neutral-900 hover:bg-black dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-950 text-[9px] font-mono tracking-widest uppercase cursor-pointer"
+                      className="flex items-center gap-4 cursor-pointer flex-1"
                     >
-                      VIEW
-                    </button>
+                      <div className="relative w-14 h-14 bg-[#F4F4F6] dark:bg-[#18181D] shrink-0 p-1 flex items-center justify-center">
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          fill
+                          sizes="56px"
+                          className="object-contain"
+                        />
+                      </div>
+
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span
+                            lang="fa"
+                            className="text-[10px] font-sans text-neutral-400 dark:text-neutral-500"
+                            style={{ letterSpacing: "normal" }}
+                          >
+                            {product.categoryLabel}
+                          </span>
+                          {product.compatibility && (
+                            <span className="text-[8px] font-mono text-neutral-400 dark:text-neutral-500">
+                              • {product.compatibility}
+                            </span>
+                          )}
+                        </div>
+                        <h4 className="text-xs font-semibold tracking-wider text-neutral-900 dark:text-white uppercase group-hover:text-black dark:group-hover:text-neutral-200">
+                          {product.name}
+                        </h4>
+                        <p className="text-[10px] text-neutral-500 dark:text-neutral-400 font-light truncate max-w-md">
+                          {product.subtitle}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => {
+                          soundManager.playClick();
+                          onSelectProduct?.(product);
+                          onClose();
+                        }}
+                        className="px-3 py-1.5 bg-neutral-900 hover:bg-black dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-950 text-[9px] font-mono tracking-widest uppercase cursor-pointer"
+                      >
+                        VIEW
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

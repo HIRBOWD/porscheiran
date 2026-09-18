@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Product } from "@/data/products";
 import { soundManager } from "@/lib/audio";
@@ -12,11 +12,41 @@ interface ProductQuickViewProps {
 }
 
 export default function ProductQuickView({ product, onClose }: ProductQuickViewProps) {
+  // Lock background Lenis scroll and handle Escape key while product quick view is open
+  useEffect(() => {
+    if (!product) return;
+
+    const lenis = typeof window !== "undefined" ? (window as any).__lenis : null;
+    if (lenis) {
+      lenis.stop();
+    }
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      if (lenis) {
+        lenis.start();
+      }
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [product, onClose]);
 
   if (!product) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300">
+    <div
+      data-lenis-prevent
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300"
+    >
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-neutral-900/40 backdrop-blur-md"
@@ -27,7 +57,11 @@ export default function ProductQuickView({ product, onClose }: ProductQuickViewP
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-4xl bg-white dark:bg-[#121216] border border-black/[0.08] dark:border-white/[0.1] shadow-2xl overflow-y-auto md:overflow-hidden z-10 grid grid-cols-1 md:grid-cols-2 max-h-[88vh] md:max-h-[90vh]">
+      <div
+        data-lenis-prevent
+        onWheel={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl bg-white dark:bg-[#121216] border border-black/[0.08] dark:border-white/[0.1] shadow-2xl overflow-y-auto md:overflow-hidden z-10 grid grid-cols-1 md:grid-cols-2 max-h-[88vh] md:max-h-[90vh] overscroll-contain"
+      >
         {/* Close Button */}
         <button
           onClick={() => {
