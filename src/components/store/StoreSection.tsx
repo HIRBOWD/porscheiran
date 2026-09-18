@@ -141,6 +141,22 @@ export default function StoreSection() {
     setSelectedGeneration(genId);
     setSelectedSubCategory(subCat);
     setOpenDropdownModel(null);
+
+    // On mobile screens, smoothly bring the active category & products into view
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setTimeout(() => {
+        const target = document.getElementById("active-filter-bar") || document.getElementById("products-catalog-grid");
+        if (target) {
+          const top = target.getBoundingClientRect().top + window.scrollY - 70;
+          const lenis = (window as any).__lenis;
+          if (lenis) {
+            lenis.scrollTo(top);
+          } else {
+            window.scrollTo({ top, behavior: "smooth" });
+          }
+        }
+      }, 150);
+    }
   };
 
   const handleResetFilters = () => {
@@ -176,27 +192,28 @@ export default function StoreSection() {
 
         {/* All Items Option */}
         <button
+          type="button"
           onClick={() => handleSelectSubOption(m.id, "all", "all")}
-          className={`w-full text-right flex items-center justify-between transition-colors cursor-pointer ${
+          className={`w-full text-right flex items-center justify-between transition-colors cursor-pointer select-none active:scale-[0.99] ${
             isMobile
-              ? "px-4 py-3 rounded-lg border border-black/[0.08] dark:border-white/[0.08] text-sm"
+              ? "px-4 py-3.5 rounded-xl border border-black/[0.08] dark:border-white/[0.08] text-sm"
               : "px-3 py-2 text-xs"
           } ${
             isModelAllSelected
               ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 font-semibold"
               : isMobile
-              ? "bg-neutral-50 dark:bg-white/[0.04] text-neutral-800 dark:text-neutral-200"
+              ? "bg-neutral-50 dark:bg-white/[0.04] text-neutral-800 dark:text-neutral-200 active:bg-neutral-100 dark:active:bg-white/10"
               : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-white/5"
           }`}
         >
           <span
             lang="fa"
-            className="font-sans"
+            className="font-sans pointer-events-none"
             style={{ letterSpacing: "normal" }}
           >
             همه قطعات و اکسسوری‌های {m.name}
           </span>
-          {isModelAllSelected && <Check className="w-4 h-4 text-[#D5001C]" />}
+          {isModelAllSelected && <Check className="w-4 h-4 text-[#D5001C] shrink-0 pointer-events-none" />}
         </button>
 
         {/* Case 1: Model with Generations (Cayenne, Boxster, 911) */}
@@ -216,6 +233,7 @@ export default function StoreSection() {
                     {gen.name}
                   </span>
                   <button
+                    type="button"
                     onClick={() => handleSelectSubOption(m.id, gen.id, "all")}
                     lang="fa"
                     className="text-[11px] sm:text-[10px] font-sans text-neutral-400 hover:text-black dark:hover:text-white underline cursor-pointer"
@@ -233,29 +251,32 @@ export default function StoreSection() {
                       selectedSubCategory === sub.id;
                     return (
                       <button
+                        type="button"
                         key={`${gen.id}-${sub.id}`}
                         onClick={() =>
                           handleSelectSubOption(m.id, gen.id, sub.id)
                         }
-                        className={`w-full text-right flex items-center justify-between transition-colors cursor-pointer ${
+                        className={`w-full text-right flex items-center justify-between transition-colors cursor-pointer select-none active:scale-[0.99] ${
                           isMobile
-                            ? "px-3.5 py-2.5 rounded-md text-sm"
+                            ? "px-3.5 py-3 rounded-lg text-sm border border-transparent"
                             : "px-3 py-1.5 text-xs"
                         } ${
                           isOptionActive
-                            ? "bg-neutral-100 dark:bg-white/10 text-[#D5001C] dark:text-[#ff4d4d] font-semibold"
+                            ? "bg-neutral-100 dark:bg-white/10 text-[#D5001C] dark:text-[#ff4d4d] font-semibold border-black/[0.06] dark:border-white/[0.08]"
+                            : isMobile
+                            ? "text-neutral-700 dark:text-neutral-300 active:bg-neutral-100 dark:active:bg-white/5"
                             : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-white/5"
                         }`}
                       >
                         <span
                           lang="fa"
-                          className="font-sans"
+                          className="font-sans pointer-events-none"
                           style={{ letterSpacing: "normal" }}
                         >
                           {sub.label}
                         </span>
                         {isOptionActive && (
-                          <Check className="w-4 h-4 text-[#D5001C]" />
+                          <Check className="w-4 h-4 text-[#D5001C] shrink-0 pointer-events-none" />
                         )}
                       </button>
                     );
@@ -278,29 +299,30 @@ export default function StoreSection() {
                 selectedModel === m.id && selectedSubCategory === sub.id;
               return (
                 <button
+                  type="button"
                   key={`single-${m.id}-${sub.id}`}
                   onClick={() => handleSelectSubOption(m.id, "all", sub.id)}
-                  className={`w-full text-right flex items-center justify-between transition-colors cursor-pointer ${
+                  className={`w-full text-right flex items-center justify-between transition-colors cursor-pointer select-none active:scale-[0.99] ${
                     isMobile
-                      ? "px-4 py-3 rounded-lg border border-black/[0.06] dark:border-white/[0.06] text-sm"
+                      ? "px-4 py-3.5 rounded-xl border border-black/[0.06] dark:border-white/[0.06] text-sm"
                       : "px-3 py-2 text-xs"
                   } ${
                     isOptionActive
                       ? "bg-neutral-100 dark:bg-white/10 text-[#D5001C] dark:text-[#ff4d4d] font-semibold"
                       : isMobile
-                      ? "bg-neutral-50 dark:bg-white/[0.02] text-neutral-700 dark:text-neutral-300"
+                      ? "bg-neutral-50 dark:bg-white/[0.02] text-neutral-700 dark:text-neutral-300 active:bg-neutral-100 dark:active:bg-white/5"
                       : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-white/5"
                   }`}
                 >
                   <span
                     lang="fa"
-                    className="font-sans"
+                    className="font-sans pointer-events-none"
                     style={{ letterSpacing: "normal" }}
                   >
                     {sub.label}
                   </span>
                   {isOptionActive && (
-                    <Check className="w-4 h-4 text-[#D5001C]" />
+                    <Check className="w-4 h-4 text-[#D5001C] shrink-0 pointer-events-none" />
                   )}
                 </button>
               );
@@ -406,6 +428,101 @@ export default function StoreSection() {
                 );
               })}
             </div>
+
+            {/* Mobile Category Quick Switcher Pills (Visible when a model is active) */}
+            {selectedModel !== "none" && activeModelObj && (
+              <div className="pt-3 pb-1 space-y-2.5">
+                {/* Generation Pills (if model has generations) */}
+                {activeModelObj.generations && activeModelObj.generations.length > 0 && (
+                  <div className="space-y-1">
+                    <span lang="fa" className="text-[10px] text-neutral-400 font-sans block">
+                      انتخاب تیپ:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          soundManager.playClick();
+                          setSelectedGeneration("all");
+                        }}
+                        className={`text-[11px] px-3 py-1.5 rounded-lg border transition-colors cursor-pointer select-none active:scale-95 ${
+                          selectedGeneration === "all"
+                            ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 font-semibold border-neutral-900 dark:border-white shadow-xs"
+                            : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08]"
+                        }`}
+                      >
+                        <span lang="fa" className="font-sans">همه تیپ‌ها</span>
+                      </button>
+                      {activeModelObj.generations.map((g) => {
+                        const isGenActive = selectedGeneration === g.id;
+                        return (
+                          <button
+                            key={g.id}
+                            type="button"
+                            onClick={() => {
+                              soundManager.playClick();
+                              setSelectedGeneration(g.id);
+                            }}
+                            className={`text-[11px] font-mono uppercase px-3 py-1.5 rounded-lg border transition-colors cursor-pointer select-none active:scale-95 ${
+                              isGenActive
+                                ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 font-semibold border-neutral-900 dark:border-white shadow-xs"
+                                : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08]"
+                            }`}
+                          >
+                            {g.name}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Subcategory Pills (همه قطعات، اکسسوری، فیس‌لیفت، لوازم یدکی) */}
+                <div className="space-y-1">
+                  <span lang="fa" className="text-[10px] text-neutral-400 font-sans block">
+                    دسته‌بندی قطعات {activeModelObj.name}:
+                  </span>
+                  <div className="grid grid-cols-2 gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        soundManager.playClick();
+                        setSelectedSubCategory("all");
+                      }}
+                      className={`text-xs px-3 py-2.5 rounded-lg border text-right flex items-center justify-between transition-colors cursor-pointer select-none active:scale-95 ${
+                        selectedSubCategory === "all"
+                          ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 font-semibold border-neutral-900 dark:border-white shadow-xs"
+                          : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08]"
+                      }`}
+                    >
+                      <span lang="fa" className="font-sans">همه قطعات</span>
+                      {selectedSubCategory === "all" && <Check className="w-3.5 h-3.5 text-[#D5001C]" />}
+                    </button>
+                    {SUB_CATEGORIES.map((sub) => {
+                      const isSubActive = selectedSubCategory === sub.id;
+                      return (
+                        <button
+                          key={`mobile-chip-${sub.id}`}
+                          type="button"
+                          onClick={() => {
+                            soundManager.playClick();
+                            setSelectedSubCategory(sub.id);
+                          }}
+                          className={`text-xs px-3 py-2.5 rounded-lg border text-right flex items-center justify-between transition-colors cursor-pointer select-none active:scale-95 ${
+                            isSubActive
+                              ? "bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 font-semibold border-neutral-900 dark:border-white shadow-xs"
+                              : "bg-white dark:bg-[#141418] text-neutral-700 dark:text-neutral-300 border-black/[0.08] dark:border-white/[0.08]"
+                          }`}
+                        >
+                          <span lang="fa" className="font-sans">{sub.label}</span>
+                          {isSubActive && <Check className="w-3.5 h-3.5 text-[#D5001C]" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* ================================================================ */}
@@ -482,25 +599,28 @@ export default function StoreSection() {
         </div>
 
         {/* ------------------------------------------------------------------ */}
-        {/* MOBILE OPTIMIZED BOTTOM SHEET DRAWER (PHONE ONLY) - PRESERVED      */}
+        {/* MOBILE OPTIMIZED BOTTOM SHEET DRAWER (PHONE ONLY)                  */}
         {/* ------------------------------------------------------------------ */}
         {openModelObj && (
-          <div className="sm:hidden">
+          <div className="fixed inset-0 z-[100] sm:hidden flex flex-col justify-end">
             {/* Backdrop */}
             <div
               onClick={() => setOpenDropdownModel(null)}
-              className="fixed inset-0 bg-black/65 backdrop-blur-xs z-50 animate-in fade-in duration-200"
+              className="fixed inset-0 bg-black/75 backdrop-blur-sm z-[90] transition-opacity duration-200"
             />
 
             {/* Bottom Sheet Drawer */}
-            <div className="fixed inset-x-0 bottom-0 z-50 bg-white dark:bg-[#121216] border-t border-black/[0.1] dark:border-white/[0.15] rounded-t-2xl shadow-2xl max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-250">
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="relative z-[100] w-full bg-white dark:bg-[#121216] border-t border-black/[0.1] dark:border-white/[0.15] rounded-t-2xl shadow-2xl max-h-[85vh] flex flex-col overflow-hidden"
+            >
               {/* Handle Bar */}
-              <div className="pt-3 pb-1 flex justify-center">
+              <div className="pt-3 pb-1 flex justify-center shrink-0">
                 <div className="w-12 h-1.5 bg-neutral-300 dark:bg-neutral-700 rounded-full" />
               </div>
 
               {/* Sheet Header */}
-              <div className="px-5 py-3 border-b border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between">
+              <div className="px-5 py-3 border-b border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between shrink-0">
                 <div>
                   <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 dark:text-neutral-500 block">
                     PORSCHE {openModelObj.name}
@@ -514,8 +634,9 @@ export default function StoreSection() {
                   </h3>
                 </div>
                 <button
+                  type="button"
                   onClick={() => setOpenDropdownModel(null)}
-                  className="p-1.5 rounded-full text-neutral-500 hover:text-black dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                  className="p-2 rounded-full text-neutral-500 hover:text-black dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
                   aria-label="بستن منو"
                 >
                   <X className="w-5 h-5" />
@@ -523,7 +644,10 @@ export default function StoreSection() {
               </div>
 
               {/* Sheet Scrollable Options */}
-              <div className="overflow-y-auto px-4 py-4 pb-10">
+              <div
+                data-lenis-prevent
+                className="overflow-y-auto px-4 py-4 pb-12 flex-1 min-h-0 space-y-2 overscroll-contain"
+              >
                 {renderDropdownContent(openModelObj, true)}
               </div>
             </div>
@@ -532,7 +656,7 @@ export default function StoreSection() {
 
         {/* Active Filter State Summary & Reset (Shown only when a model is selected) */}
         {selectedModel !== "none" && (
-          <div className="flex items-center justify-between py-3 px-4 mb-8 bg-neutral-100 dark:bg-[#15151a] border border-black/[0.06] dark:border-white/[0.08] text-xs text-neutral-700 dark:text-neutral-300">
+          <div id="active-filter-bar" className="flex items-center justify-between py-3 px-4 mb-8 bg-neutral-100 dark:bg-[#15151a] border border-black/[0.06] dark:border-white/[0.08] text-xs text-neutral-700 dark:text-neutral-300">
             <div className="flex items-center gap-2 flex-wrap">
               <span
                 lang="fa"
