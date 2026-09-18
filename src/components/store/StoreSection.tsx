@@ -20,6 +20,7 @@ import {
   RotateCcw,
   X,
 } from "lucide-react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function StoreSection() {
   const [selectedModel, setSelectedModel] = useState<string>("none");
@@ -87,6 +88,28 @@ export default function StoreSection() {
 
     return list;
   }, [selectedModel, selectedGeneration, selectedSubCategory]);
+
+  // Recalculate smooth scroll bounds whenever category filtering changes product count & DOM height
+  useEffect(() => {
+    const refreshScroll = () => {
+      const lenis = typeof window !== "undefined" ? (window as any).__lenis : null;
+      if (lenis) {
+        lenis.resize();
+      }
+      ScrollTrigger.refresh();
+    };
+
+    refreshScroll();
+    const rId = requestAnimationFrame(refreshScroll);
+    const t1 = setTimeout(refreshScroll, 100);
+    const t2 = setTimeout(refreshScroll, 350);
+
+    return () => {
+      cancelAnimationFrame(rId);
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [selectedModel, selectedGeneration, selectedSubCategory, filteredProducts.length]);
 
   const handleSelectNone = () => {
     soundManager.playClick();

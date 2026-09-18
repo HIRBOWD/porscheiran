@@ -23,17 +23,17 @@ export default function HeroScrollCapsule({}: HeroScrollCapsuleProps = {}) {
 
       // 1. Calculate global page scroll progress (0 at top of site, 1 at bottom of site)
       const lenis = typeof window !== "undefined" ? (window as any).__lenis : null;
-      let globalP = 0;
-
-      if (lenis && typeof lenis.progress === "number" && !isNaN(lenis.progress) && lenis.limit > 0) {
-        globalP = lenis.progress;
-      } else if (typeof window !== "undefined") {
-        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-        const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-        globalP = scrollY / maxScroll;
-      }
-
-      const p = Math.max(0, Math.min(1, globalP));
+      const scrollY =
+        lenis && typeof lenis.scroll === "number"
+          ? lenis.scroll
+          : typeof window !== "undefined"
+          ? window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+          : 0;
+      const maxScroll =
+        typeof document !== "undefined"
+          ? Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+          : 1;
+      const p = Math.max(0, Math.min(1, scrollY / maxScroll));
 
       // Calculate vertical travel bounds inside the pill
       const trackHeight = track.clientHeight;

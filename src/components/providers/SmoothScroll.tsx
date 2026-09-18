@@ -23,6 +23,11 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       wheelMultiplier: 0.9,
       touchMultiplier: 1.0,
       syncTouch: false, // Let native compositor handle touch scrolling at 120Hz on mobile
+      autoResize: true,
+      // @ts-ignore
+      naiveDimensions: true, // Continuously compute live scrollHeight - clientHeight so scroll never gets locked
+      // @ts-ignore
+      __experimental__naiveDimensions: true,
     });
 
     // Synchronize Lenis with GSAP ScrollTrigger
@@ -33,6 +38,24 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       (window as any).__lenis = lenis;
     }
 
+    // Dynamic height observer: Automatically recomputes scroll limit whenever category changes or images load
+    let resizeTimer: NodeJS.Timeout;
+    const handleRecalculate = () => {
+      lenis.resize();
+      ScrollTrigger.refresh();
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      handleRecalculate();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleRecalculate, 150);
+    });
+
+    if (typeof document !== "undefined" && document.body) {
+      resizeObserver.observe(document.body);
+    }
+    window.addEventListener("resize", handleRecalculate);
+
     const updateLenis = (time: number) => {
       lenis.raf(time * 1000);
     };
@@ -41,6 +64,9 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     gsap.ticker.lagSmoothing(500, 33);
 
     return () => {
+      clearTimeout(resizeTimer);
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", handleRecalculate);
       gsap.ticker.remove(updateLenis);
       lenis.destroy();
       if (typeof window !== "undefined") {
