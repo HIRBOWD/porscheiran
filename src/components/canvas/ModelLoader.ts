@@ -40,7 +40,10 @@ const MODEL_CONFIGS: Record<VehicleKey, ModelConfig> = {
 /**
  * Loads a vehicle model from a GLB file or gracefully falls back to the procedural 3D mesh.
  */
-export async function loadVehicleModel(key: VehicleKey): Promise<{
+export async function loadVehicleModel(
+  key: VehicleKey,
+  onProgress?: (percent: number) => void
+): Promise<{
   group: THREE.Group;
   isGlb: boolean;
 }> {
@@ -48,12 +51,10 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
   const loader = new GLTFLoader();
 
   try {
-    const isMobile =
-      typeof window !== "undefined" &&
-      (window.innerWidth < 768 || navigator.maxTouchPoints > 1);
-    const timeoutMs = isMobile ? 1800 : 3500;
+    // Generous timeout to allow real 18MB Porsche GLB asset to download smoothly over any connection
+    const timeoutMs = 40000;
 
-    // Load actual GLTF / GLB model via GLTFLoader with timeout
+    // Load actual GLTF / GLB model via GLTFLoader with progress tracking and safety timeout
     const gltf = await new Promise<{ scene: THREE.Group }>((resolve, reject) => {
       const timer = setTimeout(() => {
         reject(new Error(`[Porsche 3D Engine] Loading ${key} timed out (${timeoutMs}ms)`));
@@ -68,6 +69,7 @@ export async function loadVehicleModel(key: VehicleKey): Promise<{
         (event) => {
           if (event.lengthComputable && event.total > 0) {
             const pct = Math.round((event.loaded / event.total) * 100);
+            onProgress?.(pct);
             if (pct % 25 === 0) {
               console.info(`[Porsche 3D Engine] Loading ${key.toUpperCase()}: ${pct}%`);
             }

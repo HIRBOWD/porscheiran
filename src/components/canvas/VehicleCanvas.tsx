@@ -32,6 +32,7 @@ function VehicleCanvasComponent({
   const mouseCurrent = useRef({ x: 0, y: 0 });
 
   const [isLoading, setIsLoading] = useState(true);
+  const [loadPercent, setLoadPercent] = useState<number | null>(null);
 
   // Store references to Three.js objects
   const sceneRef = useRef<THREE.Scene | null>(null);
@@ -338,16 +339,20 @@ function VehicleCanvasComponent({
     // 7. Load 911 GT3 RS Vehicle (with GLB support and procedural fallback)
     let isMounted = true;
 
-    // Safety timeout: Guaranteed loading dismissal in at most 2200ms
+    // Safety timeout: Guaranteed loading dismissal in at most 45 seconds (fallback only)
     const safetyDismissTimer = setTimeout(() => {
       if (isMounted) {
         setIsLoading(false);
       }
-    }, 2200);
+    }, 45000);
 
     async function loadAllVehicles() {
       try {
-        const gt3Res = await loadVehicleModel("gt3");
+        const gt3Res = await loadVehicleModel("gt3", (pct) => {
+          if (isMounted) {
+            setLoadPercent(pct);
+          }
+        });
 
         if (!isMounted) return;
 
@@ -717,7 +722,9 @@ function VehicleCanvasComponent({
           <div className="flex flex-col items-center gap-3">
             <div className="w-8 h-8 rounded-full border border-neutral-300 border-t-neutral-900 dark:border-neutral-700 dark:border-t-white animate-spin" />
             <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-500 dark:text-neutral-400">
-              INITIALIZING PORSCHE 3D WEBGL STUDIO...
+              {loadPercent !== null && loadPercent > 0
+                ? `LOADING PORSCHE 3D MODEL... ${loadPercent}%`
+                : "INITIALIZING PORSCHE 3D WEBGL STUDIO..."}
             </span>
           </div>
         </div>
