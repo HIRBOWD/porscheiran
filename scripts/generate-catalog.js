@@ -420,7 +420,6 @@ function getProductMeta(itemFa, catId, section) {
   let features = [
     `طراحی اختصاصی مهندسی پورشه برای ${modelName}`,
     "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-    "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
     "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
   ];
   let materials = "OEM High-Grade Porsche Automotive Material";

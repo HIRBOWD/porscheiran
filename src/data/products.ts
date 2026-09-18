@@ -147,7 +147,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -171,7 +170,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -195,7 +193,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Nappa Leather, Brushed Metal, Carbon Accents",
@@ -219,7 +216,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -243,7 +239,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -267,7 +262,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -291,7 +285,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "CNC Billet Aluminum / Dry Carbon Fiber",
@@ -315,7 +308,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -339,7 +331,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Genuine Nappa Leather, Solid Metal Crest",
@@ -363,7 +354,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Gloss Automotive Polycarbonate",
@@ -387,7 +377,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -411,7 +400,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Lightweight Cast Alloy with Enamel Crest",
@@ -435,7 +423,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Dual-layer Velour Carpet & High-Density Rubber",
@@ -459,7 +446,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Cast Aluminum Housing, Hardened Steel Impeller",
@@ -483,7 +469,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -507,7 +492,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -531,7 +515,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -555,7 +538,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -579,7 +561,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -603,7 +584,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -627,7 +607,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Double Iridium / Platinum Core",
@@ -651,7 +630,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Temp PA66-GF30 Composite, Neodymium Magnets",
@@ -675,7 +653,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Precision Variable Displacement Aluminum Assembly",
@@ -699,7 +676,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -723,7 +699,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -747,7 +722,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -771,7 +745,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera 4",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Siemens / Bosch Porsche Architecture Modules",
@@ -795,7 +768,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -819,7 +791,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -843,7 +814,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Nappa Leather, Brushed Metal, Carbon Accents",
@@ -867,7 +837,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -891,7 +860,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -915,7 +883,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -939,7 +906,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -963,7 +929,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -987,7 +952,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "CNC Billet Aluminum / Dry Carbon Fiber",
@@ -1011,7 +975,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -1035,7 +998,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Genuine Nappa Leather, Solid Metal Crest",
@@ -1059,7 +1021,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Gloss Automotive Polycarbonate",
@@ -1083,7 +1044,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -1107,7 +1067,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Lightweight Cast Alloy with Enamel Crest",
@@ -1131,7 +1090,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Dual-layer Velour Carpet & High-Density Rubber",
@@ -1155,7 +1113,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Cast Aluminum Housing, Hardened Steel Impeller",
@@ -1179,7 +1136,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -1203,7 +1159,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -1227,7 +1182,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -1251,7 +1205,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -1275,7 +1228,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -1299,7 +1251,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Double Iridium / Platinum Core",
@@ -1323,7 +1274,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Temp PA66-GF30 Composite, Neodymium Magnets",
@@ -1347,7 +1297,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Precision Variable Displacement Aluminum Assembly",
@@ -1371,7 +1320,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -1395,7 +1343,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -1419,7 +1366,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -1443,7 +1389,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 911 Carrera S 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Siemens / Bosch Porsche Architecture Modules",
@@ -1467,7 +1412,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -1491,7 +1435,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -1515,7 +1458,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -1539,7 +1481,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Nappa Leather, Brushed Metal, Carbon Accents",
@@ -1563,7 +1504,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -1587,7 +1527,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "CNC Billet Aluminum / Dry Carbon Fiber",
@@ -1611,7 +1550,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Genuine Nappa Leather, Solid Metal Crest",
@@ -1635,7 +1573,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Gloss Automotive Polycarbonate",
@@ -1659,7 +1596,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -1683,7 +1619,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Lightweight Cast Alloy with Enamel Crest",
@@ -1707,7 +1642,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Dual-layer Velour Carpet & High-Density Rubber",
@@ -1731,7 +1665,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Cast Aluminum Housing, Hardened Steel Impeller",
@@ -1755,7 +1688,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -1779,7 +1711,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -1803,7 +1734,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -1827,7 +1757,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -1851,7 +1780,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -1875,7 +1803,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Double Iridium / Platinum Core",
@@ -1899,7 +1826,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Temp PA66-GF30 Composite, Neodymium Magnets",
@@ -1923,7 +1849,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Precision Variable Displacement Aluminum Assembly",
@@ -1947,7 +1872,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -1971,7 +1895,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -1995,7 +1918,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -2019,7 +1941,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Boxster 2010–2012",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Siemens / Bosch Porsche Architecture Modules",
@@ -2043,7 +1964,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -2067,7 +1987,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -2091,7 +2010,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -2115,7 +2033,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Nappa Leather, Brushed Metal, Carbon Accents",
@@ -2139,7 +2056,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Nappa Leather, Brushed Metal, Carbon Accents",
@@ -2163,7 +2079,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -2187,7 +2102,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -2211,7 +2125,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -2235,7 +2148,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Resolution Ultra-Wide Digital Screen",
@@ -2259,7 +2171,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "CNC Billet Aluminum / Dry Carbon Fiber",
@@ -2283,7 +2194,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -2307,7 +2217,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Genuine Nappa Leather, Solid Metal Crest",
@@ -2331,7 +2240,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Gloss Automotive Polycarbonate",
@@ -2355,7 +2263,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -2379,7 +2286,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Lightweight Cast Alloy with Enamel Crest",
@@ -2403,7 +2309,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Dual-layer Velour Carpet & High-Density Rubber",
@@ -2427,7 +2332,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Sapphire-coated glass, Precision Stepper Mechanism",
@@ -2451,7 +2355,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -2475,7 +2378,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -2499,7 +2401,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -2523,7 +2424,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -2547,7 +2447,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Porsche Certified Engine Oil, Air/Cabin/Oil Filters",
@@ -2571,7 +2470,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -2595,7 +2493,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Double Iridium / Platinum Core",
@@ -2619,7 +2516,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Temp PA66-GF30 Composite, Neodymium Magnets",
@@ -2643,7 +2539,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Precision Variable Displacement Aluminum Assembly",
@@ -2667,7 +2562,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -2691,7 +2585,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -2715,7 +2608,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -2739,7 +2631,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای 718 Boxster S 2017–2018",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Siemens / Bosch Porsche Architecture Modules",
@@ -2763,7 +2654,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -2787,7 +2677,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -2811,7 +2700,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -2835,7 +2723,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Genuine Nappa Leather, Solid Metal Crest",
@@ -2859,7 +2746,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Gloss Automotive Polycarbonate",
@@ -2883,7 +2769,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Lightweight Cast Alloy with Enamel Crest",
@@ -2907,7 +2792,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Dual-layer Velour Carpet & High-Density Rubber",
@@ -2931,7 +2815,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Tensile Dynamic Balanced Steel",
@@ -2955,7 +2838,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Cast Aluminum Housing, Hardened Steel Impeller",
@@ -2979,7 +2861,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -3003,7 +2884,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3027,7 +2907,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -3051,7 +2930,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3075,7 +2953,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Porsche Certified Engine Oil, Air/Cabin/Oil Filters",
@@ -3099,7 +2976,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3123,7 +2999,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Double Iridium / Platinum Core",
@@ -3147,7 +3022,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Temp PA66-GF30 Composite, Neodymium Magnets",
@@ -3171,7 +3045,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Precision Variable Displacement Aluminum Assembly",
@@ -3195,7 +3068,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -3219,7 +3091,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3243,7 +3114,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3267,7 +3137,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2008–2010",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Siemens / Bosch Porsche Architecture Modules",
@@ -3291,7 +3160,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3315,7 +3183,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3339,7 +3206,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -3363,7 +3229,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -3387,7 +3252,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -3411,7 +3275,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -3435,7 +3298,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Nappa Leather, Brushed Metal, Carbon Accents",
@@ -3459,7 +3321,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -3483,7 +3344,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -3507,7 +3367,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -3531,7 +3390,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -3555,7 +3413,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -3579,7 +3436,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "CNC Billet Aluminum / Dry Carbon Fiber",
@@ -3603,7 +3459,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Reinforced Aluminum & Automotive Composites",
@@ -3627,7 +3482,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3651,7 +3505,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Genuine Nappa Leather, Solid Metal Crest",
@@ -3675,7 +3528,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3699,7 +3551,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Reinforced Aluminum & Automotive Composites",
@@ -3723,7 +3574,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3747,7 +3597,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Gloss Automotive Polycarbonate",
@@ -3771,7 +3620,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Lightweight Cast Alloy with Enamel Crest",
@@ -3795,7 +3643,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Dual-layer Velour Carpet & High-Density Rubber",
@@ -3819,7 +3666,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Sapphire-coated glass, Precision Stepper Mechanism",
@@ -3843,7 +3689,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -3867,7 +3712,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -3891,7 +3735,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -3915,7 +3758,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -3939,7 +3781,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Tensile Dynamic Balanced Steel",
@@ -3963,7 +3804,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Cast Aluminum Housing, Hardened Steel Impeller",
@@ -3987,7 +3827,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -4011,7 +3850,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4035,7 +3873,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -4059,7 +3896,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4083,7 +3919,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Porsche Certified Engine Oil, Air/Cabin/Oil Filters",
@@ -4107,7 +3942,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4131,7 +3965,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Double Iridium / Platinum Core",
@@ -4155,7 +3988,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Temp PA66-GF30 Composite, Neodymium Magnets",
@@ -4179,7 +4011,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Precision Variable Displacement Aluminum Assembly",
@@ -4203,7 +4034,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Multi-chamber Pneumatic Bellows & Electronic Damping Valve",
@@ -4227,7 +4057,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -4251,7 +4080,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4275,7 +4103,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4299,7 +4126,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayenne 2011–2014",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Siemens / Bosch Porsche Architecture Modules",
@@ -4321,7 +4147,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4343,7 +4168,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4365,7 +4189,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -4387,7 +4210,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -4409,7 +4231,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -4431,7 +4252,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Nappa Leather, Brushed Metal, Carbon Accents",
@@ -4453,7 +4273,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -4475,7 +4294,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -4497,7 +4315,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -4519,7 +4336,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Resolution Ultra-Wide Digital Screen",
@@ -4541,7 +4357,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4563,7 +4378,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "CNC Billet Aluminum / Dry Carbon Fiber",
@@ -4585,7 +4399,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -4607,7 +4420,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Genuine Nappa Leather, Solid Metal Crest",
@@ -4629,7 +4441,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4651,7 +4462,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Gloss Automotive Polycarbonate",
@@ -4673,7 +4483,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -4695,7 +4504,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Lightweight Cast Alloy with Enamel Crest",
@@ -4717,7 +4525,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -4739,7 +4546,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -4761,7 +4567,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Dual-layer Velour Carpet & High-Density Rubber",
@@ -4783,7 +4588,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -4805,7 +4609,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4827,7 +4630,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -4849,7 +4651,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4871,7 +4672,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -4893,7 +4693,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4915,7 +4714,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Porsche Certified Engine Oil, Air/Cabin/Oil Filters",
@@ -4937,7 +4735,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -4959,7 +4756,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Double Iridium / Platinum Core",
@@ -4981,7 +4777,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Temp PA66-GF30 Composite, Neodymium Magnets",
@@ -5003,7 +4798,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Precision Variable Displacement Aluminum Assembly",
@@ -5025,7 +4819,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Multi-chamber Pneumatic Bellows & Electronic Damping Valve",
@@ -5047,7 +4840,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5069,7 +4861,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -5091,7 +4882,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -5113,7 +4903,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Macan",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Siemens / Bosch Porsche Architecture Modules",
@@ -5135,7 +4924,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5157,7 +4945,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5179,7 +4966,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5201,7 +4987,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -5223,7 +5008,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -5245,7 +5029,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5267,7 +5050,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5289,7 +5071,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5311,7 +5092,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -5333,7 +5113,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -5355,7 +5134,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "CNC Billet Aluminum / Dry Carbon Fiber",
@@ -5377,7 +5155,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Genuine Nappa Leather, Solid Metal Crest",
@@ -5399,7 +5176,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -5421,7 +5197,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Nappa Leather, Brushed Metal, Carbon Accents",
@@ -5443,7 +5218,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Gloss Automotive Polycarbonate",
@@ -5465,7 +5239,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -5487,7 +5260,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Lightweight Cast Alloy with Enamel Crest",
@@ -5509,7 +5281,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Dual-layer Velour Carpet & High-Density Rubber",
@@ -5531,7 +5302,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5553,7 +5323,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5575,7 +5344,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Sapphire-coated glass, Precision Stepper Mechanism",
@@ -5597,7 +5365,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Tensile Dynamic Balanced Steel",
@@ -5619,7 +5386,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Cast Aluminum Housing, Hardened Steel Impeller",
@@ -5641,7 +5407,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -5663,7 +5428,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -5685,7 +5449,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -5707,7 +5470,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -5729,7 +5491,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Porsche Certified Engine Oil, Air/Cabin/Oil Filters",
@@ -5751,7 +5512,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -5773,7 +5533,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Double Iridium / Platinum Core",
@@ -5795,7 +5554,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Temp PA66-GF30 Composite, Neodymium Magnets",
@@ -5817,7 +5575,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Precision Variable Displacement Aluminum Assembly",
@@ -5839,7 +5596,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Multi-chamber Pneumatic Bellows & Electronic Damping Valve",
@@ -5861,7 +5617,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -5883,7 +5638,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -5905,7 +5659,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -5927,7 +5680,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Panamera",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Siemens / Bosch Porsche Architecture Modules",
@@ -5949,7 +5701,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Polycarbonate UV-hardened Lens, Cast Aluminum Heat Sink",
@@ -5971,7 +5722,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -5993,7 +5743,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "IPS Anti-Glare Glass Panel, Automotive Audio Processor",
@@ -6015,7 +5764,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Nappa Leather, Brushed Metal, Carbon Accents",
@@ -6037,7 +5785,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -6059,7 +5806,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "CNC Billet Aluminum / Dry Carbon Fiber",
@@ -6081,7 +5827,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Genuine Nappa Leather, Solid Metal Crest",
@@ -6103,7 +5848,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "High-Gloss Automotive Polycarbonate",
@@ -6125,7 +5869,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Autoclave Pre-preg Toray Carbon Fiber",
@@ -6147,7 +5890,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Lightweight Cast Alloy with Enamel Crest",
@@ -6169,7 +5911,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Dual-layer Velour Carpet & High-Density Rubber",
@@ -6191,7 +5932,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Cast Aluminum Housing, Hardened Steel Impeller",
@@ -6213,7 +5953,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -6235,7 +5974,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -6257,7 +5995,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Brazed Aluminum Tube & Fin Core",
@@ -6279,7 +6016,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -6301,7 +6037,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -6323,7 +6058,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Double Iridium / Platinum Core",
@@ -6345,7 +6079,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Temp PA66-GF30 Composite, Neodymium Magnets",
@@ -6367,7 +6100,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Precision Variable Displacement Aluminum Assembly",
@@ -6389,7 +6121,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM Polyurethane RIM / Carbon Composite",
@@ -6411,7 +6142,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -6433,7 +6163,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "OEM High-Grade Porsche Automotive Material",
@@ -6455,7 +6184,6 @@ export const PRODUCTS: Product[] = [
     "features": [
       "طراحی اختصاصی مهندسی پورشه برای Cayman",
       "تطابق ۱۰۰٪ فابریک و اتصال Plug & Play بدون سیم‌کشی اضافه",
-      "تست شده تحت سخت‌ترین استانداردهای کیفی اشتوتگارت",
       "گارانتی سلامت و ضمانت اصالت فیزیکی قطعه"
     ],
     "materials": "Siemens / Bosch Porsche Architecture Modules",

@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import { PRODUCTS, Product } from "@/data/products";
-import { formatPrice } from "@/lib/utils";
 import { soundManager } from "@/lib/audio";
 import { Search, X, ArrowUpRight } from "lucide-react";
 
@@ -173,10 +172,7 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }: Search
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs font-mono font-medium text-neutral-900 dark:text-white">
-                      {formatPrice(product.price)}
-                    </span>
+                  <div className="flex items-center gap-2">
                     <button
                       onClick={() => {
                         soundManager.playClick();

@@ -3,9 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import { Product } from "@/data/products";
-import { formatPrice } from "@/lib/utils";
 import { soundManager } from "@/lib/audio";
-import { X, Check, ShieldCheck, Truck, RotateCcw } from "lucide-react";
+import { X, Check } from "lucide-react";
 
 interface ProductQuickViewProps {
   product: Product | null;
@@ -93,10 +92,6 @@ export default function ProductQuickView({ product, onClose }: ProductQuickViewP
               {product.subtitle}
             </p>
 
-            <div className="mt-4 text-xl font-medium text-neutral-900 dark:text-white font-mono">
-              {formatPrice(product.price)}
-            </div>
-
             <div className="mt-6 text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed font-light">
               {product.description}
             </div>
@@ -115,21 +110,9 @@ export default function ProductQuickView({ product, onClose }: ProductQuickViewP
                 ))}
               </ul>
             </div>
-
-            {/* Material & Dimension info */}
-            <div className="mt-6 space-y-1.5 text-[11px] text-neutral-500 dark:text-neutral-400 font-mono">
-              <div>
-                <strong className="text-neutral-700 dark:text-neutral-300">MATERIALS:</strong> {product.materials}
-              </div>
-              {product.dimensions && (
-                <div>
-                  <strong className="text-neutral-700 dark:text-neutral-300">DIMENSIONS:</strong> {product.dimensions}
-                </div>
-              )}
-            </div>
           </div>
 
-          {/* Action & Assurances */}
+          {/* Action */}
           <div className="mt-8 pt-6 border-t border-black/[0.06] dark:border-white/[0.08]">
             <button
               onClick={() => {
@@ -140,22 +123,6 @@ export default function ProductQuickView({ product, onClose }: ProductQuickViewP
             >
               <span>INQUIRE AT PORSCHE CENTRE</span>
             </button>
-
-            {/* Showroom Guarantees */}
-            <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[9px] tracking-[0.15em] uppercase text-neutral-400 dark:text-neutral-500">
-              <div className="flex flex-col items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400" />
-                <span>2-YEAR WARRANTY</span>
-              </div>
-              <div className="flex flex-col items-center gap-1">
-                <Truck className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400" />
-                <span>WHITE GLOVE SHIPPING</span>
-              </div>
-              <div className="flex flex-col items-center gap-1">
-                <RotateCcw className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400" />
-                <span>30-DAY RETURN</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
