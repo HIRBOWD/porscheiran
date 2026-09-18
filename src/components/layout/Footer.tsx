@@ -237,7 +237,7 @@ export default function Footer() {
         </div>
       </div>
 
-        {/* Bottom Tier: Copyright & Design by Hirbod */}
+        {/* Bottom Tier: Copyright & Design by Hirbod Afshari */}
         <div
           className="pt-12 flex flex-col md:flex-row items-center justify-between gap-6 text-[11px] text-neutral-500 font-sans"
           style={{ letterSpacing: "normal" }}
@@ -247,7 +247,15 @@ export default function Footer() {
           </div>
 
           <div className="text-[11px] text-neutral-400 font-sans tracking-wide">
-            Design by <span className="text-white font-medium">Hirbod</span>
+            Design by{" "}
+            <a
+              href="https://www.instagram.com/hirbovd/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white font-medium hover:underline hover:text-neutral-200 transition-all cursor-pointer"
+            >
+              Hirbod Afshari
+            </a>
           </div>
         </div>
       </div>
